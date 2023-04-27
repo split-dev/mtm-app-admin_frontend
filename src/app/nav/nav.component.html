@@ -1,0 +1,6 @@
+<c-sidebar id="sidebar" visible>
+    <c-sidebar-nav [navItems]="navItems" dropdownMode="close"></c-sidebar-nav>
+    <c-sidebar-toggler
+        toggle="unfoldable"
+        cSidebarToggle="sidebar" (click)="onChangeState()"></c-sidebar-toggler>
+</c-sidebar>

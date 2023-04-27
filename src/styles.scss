@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+$enable-ltr: true;
+$enable-rtl: true;
+
+// Import styles with default layout.
+@import "@coreui/coreui/scss/coreui";
+
+@media (min-width: 992px) {
+    app-layout {
+        padding-top: 30px;
+        transition: padding ease 500ms;
+        -webkit-transition: padding ease 500ms;
+        -moz-transition: padding ease 500ms;
+        -ms-transition: padding ease 500ms;
+        -o-transition: padding ease 500ms;
+}
+    app-layout.nav-opened {
+        padding-left: 5rem;
+    }
+    app-layout.nav-closed {
+        padding-left: 0;
+    }
+}
