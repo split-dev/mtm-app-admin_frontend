@@ -1,8 +1,4 @@
-import { Component, Output } from '@angular/core';
-import { iconSubset } from './icons/icon-subset';
-import { IconSetService } from '@coreui/icons-angular';
-
-import { NavComponent } from './nav/nav.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +6,5 @@ import { NavComponent } from './nav/nav.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mtm-app-admin-core-ui';
-  @Output() navState: boolean | undefined = true;
-
-  onChangeNavState(state: boolean | undefined) {
-    console.log('on change', state);
-    this.navState = state;
-  }
-  constructor(
-    private iconSetService: IconSetService
-  ) {
-    iconSetService.icons = { ...iconSubset };
-  }
+  title = 'app-bootstrap-mtm-admin';
 }

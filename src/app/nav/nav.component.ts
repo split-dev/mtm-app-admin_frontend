@@ -1,44 +1,38 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { SidebarModule } from '@coreui/angular';
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { navItems } from './_nav';
-const MOBILE_BREAKPOINT = '768';
+import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
-  imports: [SidebarModule],
-  standalone: true,
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
-  @Output() state: boolean | undefined;
-  @Output() desktopState: boolean = true;
-  @Output() isDesktop: boolean = true;
-  @Output() changeState = new EventEmitter<boolean | undefined>();
+  currentRoute: string = '';
 
-  constructor (private breakpintObserver: BreakpointObserver) {
-    this.breakpintObserver.observe([
-      `(max-width: ${MOBILE_BREAKPOINT}px)`
-    ]).subscribe((result: BreakpointState) => {
-      this.isDesktop = result.matches;
+  constructor(
+    private sanitizer: DomSanitizer,
+    private router: Router,
+  ) {}
 
-      if (result.matches) {
-        this.state = false;
-      } else {
-        this.state = this.desktopState;
+  ngOnInit() {
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.currentRoute = val.url;
       }
-      this.changeState.emit(this.state);
     })
   }
 
-  ngOnInit() {
-    this.changeState.emit(this.isDesktop ? this.desktopState : this.state);
-  }
-
-  onChangeState() {
-    this.desktopState = !this.desktopState;
-    this.changeState.emit(this.desktopState);
-  }
-  public navItems = navItems;
+  routes = [
+    {
+      href: "/dashboard",
+      icon: this.sanitizer.bypassSecurityTrustHtml(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16"><path d="M6 1v3H1V1h5zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12v3h-5v-3h5zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8v7H1V8h5zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6v7h-5V1h5zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/></svg>`),
+      iconFill: this.sanitizer.bypassSecurityTrustHtml(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16"><path d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z"/></svg>`)
+    },
+    {
+      href: "/customers",
+      icon: this.sanitizer.bypassSecurityTrustHtml(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16"><path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>`),
+      iconFill: this.sanitizer.bypassSecurityTrustHtml(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>`)
+    }
+  ]
 }

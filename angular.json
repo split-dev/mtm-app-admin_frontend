@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mtm-app-admin-core-ui": {
+    "app-bootstrap-mtm-admin": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/",
+            "outputPath": "dist/app-bootstrap-mtm-admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -27,17 +27,15 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "_redirects",
-                "input": "src",
-                "output": "/"
-              }
+              "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -53,7 +51,18 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "styles": {
+                  "inlineCritical": false
+                }
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -61,7 +70,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -70,10 +85,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "mtm-app-admin-core-ui:build:production"
+              "browserTarget": "app-bootstrap-mtm-admin:build:production"
             },
             "development": {
-              "browserTarget": "mtm-app-admin-core-ui:build:development"
+              "browserTarget": "app-bootstrap-mtm-admin:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +96,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mtm-app-admin-core-ui:build"
+            "browserTarget": "app-bootstrap-mtm-admin:build"
           }
         },
         "test": {
@@ -107,6 +122,6 @@
     }
   },
   "cli": {
-    "analytics": "43c1f35a-7588-4a34-8f07-6bb88f2c9df6"
+    "analytics": "2b3fbc10-928c-4bb5-80a1-e794d98d9220"
   }
 }

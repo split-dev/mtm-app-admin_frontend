@@ -1,5 +1,5 @@
 {
-  "name": "mtm-app-admin-core-ui",
+  "name": "app-bootstrap-mtm-admin",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -18,9 +18,9 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
-    "@coreui/angular": "^4.4.7",
-    "@coreui/coreui": "^4.2.6",
-    "@coreui/icons-angular": "^4.4.7",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.5",
+    "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

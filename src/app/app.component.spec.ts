@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'mtm-app-admin-core-ui'`, () => {
+  it(`should have as title 'app-bootstrap-mtm-admin'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('mtm-app-admin-core-ui');
+    expect(app.title).toEqual('app-bootstrap-mtm-admin');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('mtm-app-admin-core-ui app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('app-bootstrap-mtm-admin app is running!');
   });
 });
