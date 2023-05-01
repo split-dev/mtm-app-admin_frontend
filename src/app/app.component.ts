@@ -14,6 +14,7 @@ export class AppComponent {
   @Output() navState: boolean | undefined = true;
 
   onChangeNavState(state: boolean | undefined) {
+    console.log('on change', state);
     this.navState = state;
   }
   constructor(

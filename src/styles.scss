@@ -3,21 +3,31 @@ $enable-ltr: true;
 $enable-rtl: true;
 
 // Import styles with default layout.
+$mobile-breakpoint: sm;
+
 @import "@coreui/coreui/scss/coreui";
 
-@media (min-width: 992px) {
-    app-layout {
-        padding-top: 30px;
-        transition: padding ease 500ms;
-        -webkit-transition: padding ease 500ms;
-        -moz-transition: padding ease 500ms;
-        -ms-transition: padding ease 500ms;
-        -o-transition: padding ease 500ms;
-}
-    app-layout.nav-opened {
-        padding-left: 5rem;
+app-layout {
+    padding-top: 30px;
+    transition: padding ease 500ms;
+    -webkit-transition: padding ease 500ms;
+    -moz-transition: padding ease 500ms;
+    -ms-transition: padding ease 500ms;
+    -o-transition: padding ease 500ms;
+    &.nav-opened {
+        padding-left: 250px;
     }
-    app-layout.nav-closed {
-        padding-left: 0;
+    &.nav-closed {
+        padding-left: 60px;
+    }
+}
+@media (max-width: 767px) {
+    .sidebar {
+        margin-left: 0px !important;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        z-index: 1031;
+        width: var(--cui-sidebar-narrow-width);
     }
 }
