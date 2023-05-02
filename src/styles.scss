@@ -18,6 +18,7 @@ $green-primary: #367B5F;
 // Required
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/maps";
+
 @import "../node_modules/bootstrap/scss/mixins";
 @import "../node_modules/bootstrap/scss/utilities";
 
@@ -91,4 +92,20 @@ input[type="search"] {
     background-position: 10px center;
     background-repeat: no-repeat;
     background-image: url("data:image/svg+xml,%3Csvg width='21' height='21' viewBox='0 0 21 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='9' cy='9' r='8' stroke='%23DDDDDD' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14.5 14.958L19.5 19.958' stroke='%23DDDDDD' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+}
+
+.link-back {
+    display: block;
+    padding-left: 22px;
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='16' viewBox='0 0 8 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 1L1.66939 7.21905C1.2842 7.66844 1.2842 8.33156 1.66939 8.78095L7 15' stroke='%231E1E1E' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E%0A");
+    background-position: left center;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    color: $color-text-dark;
+    margin: 1rem 0;
+    text-decoration: none;
+    &:hover {
+        letter-spacing: -0.2px;
+        font-weight: 500;
+    }
 }

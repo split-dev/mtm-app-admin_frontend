@@ -10,6 +10,8 @@ import { CustomersComponent } from './customers/customers.component';
 import { NavComponent } from './nav/nav.component';
 import { LayoutComponent } from './layout/layout.component';
 import { CustomersFilterPipe } from './customers/customers.filter.pipe';
+import { ProfileComponent } from './profile/profile.component';
+import { CustomersListComponent } from './customers-list/customers-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CustomersFilterPipe } from './customers/customers.filter.pipe';
     DashboardComponent,
     CustomersComponent,
     NavComponent,
-    CustomersFilterPipe
+    CustomersFilterPipe,
+    ProfileComponent,
+    CustomersListComponent
   ],
   imports: [
     CommonModule,
