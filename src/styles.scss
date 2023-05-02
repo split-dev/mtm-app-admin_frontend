@@ -64,7 +64,7 @@ $green-primary: #367B5F;
 // scss-docs-end import-stack
 
 
-.nav {
+.nav.nav-tab-page {
     a {
         font-weight: 300;
         color: $color-text-dark;
@@ -88,4 +88,7 @@ $green-primary: #367B5F;
 
 input[type="search"] {
     padding-left: 40px;
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg width='21' height='21' viewBox='0 0 21 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='9' cy='9' r='8' stroke='%23DDDDDD' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14.5 14.958L19.5 19.958' stroke='%23DDDDDD' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
 }

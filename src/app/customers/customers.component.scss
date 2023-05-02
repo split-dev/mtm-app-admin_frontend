@@ -1,0 +1,8 @@
+::ng-deep app-customers {
+    table tr {
+        cursor: pointer;
+        &:hover td {
+            background-color: #fafafa;
+        }
+    }
+}
