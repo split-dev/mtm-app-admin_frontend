@@ -1,35 +1,44 @@
 <div class="container-xl">
-    <h3>Customers list</h3>
+    <nav class="nav" id="customersTabs" role="tablist">
+        <a href="#" class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="List" aria-selected="true">Fashion profile</a>
+        <a href="#" class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab" aria-controls="support" aria-selected="false">Support</a>
+    </nav>
+    <div class="tab-content pt-4" id="customersTabsContent">
+        <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
+            <h3>Customers list</h3>
 
-    <div class="row mt-3">
-        <div class="col-6">
-            <input type="search" class="form-control form-control-lg" [(ngModel)]="searchCustomers" placeholder="Start typing to find your item...">
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="card overflow-auto">
-                <div class="card-body p-0">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">E-mail address</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Phone number</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let customer of customers | filter: searchCustomers ">
-                                <td>{{customer.first_name}} {{customer.last_name}}</td>
-                                <td>{{customer.email}}</td>
-                                <td>{{customer.default_address?.country}}</td>
-                                <td>{{customer.phone}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <input type="search" class="form-control form-control-lg" [(ngModel)]="searchCustomers" placeholder="Start typing to find your item...">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card overflow-auto">
+                        <div class="card-body p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">E-mail address</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Phone number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let customer of customers | filter: searchCustomers ">
+                                        <td>{{customer.first_name}} {{customer.last_name}}</td>
+                                        <td>{{customer.email}}</td>
+                                        <td>{{customer.default_address?.country}}</td>
+                                        <td>{{customer.phone}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="tab-pane fade" id="support" role="tabpanel" aria-labelledby="support-tab">...</div>
     </div>
 </div>

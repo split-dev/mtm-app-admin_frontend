@@ -12,6 +12,8 @@ $headings-margin-bottom:      1rem;
 $table-bg:  white;
 $input-padding-y-lg: 0.8rem;
 $input-font-size-lg: 14px;
+$color-text-dark: #1E1E1E;
+$green-primary: #367B5F;
 
 // Required
 @import "../node_modules/bootstrap/scss/variables";
@@ -34,7 +36,7 @@ $input-font-size-lg: 14px;
 @import "../node_modules/bootstrap/scss/transitions";
 @import "../node_modules/bootstrap/scss/dropdown";
 // @import "../node_modules/bootstrap/scss/button-group";
-// @import "../node_modules/bootstrap/scss/nav";
+@import "../node_modules/bootstrap/scss/nav";
 // @import "../node_modules/bootstrap/scss/navbar";
 @import "../node_modules/bootstrap/scss/card";
 // @import "../node_modules/bootstrap/scss/accordion";
@@ -60,3 +62,30 @@ $input-font-size-lg: 14px;
 // Utilities
 @import "../node_modules/bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
+
+
+.nav {
+    a {
+        font-weight: 300;
+        color: $color-text-dark;
+        &:hover,
+        &:focus,
+        &:active {
+            color: $color-text-dark;
+        }
+        &.active {
+            border-bottom: 3px solid $green-primary;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+        }
+        
+    }
+}
+
+.tab-content {
+    border-top: 1px solid #EDEEEF;
+}
+
+input[type="search"] {
+    padding-left: 40px;
+}
