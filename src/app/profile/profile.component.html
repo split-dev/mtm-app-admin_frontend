@@ -8,25 +8,25 @@
                 <div class="row">
                     <div class="col-5">
                         <small class="d-block text-muted">First name</small>
-                        <span class="lead">{{customer?.first_name}}</span>
+                        <span>{{customer?.first_name}}</span>
                     </div>
                     <div class="col-7">
                         <small class="d-block text-muted">Last name</small>
-                        <span class="lead">{{customer?.last_name}}</span>
+                        <span>{{customer?.last_name}}</span>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-5">
                         <small class="d-block text-muted">E-mail address</small>
-                        <span class="lead">{{customer?.email}}</span>
+                        <span>{{customer?.email}}</span>
                     </div>
                     <div class="col-3">
                         <small class="d-block text-muted">Location</small>
-                        <span class="lead">{{customer?.default_address?.country}}</span>
+                        <span>{{customer?.default_address?.country}}</span>
                     </div>
                     <div class="col-4">
                         <small class="d-block text-muted">Phone number</small>
-                        <span class="lead">{{customer?.phone || '-'}}</span>
+                        <span>{{customer?.phone || '-'}}</span>
                     </div>
                 </div>
             </div>
@@ -44,10 +44,76 @@
                         <input type="text" placeholder="" id="customerFit"  class="form-control">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-12">
-                        <label for="customerNotes" class="form-label">Notes</label>
+                        <label for="customerNotes" class="form-label text-muted">Notes</label>
                         <textarea id="customerNotes" cols="30" rows="5" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <a data-bs-toggle="collapse" href="#collapseMeasurements" role="button" aria-expanded="false" aria-controls="collapseMeasurements">
+                            Measurements
+                        </a>
+                        <div class="collapse collapseMeasurements mt-4" id="collapseMeasurements">
+                            <div class="row">
+                                <div class="col-4">
+                                    <nav class="nav nav-pills-vertical flex-column">
+                                        <a class="nav-link ps-0 active" data-bs-toggle="tab" data-bs-target="#blazer" href="#">
+                                            <span>Blazer</span>
+                                        </a>
+                                        <a class="nav-link ps-0" data-bs-toggle="tab" data-bs-target="#trouser" href="#">
+                                            <span>Trouser</span>
+                                        </a>
+                                        <a class="nav-link ps-0" data-bs-toggle="tab" data-bs-target="#overcoat" href="#">
+                                            <span>Overcoat</span>
+                                        </a>
+                                    </nav>
+                                </div>
+                                <div class="col-8">
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="blazer" role="tabpanel">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <span class="d-block">Body measurements</span>
+                                                        <small class="text-muted">Updated 02.08.2022 14:43</small>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="chest-02-08-2022" class="form-label text-muted">Chest</label>
+                                                        <input type="text" placeholder="" id="chest-02-08-2022" class="form-control">
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="stomach-02-08-2022" class="form-label text-muted">Stomach</label>
+                                                        <input type="text" placeholder="" id="stomach-02-08-2022" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <span class="d-block">Final garment</span>
+                                                        <small class="text-muted">Updated 02.08.2022 14:43</small>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="chest-02-08-2022" class="form-label text-muted">Chest</label>
+                                                        <input type="text" placeholder="" id="chest-02-08-2022" class="form-control">
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="stomach-02-08-2022" class="form-label text-muted">Stomach</label>
+                                                        <input type="text" placeholder="" id="stomach-02-08-2022" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="trouser" role="tabpanel">Trouser</div>
+                                        <div class="tab-pane fade" id="overcoat" role="tabpanel">Overcoat</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
