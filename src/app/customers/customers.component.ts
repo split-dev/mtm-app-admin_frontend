@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+
 import { CustomersService } from 'src/app/services/customers.service';
 import { CustomerResponse } from '../services/customers.interface';
 import { customers } from '../services/customers.data';
+
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
@@ -9,6 +11,7 @@ import { customers } from '../services/customers.data';
 })
 export class CustomersComponent {
   customers: any[] = [];
+  searchCustomers: string = '';
 
   constructor(private customerService: CustomersService) { }
 
@@ -16,7 +19,7 @@ export class CustomersComponent {
     this.customerService.getCustomers()
       .subscribe((data: CustomerResponse) => {
         console.log('api data', data);
-        
+
         this.customers = customers.customers;
       });
   }
