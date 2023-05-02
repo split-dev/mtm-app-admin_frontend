@@ -1,9 +1,31 @@
 <div class="container-xl">
-    <h1>Customers</h1>
+    <h3>Customers list</h3>
 
-    <table>
-        <tr *ngFor="let customer of customers">
-            <td>{{customer.first_name}}</td>
-        </tr>
-    </table>
+    <div class="row mt-3">
+        <div class="col-6">
+            <input type="search" class="form-control form-control-lg" #searchCustomers placeholder="Start typing to find your item...">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card overflow-auto">
+                <div class="card-body p-0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">E-mail address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let customer of customers">
+                                <td>{{customer.first_name}} {{customer.last_name}}</td>
+                                <td>{{customer.email}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

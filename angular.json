@@ -88,12 +88,18 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "move-safe:build",
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "app-bootstrap-mtm-admin:build:production"
+              "browserTarget": "app-bootstrap-mtm-admin:build:production",
+              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "app-bootstrap-mtm-admin:build:development"
+              "browserTarget": "app-bootstrap-mtm-admin:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
