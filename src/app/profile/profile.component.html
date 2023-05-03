@@ -37,17 +37,17 @@
                 <div class="row">
                     <div class="col-6">
                         <label for="customerHeight"  class="form-label text-muted">Height</label>
-                        <input type="text" placeholder="" id="customerHeight"  class="form-control">
+                        <input type="text" placeholder="" id="customerHeight" [value]="customer?.height"  class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="customerFit"  class="form-label text-muted">Preferred fit</label>
-                        <input type="text" placeholder="" id="customerFit"  class="form-control">
+                        <input type="text" placeholder="" id="customerFit"  class="form-control"  [value]="customer?.fit">
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <label for="customerNotes" class="form-label text-muted">Notes</label>
-                        <textarea id="customerNotes" cols="30" rows="5" class="form-control"></textarea>
+                        <textarea id="customerNotes" cols="30" rows="5" class="form-control"  [value]="customer?.notes"></textarea>
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -59,57 +59,39 @@
                             <div class="row">
                                 <div class="col-4">
                                     <nav class="nav nav-pills-vertical flex-column">
-                                        <a class="nav-link ps-0 active" data-bs-toggle="tab" data-bs-target="#blazer" href="#">
-                                            <span>Blazer</span>
-                                        </a>
-                                        <a class="nav-link ps-0" data-bs-toggle="tab" data-bs-target="#trouser" href="#">
-                                            <span>Trouser</span>
-                                        </a>
-                                        <a class="nav-link ps-0" data-bs-toggle="tab" data-bs-target="#overcoat" href="#">
-                                            <span>Overcoat</span>
+                                        <a class="nav-link ps-0 {{(i ===0 ) ? 'active' : ''}}" data-bs-toggle="tab" *ngFor="let suit of productSuitTypes; let i = index" attr.data-bs-target="#suit-{{suit.replaceAll(' ', '_')}}" href="#">
+                                            <span>{{suit}}</span>
                                         </a>
                                     </nav>
                                 </div>
                                 <div class="col-8">
                                     <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="blazer" role="tabpanel">
-                                            <div class="row">
+                                        <div class="tab-pane fade show  {{(i === 0 ) ? 'active' : ''}}" *ngFor="let suit of productSuitTypes; let i = index" id="suit-{{suit.replaceAll(' ', '')}}" role="tabpanel">
+                                            <div class="row" *ngIf="customer?.metafeilds">
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Body measurements</span>
-                                                        <small class="text-muted">Updated 02.08.2022 14:43</small>
+                                                        <small class="text-muted">Updated {{ customer?.metafeilds?.[suit]?.bodyMeasurements?.[0]?.date | date }}</small>
                                                     </div>
                                                     
-                                                    <div class="mb-3">
-                                                        <label for="chest-02-08-2022" class="form-label text-muted">Chest</label>
-                                                        <input type="text" placeholder="" id="chest-02-08-2022" class="form-control">
-                                                    </div>
-                                                    
-                                                    <div class="mb-3">
-                                                        <label for="stomach-02-08-2022" class="form-label text-muted">Stomach</label>
-                                                        <input type="text" placeholder="" id="stomach-02-08-2022" class="form-control">
+                                                    <div class="mb-3" *ngFor="let ms of customer?.metafeilds?.[suit]?.bodyMeasurements?.[0]?.measurements">
+                                                        <label for="{{ ms.name.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted">{{ms.name}}</label>
+                                                        <input type="text" placeholder="" id="{{ ms.name.replaceAll(' ', '') }}_{{suit}}" class="form-control" [value]="ms.value">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Final garment</span>
-                                                        <small class="text-muted">Updated 02.08.2022 14:43</small>
+                                                        <small class="text-muted">Updated {{ customer?.metafeilds?.[suit]?.finalGarments?.[0]?.date | date }}</small>
                                                     </div>
                                                     
-                                                    <div class="mb-3">
-                                                        <label for="chest-02-08-2022" class="form-label text-muted">Chest</label>
-                                                        <input type="text" placeholder="" id="chest-02-08-2022" class="form-control">
-                                                    </div>
-                                                    
-                                                    <div class="mb-3">
-                                                        <label for="stomach-02-08-2022" class="form-label text-muted">Stomach</label>
-                                                        <input type="text" placeholder="" id="stomach-02-08-2022" class="form-control">
+                                                    <div class="mb-3" *ngFor="let ms of customer?.metafeilds?.[suit]?.finalGarments?.[0]?.measurements">
+                                                        <label for="{{ ms.name.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted">{{ms.name}}</label>
+                                                        <input type="text" placeholder="" id="{{ ms.name.replaceAll(' ', '') }}_{{suit}}" class="form-control" [value]="ms.value">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="trouser" role="tabpanel">Trouser</div>
-                                        <div class="tab-pane fade" id="overcoat" role="tabpanel">Overcoat</div>
                                     </div>
                                 </div>
                             </div>

@@ -12,7 +12,7 @@ import { products } from '../services/products.data';
 export class ProductComponent {
   productId: string | null = '';
   product: Product | undefined = undefined;
-  productSuitTypes: suitType[] = ['blaser', '2-piece suit', '3-piece suit', '2-trouser suit', '2-piece formal', '3-piece formal', 'overcoat', 'trouser'];
+  productSuitTypes: suitType[] = ['blazer', '2-piece suit', '3-piece suit', '2-trouser suit', '2-piece formal', '3-piece formal', 'overcoat', 'trouser'];
 
   constructor(private productsService: ProductsService, private route: ActivatedRoute) {}
 

@@ -1,4 +1,22 @@
-export interface Customer{ 
+import { suitType } from './products.interface';
+
+
+export interface Measurement {
+  name: string;
+  value: number;
+}
+export interface MeasurementsList {
+  date: Date;
+  measurements: Measurement[]
+}
+export type Metafields = {
+  [key in suitType]?: {
+    bodyMeasurements?: MeasurementsList[];
+    finalGarments?: MeasurementsList[];
+  };
+};
+
+export interface Customer { 
   id: number; 
   email: string | null; 
   accepts_marketing: boolean | null; 
@@ -14,6 +32,12 @@ export interface Customer{
     country: string | null;
   } | undefined; 
   phone: string | null; 
+  height?: number | null; 
+  fit?: string | null; 
+  notes?: string | null;
+  metafeilds?: Metafields | null; 
+  fullBodyPhotos?: string[];
+  inspirationImages?: string[];
 }
  
 

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CustomersService } from 'src/app/services/customers.service';
 import { Customer } from '../interfaces/customers.interface';
 import { customers } from '../services/customers.data';
+import { suitType } from '../interfaces/products.interface';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,7 @@ import { customers } from '../services/customers.data';
 export class ProfileComponent {
   customerId: string | null = '';
   customer: Customer | undefined = undefined;
+  productSuitTypes: suitType[] = ['blazer', '2-piece suit', '3-piece suit', '2-trouser suit', '2-piece formal', '3-piece formal', 'overcoat', 'trouser'];
 
   constructor(private customerService: CustomersService, private route: ActivatedRoute) {}
 
