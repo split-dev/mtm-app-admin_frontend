@@ -13,7 +13,7 @@ import { MeasurementsComponent } from './measurements/measurements.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'shop',
     pathMatch: 'full',
   },
   {
@@ -67,7 +67,7 @@ const routes: Routes = [
       }
     ]
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '**', redirectTo: 'shop'}
 ];
 
 @NgModule({
