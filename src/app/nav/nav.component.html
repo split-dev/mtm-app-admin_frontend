@@ -1,4 +1,4 @@
-<div class="nav d-flex flex-column h-100 align-items-stretch p-2">
+<div class="nav d-flex flex-column h-100 align-items-stretch p-2 mb-1">
     <a *ngFor="let link of routes" [href]="link.href" class="text-center p-2 {{currentRoute === link.href ? 'active' : ''}}" 
     [innerHTML]="(currentRoute === link.href ? link.iconFill : link.icon)"></a>
 </div>

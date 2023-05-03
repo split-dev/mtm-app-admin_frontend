@@ -4,6 +4,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CustomersComponent } from './customers/customers.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CustomersListComponent } from './customers-list/customers-list.component';
+import { ShopComponent } from './shop/shop.component';
+import { ProductsListComponent } from './products-list/products-list.component';
+import { ProductComponent } from './product/product.component';
+import { FabricsComponent } from './fabrics/fabrics.component';
+import { MeasurementsComponent } from './measurements/measurements.component';
 
 const routes: Routes = [
   {
@@ -27,6 +32,38 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: CustomersListComponent
+      }
+    ]
+  },
+  {
+    path: 'shop',
+    component: ShopComponent,
+    pathMatch: 'prefix',
+    children:  [
+      {
+        path: 'products',
+        children:  [
+          {
+            path: '',
+            component: ProductsListComponent
+          },
+          {
+            path: ':id',
+            component: ProductComponent
+          }
+        ]
+      },
+      {
+        path: 'fabrics',
+        component: FabricsComponent
+      },
+      {
+        path: 'measurements',
+        component: MeasurementsComponent
+      },
+      {
+        path: '',
+        component: ProductsListComponent
       }
     ]
   },

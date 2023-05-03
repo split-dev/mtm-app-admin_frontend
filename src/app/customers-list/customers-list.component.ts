@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { CustomersService } from 'src/app/services/customers.service';
-import { CustomersResponse } from '../services/customers.interface';
+import { CustomersResponse } from '../interfaces/customers.interface';
 import { customers } from '../services/customers.data';
 import { Router } from '@angular/router';
 

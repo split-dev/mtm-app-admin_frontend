@@ -1,0 +1,8 @@
+::ng-deep app-products-list {
+    table tr {
+        cursor: pointer;
+        &:hover td {
+            background-color: #fafafa;
+        }
+    }
+}

@@ -10,8 +10,14 @@ import { CustomersComponent } from './customers/customers.component';
 import { NavComponent } from './nav/nav.component';
 import { LayoutComponent } from './layout/layout.component';
 import { CustomersFilterPipe } from './customers/customers.filter.pipe';
+import { ProductsFilterPipe } from './shop/products.filter.pipe';
 import { ProfileComponent } from './profile/profile.component';
 import { CustomersListComponent } from './customers-list/customers-list.component';
+import { ShopComponent } from './shop/shop.component';
+import { ProductsListComponent } from './products-list/products-list.component';
+import { ProductComponent } from './product/product.component';
+import { FabricsComponent } from './fabrics/fabrics.component';
+import { MeasurementsComponent } from './measurements/measurements.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +26,14 @@ import { CustomersListComponent } from './customers-list/customers-list.componen
     CustomersComponent,
     NavComponent,
     CustomersFilterPipe,
+    ProductsFilterPipe,
     ProfileComponent,
-    CustomersListComponent
+    CustomersListComponent,
+    ShopComponent,
+    ProductsListComponent,
+    ProductComponent,
+    FabricsComponent,
+    MeasurementsComponent
   ],
   imports: [
     CommonModule,

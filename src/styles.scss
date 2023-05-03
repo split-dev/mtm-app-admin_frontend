@@ -14,6 +14,7 @@ $input-padding-y-lg: 0.8rem;
 $input-font-size-lg: 14px;
 $color-text-dark: #1E1E1E;
 $green-primary: #367B5F;
+$input-line-height: 2.2;
 
 // Required
 @import "../node_modules/bootstrap/scss/variables";
@@ -52,10 +53,10 @@ $green-primary: #367B5F;
 // @import "../node_modules/bootstrap/scss/modal";
 // @import "../node_modules/bootstrap/scss/tooltip";
 // @import "../node_modules/bootstrap/scss/popover";
-// @import "../node_modules/bootstrap/scss/carousel";
+@import "../node_modules/bootstrap/scss/carousel";
 // @import "../node_modules/bootstrap/scss/spinners";
 // @import "../node_modules/bootstrap/scss/offcanvas";
-// @import "../node_modules/bootstrap/scss/placeholders";
+@import "../node_modules/bootstrap/scss/placeholders";
 
 // Helpers
 @import "../node_modules/bootstrap/scss/helpers";
@@ -64,6 +65,10 @@ $green-primary: #367B5F;
 @import "../node_modules/bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
 
+
+.table {
+    margin-bottom: 0;
+}
 
 .nav.nav-tab-page {
     border-bottom: 1px solid #EDEEEF;

@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-12">
+        <a href="/shop/products" class="link-back link-dark">Back to list</a>
+    </div>
+    <div class="col-5">
+        <div class="card product-images mb-4">
+            <div class="card-body">
+                <img [src]="product?.images?.[0]" class="rounded img-fluid" width="100%" height="263"/>
+            </div>
+        </div>
+
+        <div class="mb-2">
+            <label for="productStyleDesc"  class="form-label text-muted">Style description</label>
+            <input type="text" placeholder="" id="productStyleDesc"  class="form-control" [value]="product?.style">
+        </div>
+        <div class="mb-2">
+            <label for="productSeason"  class="form-label text-muted">How it's worm</label>
+            <input type="text" placeholder="" id="productSeason"  class="form-control" [value]="product?.season">
+        </div>
+        <div class="mb-2">
+            <label for="productInspired"  class="form-label text-muted">Inspired by</label>
+            <input type="text" placeholder="" id="productInspired"  class="form-control" [value]="product?.inspiration">
+        </div>
+    </div>
+    <div class="col-7">
+        <h3>{{product?.name}}</h3>
+        <div class="card mb-4">
+            <div class="card-body">
+                <span>Fabric</span>
+                <ul class="fabrics-list">
+                    <li class="product-fabric me-2" *ngFor="let fabric of product?.fabrics">
+                        <figure class="figure">
+                            <img [src]="fabric?.image" class="figure-img img-fluid rounded" width="56" height="56" alt="...">
+                            <figcaption class="figure-caption">
+                                <small>{{fabric?.name}}</small>
+                            </figcaption>
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mb-2">
+            <label for="productName"  class="form-label text-muted">Display name</label>
+            <input type="text" placeholder="" id="productName"  class="form-control" [value]="product?.name">
+        </div>
+        <div class="mb-4">
+            <label for="productStyle"  class="form-label text-muted">Style code</label>
+            <input type="text" placeholder="" id="productStyle"  class="form-control" [value]="product?.styleCode">
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <span class="d-block mb-3">Choose the type of product</span>
+
+                <div class="form-check product-type mb-2" *ngFor="let type of productSuitTypes">
+                    <input class="form-check-input" type="radio" name="productType" [id]="type.replace(' ', '_')" [checked]="product?.suitType === type">
+                    <label class="form-check-label" [for]="type.replace(' ', '_')">
+                      {{type}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

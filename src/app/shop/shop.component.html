@@ -1,0 +1,14 @@
+<div class="container-xl">
+    <nav class="nav nav-tab-page" id="shopTabs" role="tablist">
+        <a href="#" class="nav-link active" id="products-list-tab" data-bs-toggle="tab" data-bs-target="#products-list" type="button" role="tab" aria-controls="products-list" aria-selected="true">Products</a>
+        <a href="#" class="nav-link" id="fabrics-tab" data-bs-toggle="tab" data-bs-target="#fabrics" type="button" role="tab" aria-controls="fabrics" aria-selected="false">Fabrics</a>
+        <a href="#" class="nav-link" id="measurements-tab" data-bs-toggle="tab" data-bs-target="#measurements" type="button" role="tab" aria-controls="measurements" aria-selected="false">Measurements</a>
+    </nav>
+    <div class="tab-content pt-4" id="shopTabsContent">
+        <div class="tab-pane fade show active" id="products-list" role="tabpanel" aria-labelledby="products-list-tab">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="tab-pane fade" id="fabrics" role="tabpanel" aria-labelledby="fabrics-tab">...</div>
+        <div class="tab-pane fade" id="measurements" role="tabpanel" aria-labelledby="measurements-tab">...</div>
+    </div>
+</div>

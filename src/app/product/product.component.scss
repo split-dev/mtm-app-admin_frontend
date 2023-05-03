@@ -1,0 +1,36 @@
+::ng-deep app-product {
+    .product-images {
+        img {
+            object-fit: cover;
+        }
+    }
+    .fabrics-list {
+        padding: 0 0;
+        margin: 1rem 0 0 0;
+        display: flex;
+        flex-direction: row;
+    }
+    .product-fabric {
+        list-style: none;
+        display: inline-block;
+        figure {
+            margin-bottom: 0;
+            max-width: 56px;
+            small {
+                display: inline-block;
+                width: 100%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            img {
+                object-fit: cover;
+            }
+        }
+    }
+    .product-type {
+        display: inline-block;
+        width: 50%;
+        text-transform: capitalize;
+    }
+}
