@@ -2,6 +2,6 @@
 <!--main-->
 <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
   <!--app-body-->
-  <app-nav></app-nav>
+  <app-nav *ngIf="(authService.isLoggedIn$ | async) === true"></app-nav>
   <app-layout></app-layout>
 </div> 

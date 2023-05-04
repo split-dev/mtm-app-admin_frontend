@@ -13,8 +13,10 @@ $table-bg:  white;
 $input-padding-y-lg: 0.8rem;
 $input-font-size-lg: 14px;
 $color-text-dark: #1E1E1E;
+$color-text-light: #E0E5F4;
 $green-primary: #367B5F;
 $input-line-height: 2.2;
+$btn-line-height: 2.2;
 
 // Required
 @import "../node_modules/bootstrap/scss/variables";
@@ -52,7 +54,7 @@ $input-line-height: 2.2;
 // @import "../node_modules/bootstrap/scss/toasts";
 // @import "../node_modules/bootstrap/scss/modal";
 // @import "../node_modules/bootstrap/scss/tooltip";
-// @import "../node_modules/bootstrap/scss/popover";
+@import "../node_modules/bootstrap/scss/popover";
 @import "../node_modules/bootstrap/scss/carousel";
 // @import "../node_modules/bootstrap/scss/spinners";
 // @import "../node_modules/bootstrap/scss/offcanvas";
@@ -151,6 +153,10 @@ input[type="search"] {
         letter-spacing: -0.2px;
         font-weight: 500;
     }
+}
+
+.text-lighter {
+    color: $color-text-light
 }
 
 *[data-bs-toggle="collapse"] {

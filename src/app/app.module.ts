@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CustomersComponent } from './customers/customers.component';
 import { NavComponent } from './nav/nav.component';
@@ -18,6 +19,12 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductComponent } from './product/product.component';
 import { FabricsComponent } from './fabrics/fabrics.component';
 import { MeasurementsComponent } from './measurements/measurements.component';
+import { LoginComponent } from './login/login.component';
+declare global {
+  interface Window {
+    bootstrap: any; /** for calling Bootstrap js ui features */
+  }
+}
 
 @NgModule({
   declarations: [
@@ -33,7 +40,8 @@ import { MeasurementsComponent } from './measurements/measurements.component';
     ProductsListComponent,
     ProductComponent,
     FabricsComponent,
-    MeasurementsComponent
+    MeasurementsComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +51,7 @@ import { MeasurementsComponent } from './measurements/measurements.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

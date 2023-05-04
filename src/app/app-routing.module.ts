@@ -9,6 +9,8 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductComponent } from './product/product.component';
 import { FabricsComponent } from './fabrics/fabrics.component';
 import { MeasurementsComponent } from './measurements/measurements.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -19,10 +21,16 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'customers',
     component: CustomersComponent,
+    canActivate: [AuthGuard],
     children:  [
       {
         path: ':id',
@@ -39,6 +47,7 @@ const routes: Routes = [
     path: 'shop',
     component: ShopComponent,
     pathMatch: 'prefix',
+    canActivate: [AuthGuard],
     children:  [
       {
         path: 'products',

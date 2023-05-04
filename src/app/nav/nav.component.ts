@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,14 +14,23 @@ export class NavComponent {
   constructor(
     private sanitizer: DomSanitizer,
     private router: Router,
-  ) {}
+    private authService: AuthService
+  ) {
+    this.currentRoute = this.router.url;
+  }
 
-  ngOnInit() {
-    this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.currentRoute = val.url;
-      }
-    })
+  @ViewChild('nav') nav!: ElementRef;
+
+  ngAfterViewInit(): void {
+    const popoverTriggerList = [].slice.call(this.nav?.nativeElement.querySelectorAll('[data-bs-toggle="popover"]'));
+
+    popoverTriggerList.map(function (popoverTriggerEl) {
+      return new window.bootstrap.Popover(popoverTriggerEl)
+    });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   routes = [

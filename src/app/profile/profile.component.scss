@@ -1,0 +1,8 @@
+::ng-deep app-profile {
+    .customer-images-lists {
+        img {
+            max-height: 132px;
+            object-fit: contain;
+        }
+    }
+}
