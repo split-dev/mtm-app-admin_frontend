@@ -19,7 +19,7 @@
                             <th scope="col">Vendor</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="products?.length; else placeholder">
                         <tr *ngFor="let product of products | productsFilter: searchProducts" (click)="openProduct(product.id)">
                             <td>
                                 <img [src]="product.images?.[0]" class="d-inline-block rounded me-3" width="53" height="53" alt="">
@@ -31,6 +31,17 @@
                             <td>{{product.vendor}}</td>
                         </tr>
                     </tbody>
+                    <ng-template #placeholder role="tbody">
+                        <tr>
+                            <td colspan="5">
+                                <div class="text-center">
+                                    <div class="spinner-border" role="status">
+                                      <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
                 </table>
             </div>
         </div>

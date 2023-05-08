@@ -1,1 +1,54 @@
-<p>measurements works!</p>
+<nav class="nav nav-pills" id="customersTabs" >
+    <a class="nav-link active" aria-current="page" data-bs-toggle="tab" data-bs-target="#man" type="button" role="tab" href="#">Man</a>
+    <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#woman" type="button" role="tab">Woman</a>
+</nav>
+<div class="tab-content pt-4" id="customersTabsContent">
+    <div class="tab-pane fade show active" id="man" role="tabpanel" aria-labelledby="list-tab">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <span class="d-block mb-3">Choose the type of product</span>
+        
+                        <div class="form-check product-type mb-2 w-50 d-inline-block" *ngFor="let type of productSuitTypes">
+                            <input class="form-check-input" type="radio" name="productType" [id]="type.replace(' ', '_')">
+                            <label class="form-check-label" [for]="type.replace(' ', '_')">
+                              {{type.charAt(0).toUpperCase() + type.slice(1)}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <span class="d-block mb-3">Measurements</span>
+                        <div class="row full-pills-row">
+                            <div class="col-6 p-0">
+                                <ul class="w-100 nav nav-fill nav-pills flex-column nav-measurements" id="navMeasurements" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                      <button class="nav-link text-start active" id="chest-tab" data-bs-toggle="tab" data-bs-target="#chest" type="button" role="tab" aria-controls="chest" aria-selected="true">Chest</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                      <button class="nav-link text-start" id="stomach-tab" data-bs-toggle="tab" data-bs-target="#stomach" type="button" role="tab" aria-controls="stomach" aria-selected="true">Stomach</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 p-0">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="chest" role="tabpanel" aria-labelledby="chest-tab">...</div>
+                                    <div class="tab-pane" id="stomach" role="tabpanel" aria-labelledby="stomach-tab">...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="woman" role="tabpanel" aria-labelledby="support-tab">
+        ...
+    </div>
+</div>

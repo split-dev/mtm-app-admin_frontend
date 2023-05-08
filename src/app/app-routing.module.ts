@@ -15,7 +15,7 @@ import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'shop',
+    redirectTo: 'customers',
     pathMatch: 'full',
   },
   {
@@ -63,20 +63,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'fabrics',
-        component: FabricsComponent
-      },
-      {
-        path: 'measurements',
-        component: MeasurementsComponent
-      },
-      {
         path: '',
         component: ProductsListComponent
       }
     ]
   },
-  {path: '**', redirectTo: 'shop'}
+  {path: '**', redirectTo: 'customers'}
 ];
 
 @NgModule({

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 const USER_AUTH_LS_KEY = 'mtm_user_auth';
 
 
@@ -11,20 +13,26 @@ export class AuthService {
   private loggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loggedInSubject.asObservable();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   // Функция для авторизации пользователя
-  login(username: string, password: string) {
-    // Здесь должна быть логика проверки имени пользователя и пароля в вашей системе
-    if (username === 'myuser' && password === 'mypassword') {
-      // Если проверка прошла успешно, установить состояние loggedIn в true и перенаправить на страницу по умолчанию
-      this.loggedInSubject.next(true);
-      this.router.navigate(['/']);
-      /** add here authToken from Cookies!!! */
-      localStorage.setItem(USER_AUTH_LS_KEY, btoa(`${username}:${new Date().toDateString()}`));
-    } else {
+  login(password: string) {
+    this.http.post<any>(`${environment.apiHost}${environment.authEndpoint}`, { data: {
+      password
+    } }).subscribe(
+      response => {
+        // Если ответ от сервера содержит токен, сохраняем его в localStorage
+        if (response && response.data?.jwtToken) {
+          localStorage.setItem(USER_AUTH_LS_KEY, btoa(`${response.data.jwtToken}:${new Date().toDateString()}`));
+          this.loggedInSubject.next(true);
+          this.router.navigate(['/']);
+        }
+      },
+      error => {
+        console.error(error);
         this.loggedInSubject.next(false);
-    }
+      }
+    );
   }
 
   logout() {
@@ -44,10 +52,10 @@ export class AuthService {
     token = atob(token);
 
     const today = new Date().toDateString();
-    const username: string | undefined = token?.split(':')[0];
+    const jwtToken: string | undefined = token?.split(':')[0];
     const date: string | undefined = token?.split(':')[1];
 
-    if (!!username?.length && (date === today)) {
+    if (!!jwtToken?.length && (date === today)) {
         this.loggedInSubject.next(true);
         return true;
     } else {

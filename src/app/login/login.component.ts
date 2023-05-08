@@ -12,7 +12,7 @@ export class LoginComponent {
   submitted: boolean = false;
 
   onSubmit(loginForm: NgForm) {
-    this.authService.login(loginForm.value.email, loginForm.value.password);
+    this.authService.login(loginForm.value.password);
     this.submitted = true;
   }
 }

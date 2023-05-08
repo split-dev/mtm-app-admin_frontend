@@ -18,7 +18,7 @@
                             <th scope="col">Phone number</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="customers?.length; else placeholder">
                         <tr *ngFor="let customer of customers | filter: searchCustomers" (click)="openProfile(customer.id)">
                             <td>{{customer.first_name}} {{customer.last_name}}</td>
                             <td>{{customer.email}}</td>
@@ -26,6 +26,17 @@
                             <td>{{customer.phone}}</td>
                         </tr>
                     </tbody>
+                    <ng-template #placeholder role="tbody">
+                        <tr>
+                            <td colspan="4">
+                                <div class="text-center">
+                                    <div class="spinner-border" role="status">
+                                      <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
                 </table>
             </div>
         </div>
