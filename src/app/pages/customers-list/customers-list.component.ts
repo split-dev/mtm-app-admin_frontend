@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { CustomersService } from 'src/app/services/customers.service';
 import { CustomersResponse } from '../interfaces/customers.interface';
-import { customers } from '../services/customers.data';
+import { customers } from '../../services/customers.data';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class CustomersListComponent {
   customers: any[] = [];
   searchCustomers: string = '';
+  customersLoaded: boolean = false;
 
   constructor(private customerService: CustomersService, private router: Router) { }
 
@@ -22,10 +23,9 @@ export class CustomersListComponent {
 
   ngOnInit() {
     this.customerService.getCustomers() /** << replace with real api */
-      .subscribe((data: CustomersResponse) => {
-        console.log('api data', data);
-
-        this.customers = customers.customers;
+      .subscribe((res: CustomersResponse) => {
+        this.customers = res.data;
+        this.customersLoaded = true;
       });
   }
 }

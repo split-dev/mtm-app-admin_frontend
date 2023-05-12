@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CustomersComponent } from './customers/customers.component';
-import { ProfileComponent } from './profile/profile.component';
-import { CustomersListComponent } from './customers-list/customers-list.component';
-import { ShopComponent } from './shop/shop.component';
-import { ProductsListComponent } from './products-list/products-list.component';
-import { ProductComponent } from './product/product.component';
-import { FabricsComponent } from './fabrics/fabrics.component';
-import { MeasurementsComponent } from './measurements/measurements.component';
-import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { CustomersComponent } from './pages/customers/customers.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { CustomersListComponent } from './pages/customers-list/customers-list.component';
+import { ShopComponent } from './pages/shop/shop.component';
+import { ProductsListComponent } from './pages/products-list/products-list.component';
+import { ProductComponent } from './pages/product/product.component';
+import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [

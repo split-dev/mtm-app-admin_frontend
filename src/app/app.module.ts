@@ -6,20 +6,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CustomersComponent } from './customers/customers.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { CustomersComponent } from './pages/customers/customers.component';
 import { NavComponent } from './nav/nav.component';
 import { LayoutComponent } from './layout/layout.component';
-import { CustomersFilterPipe } from './customers/customers.filter.pipe';
-import { ProductsFilterPipe } from './shop/products.filter.pipe';
-import { ProfileComponent } from './profile/profile.component';
-import { CustomersListComponent } from './customers-list/customers-list.component';
-import { ShopComponent } from './shop/shop.component';
-import { ProductsListComponent } from './products-list/products-list.component';
-import { ProductComponent } from './product/product.component';
-import { FabricsComponent } from './fabrics/fabrics.component';
-import { MeasurementsComponent } from './measurements/measurements.component';
-import { LoginComponent } from './login/login.component';
+import { CustomersFilterPipe } from './pages/customers/customers.filter.pipe';
+import { ProductsFilterPipe } from './pages/shop/products.filter.pipe';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { CustomersListComponent } from './pages/customers-list/customers-list.component';
+import { ShopComponent } from './pages/shop/shop.component';
+import { ProductsListComponent } from './pages/products-list/products-list.component';
+import { ProductComponent } from './pages/product/product.component';
+import { FabricsComponent } from './pages/fabrics/fabrics.component';
+import { MeasurementsComponent } from './pages/measurements/measurements.component';
+import { LoginComponent } from './pages/login/login.component';
 declare global {
   interface Window {
     bootstrap: any; /** for calling Bootstrap js ui features */

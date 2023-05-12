@@ -41,19 +41,25 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  // Функция для проверки авторизации пользователя
-  isLoggedIn() {
+  getToken() {
     let token = localStorage.getItem(USER_AUTH_LS_KEY);
 
     if (!token) {
-        return false;
+        return { jwtToken: null, date: null };
     }
 
     token = atob(token);
 
-    const today = new Date().toDateString();
     const jwtToken: string | undefined = token?.split(':')[0];
     const date: string | undefined = token?.split(':')[1];
+
+    return { jwtToken, date };
+  }
+
+  // Функция для проверки авторизации пользователя
+  isLoggedIn() {
+    const { jwtToken, date } = this.getToken();
+    const today = new Date().toDateString();
 
     if (!!jwtToken?.length && (date === today)) {
         this.loggedInSubject.next(true);

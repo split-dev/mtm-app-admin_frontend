@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CustomersService } from 'src/app/services/customers.service';
 import { Customer } from '../interfaces/customers.interface';
-import { customers } from '../services/customers.data';
+import { customers } from '../../services/customers.data';
 import { suitType } from '../interfaces/products.interface';
 
 @Component({

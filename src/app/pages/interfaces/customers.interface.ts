@@ -42,5 +42,5 @@ export interface Customer {
  
 
 export interface CustomersResponse {
-    customers: Customer[];
+    data: Customer[];
 }

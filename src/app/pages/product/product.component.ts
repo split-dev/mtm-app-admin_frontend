@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ProductsService } from '../services/products.service';
+import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product, suitType } from '../interfaces/products.interface';
-import { products } from '../services/products.data';
+import { products } from '../../services/products.data';
 
 @Component({
   selector: 'app-product',
