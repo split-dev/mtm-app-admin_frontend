@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-
+import { AuthService } from 'src/app/services/auth.service';
 import { CustomersService } from 'src/app/services/customers.service';
 import { CustomersResponse } from '../interfaces/customers.interface';
-import { customers } from '../../services/customers.data';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,17 +14,19 @@ export class CustomersListComponent {
   searchCustomers: string = '';
   customersLoaded: boolean = false;
 
-  constructor(private customerService: CustomersService, private router: Router) { }
+  constructor(private customerService: CustomersService, private router: Router, private authService: AuthService) { }
 
   openProfile(id: number) {
     this.router.navigate(['/customers', id]);
   }
 
   ngOnInit() {
-    this.customerService.getCustomers() /** << replace with real api */
+    this.customerService.getCustomers()
       .subscribe((res: CustomersResponse) => {
         this.customers = res.data;
         this.customersLoaded = true;
+      }, (error: any) => {
+        console.error('Error loading customers', error);
       });
   }
 }

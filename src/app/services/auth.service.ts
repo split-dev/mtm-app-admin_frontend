@@ -10,7 +10,7 @@ const USER_AUTH_LS_KEY = 'mtm_user_auth';
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedInSubject = new BehaviorSubject<boolean>(false);
+  private loggedInSubject = new BehaviorSubject<boolean | undefined>(undefined);
   isLoggedIn$ = this.loggedInSubject.asObservable();
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -26,6 +26,8 @@ export class AuthService {
           localStorage.setItem(USER_AUTH_LS_KEY, btoa(`${response.data.jwtToken}:${new Date().toDateString()}`));
           this.loggedInSubject.next(true);
           this.router.navigate(['/']);
+        } else {
+          throw new Error;
         }
       },
       error => {
@@ -62,10 +64,8 @@ export class AuthService {
     const today = new Date().toDateString();
 
     if (!!jwtToken?.length && (date === today)) {
-        this.loggedInSubject.next(true);
         return true;
     } else {
-        this.loggedInSubject.next(false);
         return false;
     }
   }

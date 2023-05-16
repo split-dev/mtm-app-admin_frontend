@@ -31,16 +31,28 @@ export interface Customer {
   default_address?: {
     country: string | null;
   } | undefined; 
-  phone: string | null; 
-  height?: number | null; 
-  fit?: string | null; 
-  notes?: string | null;
-  metafeilds?: Metafields | null; 
-  fullBodyPhotos?: string[];
-  inspirationImages?: string[];
+  phone: string | null;
+}
+
+export interface CustomerMetafields {
+  id?: string,
+  type: string | null,
+  namespace: string | null,
+  key: string | null,
+  value: {
+    [key: string]: any,
+    additional_info: {
+      [key: string]: any
+    }
+  },
+  owner_resource: string | null,
+  owner_id: string | null
 }
  
-
 export interface CustomersResponse {
     data: Customer[];
+}
+
+export interface CustomerResponse {
+    data: Customer;
 }

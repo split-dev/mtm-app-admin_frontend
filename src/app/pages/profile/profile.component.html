@@ -40,17 +40,17 @@
                 <div class="row">
                     <div class="col-6">
                         <label for="customerHeight"  class="form-label text-muted">Height</label>
-                        <input type="text" placeholder="" id="customerHeight" [value]="customer?.height"  class="form-control">
+                        <input type="text" placeholder="" id="customerHeight" (blur)="updateMetafieldsValue()" [(ngModel)]="metafields.value.additional_info['height']"  class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="customerFit"  class="form-label text-muted">Preferred fit</label>
-                        <input type="text" placeholder="" id="customerFit"  class="form-control"  [value]="customer?.fit">
+                        <input type="text" placeholder="" id="customerFit" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value.additional_info['fit']">
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <label for="customerNotes" class="form-label text-muted">Notes</label>
-                        <textarea id="customerNotes" cols="30" rows="5" class="form-control"  [value]="customer?.notes"></textarea>
+                        <textarea id="customerNotes" cols="30" rows="5" class="form-control"  [value]=""></textarea>
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -62,35 +62,35 @@
                             <div class="row">
                                 <div class="col-4">
                                     <nav class="nav nav-pills-vertical flex-column">
-                                        <a class="nav-link ps-0 {{(i ===0 ) ? 'active' : ''}}" data-bs-toggle="tab" *ngFor="let suit of productSuitTypes; let i = index" attr.data-bs-target="#suit-{{suit.replaceAll(' ', '_')}}" href="#">
+                                        <a class="nav-link ps-0 {{(i ===0 ) ? 'active' : ''}}" data-bs-toggle="tab" *ngFor="let suit of productSuitTypes; let i = index" attr.data-bs-target="#suit-{{suit.replaceAll(' ', '')}}" href="#">
                                             <span>{{suit}}</span>
                                         </a>
                                     </nav>
                                 </div>
                                 <div class="col-8">
                                     <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show  {{(i === 0 ) ? 'active' : ''}}" *ngFor="let suit of productSuitTypes; let i = index" id="suit-{{suit.replaceAll(' ', '')}}" role="tabpanel">
-                                            <div class="row" *ngIf="customer?.metafeilds">
+                                        <div class="tab-pane fade {{(i === 0 ) ? 'active show' : ''}}" *ngFor="let suit of productSuitTypes; let i = index" id="suit-{{suit.replaceAll(' ', '')}}" role="tabpanel">
+                                            <div class="row" *ngIf="metafields.value">
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Body measurements</span>
-                                                        <small class="text-muted">Updated {{ customer?.metafeilds?.[suit]?.bodyMeasurements?.[0]?.date | date }}</small>
+                                                        <small class="text-muted">Updated {{ metafields.value['body_measurements'].lastUpdate | date }}</small>
                                                     </div>
                                                     
-                                                    <div class="mb-3" *ngFor="let ms of customer?.metafeilds?.[suit]?.bodyMeasurements?.[0]?.measurements">
-                                                        <label for="{{ ms.name.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted">{{ms.name}}</label>
-                                                        <input type="text" placeholder="" id="{{ ms.name.replaceAll(' ', '') }}_{{suit}}" class="form-control" [value]="ms.value">
+                                                    <div class="mb-3" *ngFor="let ms of measurementKeys">
+                                                        <label for="{{ ms.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted text-capitalize">{{ms}}</label>
+                                                        <input type="text" placeholder="" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value['body_measurements'][ms]">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Final garment</span>
-                                                        <small class="text-muted">Updated {{ customer?.metafeilds?.[suit]?.finalGarments?.[0]?.date | date }}</small>
+                                                        <small class="text-muted">Updated {{ metafields.value['final_garment'].lastUpdate | date }}</small>
                                                     </div>
                                                     
-                                                    <div class="mb-3" *ngFor="let ms of customer?.metafeilds?.[suit]?.finalGarments?.[0]?.measurements">
-                                                        <label for="{{ ms.name.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted">{{ms.name}}</label>
-                                                        <input type="text" placeholder="" id="{{ ms.name.replaceAll(' ', '') }}_{{suit}}" class="form-control" [value]="ms.value">
+                                                    <div class="mb-3" *ngFor="let ms of measurementKeys">
+                                                        <label for="{{ ms.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted text-capitalize">{{ms}}</label>
+                                                        <input type="text" placeholder="" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value['final_garment'][ms]">
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,27 +105,39 @@
         </div>
     </div>
     <div class="col-6 customer-images-lists">
-        <span class="d-block text-muted">Full body photos</span>
-        <div class="d-flex" *ngIf="customer?.fullBodyPhotos?.length; else noBodyPhotos">
-            <img *ngFor="let photo of customer?.fullBodyPhotos" [src]="photo" width="132" height="132" class="rounded img-thumbnail me-2" alt="">
+        <span class="d-flex align-items-center text-muted">
+            <span>Full body photos</span>
+            <div class="ms-3 photoUpload">
+                <label for="addBodyPhoto" class="form-label">+</label>
+                <input class="form-control form-control-sm" id="addBodyPhoto" type="file" (change)="selectedBodyPhotos($event)">
+            </div>
+        </span>
+        
+        <div class="d-flex" *ngIf="metafields.value['additional_info']['images'].fullBodyPhotos.length; else noBodyPhotos">
+            <img *ngFor="let photo of metafields.value['additional_info']['images'].fullBodyPhotos" [src]="photo" width="132" height="132" class="rounded img-thumbnail me-2" alt="">
         </div>
-        <ng-template #noBodyPhotos class="pt-3 d-block text-lighter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
-                <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
-            </svg>
-            No photos
+        <ng-template #noBodyPhotos>
+            <div class="mt-3 d-block text-muted">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                    <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
+                </svg>
+                No photos
+            </div>
         </ng-template>
+        
         <span class="d-block text-muted mt-4">Inspiration images</span>
-        <div class="d-flex" *ngIf="customer?.inspirationImages?.length; else noInspPhotos">
-            <img *ngFor="let photo of customer?.inspirationImages" [src]="photo" width="132" height="132" class="rounded img-thumbnail me-2" alt="">
+        <div class="d-flex" *ngIf="metafields.value['additional_info']['images'].inspirationImages[0]?.url; else noInspPhotos">
+            <img *ngFor="let photo of metafields.value['additional_info']['images'].inspirationImages" [src]="photo.url" width="132" height="132" class="rounded img-thumbnail me-2" [alt]="photo.description">
         </div>
-        <ng-template #noInspPhotos class="pt-3 d-block text-lighter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
-                <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
-            </svg>
-            No photos
+        <ng-template #noInspPhotos>
+            <div class="mt-3 d-block text-muted">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                    <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
+                </svg>
+                No photos
+            </div>
         </ng-template>
     </div>
 </div>
