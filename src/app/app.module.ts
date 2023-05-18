@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
@@ -20,6 +20,8 @@ import { ProductComponent } from './pages/product/product.component';
 import { FabricsComponent } from './pages/fabrics/fabrics.component';
 import { MeasurementsComponent } from './pages/measurements/measurements.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AuthInterceptor } from './auth.interceptor';
+
 declare global {
   interface Window {
     bootstrap: any; /** for calling Bootstrap js ui features */
@@ -51,7 +53,10 @@ declare global {
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

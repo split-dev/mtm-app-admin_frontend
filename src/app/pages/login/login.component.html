@@ -12,7 +12,7 @@
                 <input class="form-control" type="password" name="password" id="auth-pass" ngModel required>
             </div>
           
-            <div class="mb-3 text-danger" *ngIf="submitted && (authService.isLoggedIn$ | async) === false">
+            <div class="mb-3 text-danger" *ngIf="submitted && ((authService.isLoggedIn$ | async) === false)">
                 Invalid password
             </div>
             <button type="submit" class="w-100 btn btn-success btn-lg">Login</button>

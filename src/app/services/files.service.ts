@@ -11,22 +11,11 @@ import { throwError } from 'rxjs';
 export class FilesService {
 
   private apiUrl = `${environment.apiHost}/files`;
-  private authToken = this.authService.getToken();
-  private generateAuthHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'X-AuthToken': this.authToken.jwtToken || ''
-    });
-  }
-  
   constructor(private http: HttpClient, private authService: AuthService) { }
 
 
   uploadImage(files: FormData) {
-    const headers = this.generateAuthHeaders();
-    const httpOptions = {
-      headers
-    };
-    return this.http.post<any>(`${this.apiUrl}`, files, httpOptions)
+    return this.http.post<any>(`${this.apiUrl}`, files)
       .pipe(catchError((error) => {
         if (error.status === 403) {
           this.authService.logout();

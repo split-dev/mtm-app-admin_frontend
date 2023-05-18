@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 const USER_AUTH_LS_KEY = 'mtm_user_auth';
@@ -23,9 +23,12 @@ export class AuthService {
       response => {
         // Если ответ от сервера содержит токен, сохраняем его в localStorage
         if (response && response.data?.jwtToken) {
-          localStorage.setItem(USER_AUTH_LS_KEY, btoa(`${response.data.jwtToken}:${new Date().toDateString()}`));
+          window.localStorage.setItem(USER_AUTH_LS_KEY, btoa(`${response.data.jwtToken}:${new Date().toDateString()}`));
+
+          this.router.navigate(['/'], {
+            onSameUrlNavigation: 'reload'
+          });
           this.loggedInSubject.next(true);
-          this.router.navigate(['/']);
         } else {
           throw new Error;
         }
@@ -38,16 +41,17 @@ export class AuthService {
   }
 
   logout() {
-    this.loggedInSubject.next(false);
-    localStorage.removeItem(USER_AUTH_LS_KEY);
+    window.localStorage.removeItem(USER_AUTH_LS_KEY);
     this.router.navigate(['/login']);
+    this.loggedInSubject.next(false);
   }
 
   getToken() {
-    let token = localStorage.getItem(USER_AUTH_LS_KEY);
+    let token = window.localStorage.getItem(USER_AUTH_LS_KEY);
 
     if (!token) {
-        return { jwtToken: null, date: null };
+      this.loggedInSubject.next(false);
+      return { jwtToken: null, date: null };
     }
 
     token = atob(token);
@@ -59,14 +63,23 @@ export class AuthService {
   }
 
   // Функция для проверки авторизации пользователя
-  isLoggedIn() {
-    const { jwtToken, date } = this.getToken();
-    const today = new Date().toDateString();
+  isLoggedIn(): boolean {
+    console.log('this.loggedInSubject', this.loggedInSubject, this.loggedInSubject.value);
+    const token = window.localStorage.getItem(USER_AUTH_LS_KEY);
 
-    if (!!jwtToken?.length && (date === today)) {
-        return true;
-    } else {
-        return false;
+    if (token) {
+      const parsedToken = atob(token);
+      const jwtToken = parsedToken?.split(':')[0];
+      const date = parsedToken.split(':')[1];
+
+      const today = new Date().toDateString();
+      const logged = (!!jwtToken.length && date === today);
+      
+      console.log('logged', token, date,logged);
+      this.loggedInSubject.next(logged);
+      return logged;
     }
+
+    return false;
   }
 }

@@ -13,6 +13,9 @@ export class LoginComponent {
 
   onSubmit(loginForm: NgForm) {
     this.authService.login(loginForm.value.password);
-    this.submitted = true;
+    
+    this.authService.isLoggedIn$.subscribe((loginRes) => {
+      if (loginRes) this.submitted = true;
+    })
   }
 }

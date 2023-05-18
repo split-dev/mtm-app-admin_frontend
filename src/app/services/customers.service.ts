@@ -11,18 +11,11 @@ import { throwError } from 'rxjs';
 })
 export class CustomersService {
   private apiUrl = `${environment.apiHost}${environment.customersEndpoint}`;
-  private authToken = this.authService.getToken();
-  private generateAuthHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'X-AuthToken': this.authToken.jwtToken || ''
-    });
-  }
   
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getCustomers() {
-    const headers = this.generateAuthHeaders();
-    return this.http.get<CustomersResponse>(this.apiUrl, { headers }).pipe(catchError((error) => {
+    return this.http.get<CustomersResponse>(this.apiUrl).pipe(catchError((error) => {
       if (error.status === 403) {
         this.authService.logout();
       }
@@ -30,8 +23,7 @@ export class CustomersService {
     }));
   }
   getCustomer(id: string) {
-    const headers = this.generateAuthHeaders();
-    return this.http.get<CustomerResponse>(`${this.apiUrl}/${id}`, { headers }).pipe(catchError((error) => {
+    return this.http.get<CustomerResponse>(`${this.apiUrl}/${id}`).pipe(catchError((error) => {
       if (error.status === 403) {
         this.authService.logout();
       }

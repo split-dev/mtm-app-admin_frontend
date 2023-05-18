@@ -10,18 +10,10 @@ import { throwError } from 'rxjs';
 })
 export class MetafieldsService {
   private apiUrl = `${environment.apiHost}${environment.metafieldsEndpoint}`;
-  private authToken = this.authService.getToken();
-  private generateAuthHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'X-AuthToken': this.authToken.jwtToken || ''
-    });
-  }
-  
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getCustomerMetafields(customerId: string) {
-    const headers = this.generateAuthHeaders();
-    return this.http.get<any>(`${this.apiUrl}/?owner_resource=customer&namespace=measurements&owner_id=${customerId}`, { headers })
+    return this.http.get<any>(`${this.apiUrl}/?owner_resource=customer&namespace=measurements&owner_id=${customerId}`)
       .pipe(catchError((error) => {
         if (error.status === 403) {
           this.authService.logout();
@@ -31,11 +23,7 @@ export class MetafieldsService {
   }
 
   createCustomerMetafields(data: any) {
-    const headers = this.generateAuthHeaders();
-    const httpOptions = {
-      headers
-    };
-    return this.http.post<any>(`${this.apiUrl}`, { data }, httpOptions)
+    return this.http.post<any>(`${this.apiUrl}`, { data })
       .pipe(catchError((error) => {
         if (error.status === 403) {
           this.authService.logout();
@@ -45,11 +33,7 @@ export class MetafieldsService {
   }
   
   updateCustomerMetafields(data: any) {
-    const headers = this.generateAuthHeaders();
-    const httpOptions = {
-      headers
-    };
-    return this.http.put<any>(`${this.apiUrl}`, { data }, httpOptions)
+    return this.http.put<any>(`${this.apiUrl}`, { data })
       .pipe(catchError((error) => {
         if (error.status === 403) {
           this.authService.logout();
