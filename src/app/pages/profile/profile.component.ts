@@ -116,6 +116,9 @@ export class ProfileComponent {
 
     this.filesService.uploadImage(formdata).subscribe(res => {
       console.log('upload res', res);
+      if (res.data?.url?.length) {
+        this.metafields.value.additional_info['images'].fullBodyPhotos.push(res.data.url);
+      }
     });
   }
 }
