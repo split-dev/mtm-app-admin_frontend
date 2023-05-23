@@ -14,8 +14,10 @@ export class CustomersService {
   
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getCustomers(search?: string) {
-    return this.http.get<CustomersResponse>(`${this.apiUrl}${search ? '?search='+search : ''}`).pipe(catchError((error) => {
+  getCustomers(search?: string, page: number = 1, limit: number = 10) {
+    console.log('page', page);
+    console.log('limit', limit);
+    return this.http.get<CustomersResponse>(`${this.apiUrl}?limit=${page * limit}${search ? '&search='+search : ''}`).pipe(catchError((error) => {
       if (error.status === 403) {
         this.authService.logout();
       }

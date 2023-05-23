@@ -59,4 +59,20 @@
             </div>
         </div>
     </div>
+    <div class="col-12">
+        <nav class="mt-4 ms-auto me-auto" aria-label="Page navigation example">
+            <ul class="pagination  justify-content-center">
+              <li class="page-item">
+                <span class="page-link" href="#" aria-label="Previous" (click)="onPageChange(currentPage - 1)">
+                  <span aria-hidden="true">Prev</span>
+                </span>
+              </li>
+              <li class="page-item">
+                <span class="page-link" href="#" aria-label="Next" (click)="onPageChange(currentPage + 1)">
+                  <span aria-hidden="true">Next</span>
+                </span>
+              </li>
+            </ul>
+        </nav>
+    </div>
 </div>
