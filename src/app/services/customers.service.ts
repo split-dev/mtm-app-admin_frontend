@@ -14,8 +14,8 @@ export class CustomersService {
   
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getCustomers() {
-    return this.http.get<CustomersResponse>(this.apiUrl).pipe(catchError((error) => {
+  getCustomers(search?: string) {
+    return this.http.get<CustomersResponse>(`${this.apiUrl}${search ? '?search='+search : ''}`).pipe(catchError((error) => {
       if (error.status === 403) {
         this.authService.logout();
       }

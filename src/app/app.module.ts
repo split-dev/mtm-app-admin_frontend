@@ -10,7 +10,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { NavComponent } from './nav/nav.component';
 import { LayoutComponent } from './layout/layout.component';
-import { CustomersFilterPipe } from './pages/customers/customers.filter.pipe';
 import { ProductsFilterPipe } from './pages/shop/products.filter.pipe';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { CustomersListComponent } from './pages/customers-list/customers-list.component';
@@ -34,7 +33,6 @@ declare global {
     DashboardComponent,
     CustomersComponent,
     NavComponent,
-    CustomersFilterPipe,
     ProductsFilterPipe,
     ProfileComponent,
     CustomersListComponent,

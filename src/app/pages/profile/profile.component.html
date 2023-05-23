@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-3">
                         <small class="d-block text-muted">Location</small>
-                        <span>{{customer?.default_address?.country}}</span>
+                        <span>{{customer?.city}} {{customer?.province_code}}{{customer?.country_name ? ', '+customer?.country_name : ''}}</span>
                     </div>
                     <div class="col-4">
                         <small class="d-block text-muted">Phone number</small>
@@ -74,7 +74,7 @@
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Body measurements</span>
-                                                        <small class="text-muted">Updated {{ metafields.value['body_measurements'].lastUpdate | date }}</small>
+                                                        <small class="text-muted">Updated {{ metafields.value.body_measurements['lastUpdate'] | date }}</small>
                                                     </div>
                                                     
                                                     <div class="mb-3" *ngFor="let ms of measurementKeys">
@@ -85,7 +85,7 @@
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Final garment</span>
-                                                        <small class="text-muted">Updated {{ metafields.value['final_garment'].lastUpdate | date }}</small>
+                                                        <small class="text-muted">Updated {{ metafields.value.final_garment['lastUpdate'] | date }}</small>
                                                     </div>
                                                     
                                                     <div class="mb-3" *ngFor="let ms of measurementKeys">

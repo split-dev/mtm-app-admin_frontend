@@ -2,7 +2,7 @@
 
 <div class="row mt-3">
     <div class="col-6">
-        <input type="search" class="form-control form-control-lg" [(ngModel)]="searchCustomers" placeholder="Start typing to find your item...">
+        <input type="search" class="form-control form-control-lg" [(ngModel)]="searchCustomers" (ngModelChange)="onSearchChange()" placeholder="Start typing to find your item...">
     </div>
 </div>
 <div class="row mt-3">
@@ -20,10 +20,10 @@
                     </thead>
                     <ng-container *ngIf="customers?.length && customersLoaded; else placeholder">
                         <tbody>
-                            <tr *ngFor="let customer of customers | filter: searchCustomers" (click)="openProfile(customer.id)">
+                            <tr *ngFor="let customer of customers" (click)="openProfile(customer.id)">
                                 <td>{{customer.first_name}} {{customer.last_name}}</td>
                                 <td>{{customer.email}}</td>
-                                <td>{{customer.default_address?.country}}</td>
+                                <td>{{customer.city}} {{customer.province_code}}{{customer.country_name ? ', '+customer.country_name : ''}}</td>
                                 <td>{{customer.phone}}</td>
                             </tr>
                         </tbody>

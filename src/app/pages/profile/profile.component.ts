@@ -16,29 +16,29 @@ export class ProfileComponent {
   customer: Customer | undefined = undefined;
   defaultMeasurementsObj = {
     lastUpdate: new Date(),
-    "chest": 'null',
-    "stomach": 'null',
-    "hips": 'null',
-    "sleeve_length": 'null',
-    "back_length": 'null',
-    "front_length": 'null',
-    "accross_shoulders": 'null',
-    "front_shoulder": 'null',
-    "nape_to_waist": 'null',
-    "front_shoulder_to_waist": 'null',
-    "bicep": 'null',
-    "cuff": 'null',
-    "neck": 'null',
-    "waist": 'null',
-    "seat": 'null',
-    "outleg": 'null',
-    "inleg": 'null',
-    "thigh": 'null',
-    "knee": 'null',
-    "front_waist_height": 'null',
-    "back_waist_height": 'null',
-    "front_rise": 'null',
-    "back_rise": 'null'
+    "chest": '0',
+    "stomach": '0',
+    "hips": '0',
+    "sleeve_length": '0',
+    "back_length": '0',
+    "front_length": '0',
+    "accross_shoulders": '0',
+    "front_shoulder": '0',
+    "nape_to_waist": '0',
+    "front_shoulder_to_waist": '0',
+    "bicep": '0',
+    "cuff": '0',
+    "neck": '0',
+    "waist": '0',
+    "seat": '0',
+    "outleg": '0',
+    "inleg": '0',
+    "thigh": '0',
+    "knee": '0',
+    "front_waist_height": '0',
+    "back_waist_height": '0',
+    "front_rise": '0',
+    "back_rise": '0'
   };
   metafields: CustomerMetafields = {
     type: 'json',
@@ -91,6 +91,17 @@ export class ProfileComponent {
               console.log('create res', res);
               this.metafields.id = res.data.id;
             });
+          } else {
+            Object.keys(this.metafields.value.body_measurements).forEach((key) => {
+              if (this.metafields.value.body_measurements[key][0] && typeof this.metafields.value.body_measurements[key] === 'object') {
+                  this.metafields.value.body_measurements[key] = this.metafields.value.body_measurements[key].shift()
+              }
+            });
+            Object.keys(this.metafields.value.final_garment).forEach((key) => {
+              if (this.metafields.value.final_garment[key][0] && typeof this.metafields.value.final_garment[key] === 'object') {
+                  this.metafields.value.final_garment[key] = this.metafields.value.final_garment[key].shift()
+              }
+            });
           }
         });
     }
@@ -118,6 +129,7 @@ export class ProfileComponent {
       console.log('upload res', res);
       if (res.data?.url?.length) {
         this.metafields.value.additional_info['images'].fullBodyPhotos.push(res.data.url);
+        this.updateMetafieldsValue();
       }
     });
   }

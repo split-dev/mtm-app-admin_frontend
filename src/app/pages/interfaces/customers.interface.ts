@@ -21,6 +21,9 @@ export interface Customer {
   email: string | null; 
   accepts_marketing: boolean | null; 
   created_at: string; 
+  city: string; 
+  province_code: string; 
+  country_name: string; 
   updated_at: string; 
   first_name: string | null; 
   last_name: string | null; 
@@ -43,7 +46,13 @@ export interface CustomerMetafields {
     [key: string]: any,
     additional_info: {
       [key: string]: any
-    }
+    },
+    body_measurements: {
+      [key: string]: any
+    },
+    final_garment: {
+      [key: string]: any
+    },
   },
   owner_resource: string | null,
   owner_id: string | null
