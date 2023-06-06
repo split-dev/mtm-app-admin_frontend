@@ -17,7 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
           'X-AuthToken': token
         }
       });
-      console.log(request);
     }
 
     return next.handle(request);

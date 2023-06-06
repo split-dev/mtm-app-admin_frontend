@@ -6,7 +6,18 @@
         }
     }
 
+    .page-item {
+    }
     .page-link {
-        cursor: pointer
+        cursor: pointer;
+        border-color: #367B5F;
+        background-color: #367B5F;
+        color: white;
+        font-weight: 600;
+        &:hover,
+        &:focus,
+        &:active {
+            color: #000;
+        }
     }
 }
