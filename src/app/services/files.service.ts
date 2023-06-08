@@ -23,4 +23,14 @@ export class FilesService {
         return throwError(error);
       }));
   }
+
+  deleteImage(id: number) {
+   return this.http.delete(`${this.apiUrl}/${id}`)
+      .pipe(catchError((error) => {
+        if (error.status === 403) {
+          this.authService.logout();
+        }
+        return throwError(error);
+      }));
+  }
 }

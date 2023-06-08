@@ -43,4 +43,38 @@
             cursor: pointer;
         }
     }
+    .image-container {
+        position: relative;
+        BUTTON {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        &:hover {
+            BUTTON {
+                display: block;
+            }
+        }
+        .dropdown {
+            position: absolute;
+            top: 0;
+            right: 0;
+            BUTTON {
+                display: block;
+                background-color: rgba(255, 255, 255, 0.8);
+                position: static;
+                transform: none;
+                border: 0 !important;
+                &:hover, &:active, &:focus {
+                    background-color: white;
+                    border: 0 !important
+                }
+            }
+            SPAN {
+                cursor: pointer;
+            }
+        }
+    }
 }

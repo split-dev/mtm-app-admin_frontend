@@ -16,29 +16,29 @@ export class ProfileComponent {
   customer: Customer | undefined = undefined;
   defaultMeasurementsObj = {
     lastUpdate: new Date(),
-    "chest": '',
-    "stomach": '',
-    "hips": '',
-    "sleeve_length": '',
-    "back_length": '',
-    "front_length": '',
-    "accross_shoulders": '',
-    "front_shoulder": '',
-    "nape_to_waist": '',
-    "front_shoulder_to_waist": '',
-    "bicep": '',
-    "cuff": '',
-    "neck": '',
-    "waist": '',
-    "seat": '',
-    "outleg": '',
-    "inleg": '',
-    "thigh": '',
-    "knee": '',
-    "front_waist_height": '',
-    "back_waist_height": '',
-    "front_rise": '',
-    "back_rise": ''
+    "chest": '0',
+    "stomach": '0',
+    "hips": '0',
+    "sleeve_length": '0',
+    "back_length": '0',
+    "front_length": '0',
+    "accross_shoulders": '0',
+    "front_shoulder": '0',
+    "nape_to_waist": '0',
+    "front_shoulder_to_waist": '0',
+    "bicep": '0',
+    "cuff": '0',
+    "neck": '0',
+    "waist": '0',
+    "seat": '0',
+    "outleg": '0',
+    "inleg": '0',
+    "thigh": '0',
+    "knee": '0',
+    "front_waist_height": '0',
+    "back_waist_height": '0',
+    "front_rise": '0',
+    "back_rise": '0'
   };
   metafields: CustomerMetafields = {
     type: 'json',
@@ -46,14 +46,11 @@ export class ProfileComponent {
     key: "measurements",
     value: {
       additional_info: {
-        height: "",
-        fit: "",
+        height: '0',
+        fit: '0',
         images: {
           "fullBodyPhotos": [],
-          "inspirationImages":[{
-              "url": "",
-              "description": ""
-          }]
+          "inspirationImages":[]
         }
       },
       body_measurements: {...this.defaultMeasurementsObj},
@@ -64,6 +61,7 @@ export class ProfileComponent {
   };
   measurementKeys: string[] = Object.keys(this.defaultMeasurementsObj).filter(k => k !== 'lastUpdate');
   productSuitTypes: suitType[] = ['blazer', '2-piece suit', '3-piece suit', '2-trouser suit', '2-piece formal', '3-piece formal', 'overcoat', 'trouser'];
+  editingImageId: number | null = null;
 
   constructor(
     private metafieldsService: MetafieldsService, 
@@ -107,6 +105,10 @@ export class ProfileComponent {
     }
   }
 
+  updateMetafield(ev: any, group: any, value: any) {
+    this.metafields.value[group][value] = ev;
+  }
+
   updateMetafieldsValue() {
     this.metafieldsService.updateCustomerMetafields(this.metafields).subscribe((res) => {
       console.info('update res', res);
@@ -128,9 +130,55 @@ export class ProfileComponent {
     this.filesService.uploadImage(formdata).subscribe(res => {
       console.log('upload res', res);
       if (res.data?.url?.length) {
-        this.metafields.value.additional_info['images'].fullBodyPhotos.push(res.data.url);
+        this.metafields.value.additional_info['images'].fullBodyPhotos.push({
+          id: +res.data.shortId,
+          url: res.data.url
+        });
         this.updateMetafieldsValue();
       }
+    });
+  }
+
+  selectedInspirationPhoto(event: any) {
+    const files = event.target.files;    
+    const formdata = new FormData();
+
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      formdata.append('file', file, file.name);
+    }
+
+    console.log('formdata', formdata.getAll('file'));
+
+    this.filesService.uploadImage(formdata).subscribe(res => {
+      console.log('upload res', res);
+      if (res.data?.url?.length) {
+        this.metafields.value.additional_info['images'].inspirationImages.push({
+          id: +res.data.shortId,
+          url: res.data.url,
+          description: ''
+        });
+        this.updateMetafieldsValue();
+      }
+    });
+  }
+
+  setEditingPhoto(i: number) {
+    this.editingImageId = i;
+  }
+
+  updateImageDescription(ev: any, id: number) {
+    this.metafields.value.additional_info['images'].inspirationImages[id].description = ev.target.value;
+    this.updateMetafieldsValue();
+  }
+
+  deleteImage(id: number, group: string) {
+    this.filesService.deleteImage(id).subscribe(res => {
+      console.log('delete res', res);
+      this.metafields.value.additional_info['images'][group] = this.metafields.value.additional_info['images'][group].filter((img: any) => img.id !== id);
+
+      this.updateMetafieldsValue();
     });
   }
 }
