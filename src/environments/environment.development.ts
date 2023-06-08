@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiHost: 'https://yyuwtjvww9.execute-api.eu-north-1.amazonaws.com/dev/api/v1',
+    apiHost: 'https://nn18txbxlk.execute-api.eu-north-1.amazonaws.com/dev/api/v1',
     authEndpoint: '/sessions',
     customersEndpoint: '/customers',
     productsEndpoint: '/products',

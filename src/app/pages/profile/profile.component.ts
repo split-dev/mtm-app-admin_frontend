@@ -16,29 +16,29 @@ export class ProfileComponent {
   customer: Customer | undefined = undefined;
   defaultMeasurementsObj = {
     lastUpdate: new Date(),
-    "chest": '0',
-    "stomach": '0',
-    "hips": '0',
-    "sleeve_length": '0',
-    "back_length": '0',
-    "front_length": '0',
-    "accross_shoulders": '0',
-    "front_shoulder": '0',
-    "nape_to_waist": '0',
-    "front_shoulder_to_waist": '0',
-    "bicep": '0',
-    "cuff": '0',
-    "neck": '0',
-    "waist": '0',
-    "seat": '0',
-    "outleg": '0',
-    "inleg": '0',
-    "thigh": '0',
-    "knee": '0',
-    "front_waist_height": '0',
-    "back_waist_height": '0',
-    "front_rise": '0',
-    "back_rise": '0'
+    "chest": '',
+    "stomach": '',
+    "hips": '',
+    "sleeve_length": '',
+    "back_length": '',
+    "front_length": '',
+    "accross_shoulders": '',
+    "front_shoulder": '',
+    "nape_to_waist": '',
+    "front_shoulder_to_waist": '',
+    "bicep": '',
+    "cuff": '',
+    "neck": '',
+    "waist": '',
+    "seat": '',
+    "outleg": '',
+    "inleg": '',
+    "thigh": '',
+    "knee": '',
+    "front_waist_height": '',
+    "back_waist_height": '',
+    "front_rise": '',
+    "back_rise": ''
   };
   metafields: CustomerMetafields = {
     type: 'json',
@@ -46,8 +46,8 @@ export class ProfileComponent {
     key: "measurements",
     value: {
       additional_info: {
-        height: "0",
-        fit: "0",
+        height: "",
+        fit: "",
         images: {
           "fullBodyPhotos": [],
           "inspirationImages":[{

@@ -40,17 +40,17 @@
                 <div class="row">
                     <div class="col-6">
                         <label for="customerHeight"  class="form-label text-muted">Height</label>
-                        <input type="text" placeholder="" id="customerHeight" (blur)="updateMetafieldsValue()" [(ngModel)]="metafields.value.additional_info['height']"  class="form-control">
+                        <input type="text" placeholder="No value" id="customerHeight" (blur)="updateMetafieldsValue()" [(ngModel)]="metafields.value.additional_info['height']"  class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="customerFit"  class="form-label text-muted">Preferred fit</label>
-                        <input type="text" placeholder="" id="customerFit" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value.additional_info['fit']">
+                        <input type="text" placeholder="No value" id="customerFit" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value.additional_info['fit']">
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <label for="customerNotes" class="form-label text-muted">Notes</label>
-                        <textarea id="customerNotes" cols="30" rows="5" class="form-control"  [value]=""></textarea>
+                        <textarea id="customerNotes" cols="30" rows="5" class="form-control" placeholder="No value" [value]=""></textarea>
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -79,7 +79,7 @@
                                                     
                                                     <div class="mb-3" *ngFor="let ms of measurementKeys">
                                                         <label for="{{ ms.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted text-capitalize">{{ms.replaceAll('_', ' ')}}</label>
-                                                        <input type="text" placeholder="" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value['body_measurements'][ms]">
+                                                        <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value['body_measurements'][ms]">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -90,7 +90,7 @@
                                                     
                                                     <div class="mb-3" *ngFor="let ms of measurementKeys">
                                                         <label for="{{ ms.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted text-capitalize">{{ms.replaceAll('_', ' ')}}</label>
-                                                        <input type="text" placeholder="" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value['final_garment'][ms]">
+                                                        <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" (blur)="updateMetafieldsValue()" class="form-control" [(ngModel)]="metafields.value['final_garment'][ms]">
                                                     </div>
                                                 </div>
                                             </div>
