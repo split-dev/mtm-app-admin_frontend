@@ -40,11 +40,17 @@
                 <div class="row">
                     <div class="col-6">
                         <label for="customerHeight"  class="form-label text-muted">Height</label>
-                        <input type="text" placeholder="No value" id="customerHeight" (blur)="updateMetafieldsValue()" (ngModelChange)="updateMetafield($event, 'additional_info', 'height')" [ngModel]="+metafields.value.additional_info['height'] || ''" class="form-control">
+                        <input type="text" placeholder="No value" id="customerHeight" 
+                            (ngModelChange)="updateMetafield($event, 'additional_info', 'height')" 
+                            [ngModel]="metafields.value.additional_info['height'] !== '0' ? metafields.value.additional_info['height'] : ''" 
+                            class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="customerFit"  class="form-label text-muted">Preferred fit</label>
-                        <input type="text" placeholder="No value" id="customerFit" (blur)="updateMetafieldsValue()" class="form-control" (ngModelChange)="updateMetafield($event, 'additional_info', 'fit')" [ngModel]="+metafields.value.additional_info['fit'] || ''">
+                        <input type="text" placeholder="No value" id="customerFit" 
+                            class="form-control" 
+                            (ngModelChange)="updateMetafield($event, 'additional_info', 'fit')" 
+                            [ngModel]="metafields.value.additional_info['fit'] !== '0' ? metafields.value.additional_info['fit'] : ''">
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -79,7 +85,10 @@
                                                     
                                                     <div class="mb-3" *ngFor="let ms of measurementKeys">
                                                         <label for="{{ ms.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted text-capitalize">{{ms.replaceAll('_', ' ')}}</label>
-                                                        <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" (blur)="updateMetafieldsValue()" class="form-control" (ngModelChange)="updateMetafield($event, 'body_measurements', ms)" [ngModel]="+metafields.value.body_measurements[ms] || ''">
+                                                        <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" 
+                                                            class="form-control" 
+                                                            (ngModelChange)="updateMetafield($event, 'body_measurements', ms)" 
+                                                            [ngModel]="metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] : ''">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -90,7 +99,10 @@
                                                     
                                                     <div class="mb-3" *ngFor="let ms of measurementKeys">
                                                         <label for="{{ ms.replaceAll(' ', '') }}_{{suit}}" class="form-label text-muted text-capitalize">{{ms.replaceAll('_', ' ')}}</label>
-                                                        <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" (blur)="updateMetafieldsValue()" class="form-control" (ngModelChange)="updateMetafield($event, 'final_garment', ms)" [ngModel]="+metafields.value.final_garment[ms] || ''">
+                                                        <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}_{{suit}}" 
+                                                            class="form-control" 
+                                                            (ngModelChange)="updateMetafield($event, 'final_garment', ms)" 
+                                                            [ngModel]="metafields.value.final_garment[ms] !== '0' ? metafields.value.final_garment[ms] : ''">
                                                     </div>
                                                 </div>
                                             </div>

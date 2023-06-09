@@ -5,6 +5,8 @@ import { FilesService } from 'src/app/services/files.service';
 import { MetafieldsService } from 'src/app/services/metafields.service';
 import { Customer, CustomerMetafields } from '../interfaces/customers.interface';
 import { suitType } from '../interfaces/products.interface';
+import { debounceTime } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +14,7 @@ import { suitType } from '../interfaces/products.interface';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+  private debounceSubject = new Subject<string>();
   customerId: string | null = '';
   customer: Customer | undefined = undefined;
   defaultMeasurementsObj = {
@@ -103,10 +106,21 @@ export class ProfileComponent {
           }
         });
     }
+
+    this.debounceSubject.pipe(
+      debounceTime(500)
+    ).subscribe(value => {
+      this.updateMetafieldsValue();
+    });
+  }
+
+  ngOnDestroy() {
+    this.debounceSubject.unsubscribe();
   }
 
   updateMetafield(ev: any, group: any, value: any) {
     this.metafields.value[group][value] = ev;
+    this.debounceSubject.next(value);
   }
 
   updateMetafieldsValue() {
