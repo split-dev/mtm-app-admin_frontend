@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 })
 export class ProfileComponent {
   private debounceSubject = new Subject<string>();
+  private debounceText = new Subject<string>();
   customerId: string | null = '';
   customer: Customer | undefined = undefined;
   defaultMeasurementsObj = {
@@ -112,20 +113,40 @@ export class ProfileComponent {
     ).subscribe(value => {
       this.updateMetafieldsValue();
     });
+    this.debounceText.pipe(
+      debounceTime(500)
+    ).subscribe(value => {
+      this.updateCustomer();
+    });
   }
 
   ngOnDestroy() {
     this.debounceSubject.unsubscribe();
+    this.debounceText.unsubscribe();
   }
 
   updateMetafield(ev: any, group: any, value: any) {
     this.metafields.value[group][value] = ev;
-    this.debounceSubject.next(value);
+    this.debounceSubject.next(ev);
+  }
+
+  updateNote(ev: any) {
+    if (!this.customer) return;
+    this.customer.note = ev;
+    this.debounceText.next(ev);
   }
 
   updateMetafieldsValue() {
     this.metafieldsService.updateCustomerMetafields(this.metafields).subscribe((res) => {
       console.info('update res', res);
+    });
+  }
+
+  updateCustomer() {
+    if (!(this.customerId && this.customer)) return;
+
+    this.customerService.setCustomer(this.customerId, this.customer).subscribe((res) => {
+      console.info('update customer', res);
     });
   }
 

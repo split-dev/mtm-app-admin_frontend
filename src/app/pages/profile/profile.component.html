@@ -56,7 +56,10 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <label for="customerNotes" class="form-label text-muted">Notes</label>
-                        <textarea id="customerNotes" cols="30" rows="5" class="form-control" placeholder="No value" [value]=""></textarea>
+                        <textarea id="customerNotes" cols="30" rows="5" class="form-control" placeholder="No value" 
+                            [ngModel]="this.customer?.note || ''"
+                            (ngModelChange)="updateNote($event)"
+                            ></textarea>
                     </div>
                 </div>
                 <div class="row mt-4">

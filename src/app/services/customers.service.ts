@@ -32,4 +32,12 @@ export class CustomersService {
       return throwError(error);
     }));
   }
+  setCustomer(id: string, data: Object) {
+    return this.http.put<CustomerResponse>(`${this.apiUrl}/${id}`, { data }).pipe(catchError((error) => {
+      if (error.status === 403) {
+        this.authService.logout();
+      }
+      return throwError(error);
+    }));
+  }
 }
