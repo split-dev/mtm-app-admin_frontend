@@ -66,6 +66,7 @@ export class ProfileComponent {
   measurementKeys: string[] = Object.keys(this.defaultMeasurementsObj).filter(k => k !== 'lastUpdate');
   productSuitTypes: suitType[] = ['blazer', '2-piece suit', '3-piece suit', '2-trouser suit', '2-piece formal', '3-piece formal', 'overcoat', 'trouser'];
   editingImageId: number | null = null;
+  photoId: number | null = null;
 
   constructor(
     private metafieldsService: MetafieldsService, 
@@ -201,6 +202,9 @@ export class ProfileComponent {
 
   setEditingPhoto(i: number) {
     this.editingImageId = i;
+  }
+  setOpenBodyPhoto(i: number) {
+    this.photoId = i;
   }
 
   updateImageDescription(ev: any, id: number) {

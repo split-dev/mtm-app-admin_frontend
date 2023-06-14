@@ -129,9 +129,13 @@
         </span>
         
         <div class="d-flex" *ngIf="metafields.value['additional_info']['images'].fullBodyPhotos[0]?.url; else noBodyPhotos">
-            <div class="image-container me-2" *ngFor="let photo of metafields.value['additional_info']['images'].fullBodyPhotos">
-                <img [src]="photo.url" width="132" height="132" class="rounded img-thumbnail" alt="">
-                <button type="button" class="btn btn-sm btn-danger" (click)="deleteImage(+photo.id, 'fullBodyPhotos')">Delete</button>
+            <div class="image-container me-2" *ngFor="let photo of metafields.value['additional_info']['images'].fullBodyPhotos; let i = index">
+                <img data-bs-toggle="modal" data-bs-target="#openPhoto" (click)="setOpenBodyPhoto(i)" [src]="photo.url" width="132" height="132" class="rounded img-thumbnail" alt="">
+                <button type="button" class="btn btn-sm btn-danger" (click)="deleteImage(+photo.id, 'fullBodyPhotos')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                      </svg>
+                </button>
             </div>
         </div>
         <ng-template #noBodyPhotos>
@@ -153,7 +157,7 @@
         </span>
         <div class="d-flex" *ngIf="metafields.value['additional_info']['images'].inspirationImages[0]?.url; else noInspPhotos">
             <div class="image-container me-2" *ngFor="let photo of metafields.value['additional_info']['images'].inspirationImages; let i = index">
-                <img [src]="photo.url" width="132" height="132" class="rounded img-thumbnail" [alt]="photo.description">
+                <img data-bs-toggle="modal" data-bs-target="#editDescription" (click)="setEditingPhoto(i)" [src]="photo.url" width="132" height="132" class="rounded img-thumbnail" [alt]="photo.description">
                 <div class="dropdown">
                     <button type="button" class="btn btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
@@ -161,11 +165,11 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li><span class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editDescription" (click)="setEditingPhoto(i)">Edit description</span></li>
+                        <li><span class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editDescription" (click)="setEditingPhoto(i)">Open</span></li>
                         <li><span class="dropdown-item" (click)="deleteImage(+photo.id, 'inspirationImages')">Delete</span></li>
                     </ul>
                 </div>
-                <small class="d-block text-muted">{{photo.description}}</small>
+                <small class="d-block text-muted" [title]="photo.description">{{ (photo.description | slice:0:80) + (photo.description.length > 80 ? '...' : '') }}</small>
             </div>
         </div>
         <ng-template #noInspPhotos>
@@ -186,11 +190,27 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editDescriptionLabel">Image description</h5>
+          <h5 class="modal-title" id="editDescriptionLabel">Inspiration Image</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" *ngIf="editingImageId !== null">
+            <img class="mb-3" [src]="metafields.value.additional_info['images'].inspirationImages[editingImageId].url" width="100%" height="auto" alt="">
             <input class="form-control" type="text" placeholder="No value" [value]="metafields.value.additional_info['images'].inspirationImages[editingImageId].description" (change)="updateImageDescription($event, editingImageId)">
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="openPhoto" tabindex="-1" aria-labelledby="openPhotoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="openPhotoLabel">Photo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" *ngIf="photoId !== null">
+            <img class="mb-3" [src]="metafields.value['additional_info']['images'].fullBodyPhotos[photoId]?.url" width="100%" height="auto" alt="">
         </div>
       </div>
     </div>

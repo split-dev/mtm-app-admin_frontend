@@ -45,12 +45,16 @@
     }
     .image-container {
         position: relative;
+        max-width: 140px;
+        IMG {
+            min-width: 132px;
+            cursor: pointer;
+        }
         BUTTON {
             display: none;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            right: 0;
         }
         &:hover {
             BUTTON {
