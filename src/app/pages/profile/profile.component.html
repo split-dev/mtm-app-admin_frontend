@@ -83,7 +83,7 @@
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Body measurements</span>
-                                                        <small class="text-muted">Updated {{ metafields.value.body_measurements['lastUpdate'] | date }}</small>
+                                                        <small class="text-muted">Updated {{ lastUpdatedBodyMeasurements$ | date: 'dd MMMM yyyy' }}</small>
                                                     </div>
                                                     
                                                     <div class="mb-3" *ngFor="let ms of measurementKeys">
@@ -97,7 +97,7 @@
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Final garment</span>
-                                                        <small class="text-muted">Updated {{ metafields.value.final_garment['lastUpdate'] | date }}</small>
+                                                        <small class="text-muted">Updated {{ lastUpdatedFinalGarment$ | date: 'dd MMMM yyyy' }}</small>
                                                     </div>
                                                     
                                                     <div class="mb-3" *ngFor="let ms of measurementKeys">

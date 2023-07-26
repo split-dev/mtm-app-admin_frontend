@@ -6,7 +6,7 @@ import { MetafieldsService } from 'src/app/services/metafields.service';
 import { Customer, CustomerMetafields } from '../interfaces/customers.interface';
 import { suitType } from '../interfaces/products.interface';
 import { debounceTime } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -67,6 +67,8 @@ export class ProfileComponent {
   productSuitTypes: suitType[] = ['blazer', '2-piece suit', '3-piece suit', '2-trouser suit', '2-piece formal', '3-piece formal', 'overcoat', 'trouser'];
   editingImageId: number | null = null;
   photoId: number | null = null;
+  lastUpdatedBodyMeasurements$: string | undefined;
+  lastUpdatedFinalGarment$: string | undefined;
 
   constructor(
     private metafieldsService: MetafieldsService, 
@@ -76,37 +78,40 @@ export class ProfileComponent {
 
   ngOnInit() {
     this.customerId = this.route.snapshot.paramMap.get('id');
-
+    
     if (this.customerId) {
       this.customerService.getCustomer(this.customerId)
         .subscribe((res) => {
           this.customer = res.data;
         });
 
-        this.metafieldsService.getCustomerMetafields(this.customerId).subscribe((res) => {
-          this.metafields = (res.data && res.data.id) ? res.data : this.metafields;
-          this.metafields.owner_id = this.customerId;
+      this.metafieldsService.getCustomerMetafields(this.customerId).subscribe((res) => {
+        this.metafields = (res.data && res.data.id) ? res.data : this.metafields;
+        this.metafields.owner_id = this.customerId;
 
-          console.log('get res', res.data);
-          
-          if (!res.data.id) {
-            this.metafieldsService.createCustomerMetafields(this.metafields).subscribe((res) => {
-              console.log('create res', res);
-              this.metafields.id = res.data.id;
-            });
-          } else {
-            Object.keys(this.metafields.value.body_measurements).forEach((key) => {
-              if (this.metafields.value.body_measurements[key][0] && typeof this.metafields.value.body_measurements[key] === 'object') {
-                  this.metafields.value.body_measurements[key] = this.metafields.value.body_measurements[key].shift()
-              }
-            });
-            Object.keys(this.metafields.value.final_garment).forEach((key) => {
-              if (this.metafields.value.final_garment[key][0] && typeof this.metafields.value.final_garment[key] === 'object') {
-                  this.metafields.value.final_garment[key] = this.metafields.value.final_garment[key].shift()
-              }
-            });
-          }
-        });
+        console.log('get res', res.data);
+        
+        if (!res.data.id) {
+          this.metafieldsService.createCustomerMetafields(this.metafields).subscribe((res) => {
+            console.log('create res', res);
+            this.metafields.id = res.data.id;
+          });
+        } else {
+          Object.keys(this.metafields.value.body_measurements).forEach((key) => {
+            if (this.metafields.value.body_measurements[key][0] && typeof this.metafields.value.body_measurements[key] === 'object') {
+                this.metafields.value.body_measurements[key] = this.metafields.value.body_measurements[key].shift()
+            }
+          });
+          Object.keys(this.metafields.value.final_garment).forEach((key) => {
+            if (this.metafields.value.final_garment[key][0] && typeof this.metafields.value.final_garment[key] === 'object') {
+                this.metafields.value.final_garment[key] = this.metafields.value.final_garment[key].shift()
+            }
+          });
+        }
+
+        this.lastUpdatedBodyMeasurements$ = this.metafields.value.body_measurements['lastUpdate'];
+        this.lastUpdatedFinalGarment$ = this.metafields.value.final_garment['lastUpdate'];
+      });
     }
 
     this.debounceSubject.pipe(
@@ -127,7 +132,9 @@ export class ProfileComponent {
   }
 
   updateMetafield(ev: any, group: any, value: any) {
-    this.metafields.value[group][value] = ev;
+    const val = ev.length > 0 ? ev : '0';
+
+    this.metafields.value[group][value] = val;
     this.debounceSubject.next(ev);
   }
 
@@ -140,6 +147,13 @@ export class ProfileComponent {
   updateMetafieldsValue() {
     this.metafieldsService.updateCustomerMetafields(this.metafields).subscribe((res) => {
       console.info('update res', res);
+      
+      if (res.data?.value?.length > 0) {
+        const resJson = JSON.parse(res.data.value);
+
+        this.lastUpdatedBodyMeasurements$ = resJson.body_measurements['lastUpdate'];
+        this.lastUpdatedFinalGarment$ = resJson.final_garment['lastUpdate'];
+      }
     });
   }
 
