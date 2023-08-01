@@ -2,7 +2,8 @@
     .customer-images-lists {
         img {
             max-height: 132px;
-            object-fit: contain;
+            min-height: 132px;
+            object-fit: cover;
         }
     }
     .collapseMeasurements {

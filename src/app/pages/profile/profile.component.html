@@ -4,48 +4,48 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="card">
             <div class="card-body">
                 <h4>Account info</h4>
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-12 col-md-5">
                         <small class="d-block text-muted">First name</small>
                         <span>{{customer?.first_name}}</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-12 col-md-7">
                         <small class="d-block text-muted">Last name</small>
                         <span>{{customer?.last_name}}</span>
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-5">
+                    <div class="col-12 col-md-5">
                         <small class="d-block text-muted">E-mail address</small>
                         <span>{{customer?.email}}</span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-12 col-md-3">
                         <small class="d-block text-muted">Location</small>
                         <span>{{customer?.city}} {{customer?.province_code}}{{customer?.country_name ? ', '+customer?.country_name : ''}}</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <small class="d-block text-muted">Phone number</small>
                         <span>{{customer?.phone || '-'}}</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card mt-4">
+        <div class="card mt-4 mb-4">
             <div class="card-body">
                 <h4>Fashion info</h4>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <label for="customerHeight"  class="form-label text-muted">Height</label>
                         <input type="text" placeholder="No value" id="customerHeight" 
                             (ngModelChange)="updateMetafield($event, 'additional_info', 'height')" 
                             [ngModel]="metafields.value.additional_info['height'] !== '0' ? metafields.value.additional_info['height'] : ''" 
                             class="form-control">
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <label for="customerFit"  class="form-label text-muted">Preferred fit</label>
                         <input type="text" placeholder="No value" id="customerFit" 
                             class="form-control" 
@@ -69,18 +69,18 @@
                         </a>
                         <div class="collapse collapseMeasurements mt-4" id="collapseMeasurements">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-12 col-md-4 mb-4">
                                     <nav class="nav nav-pills-vertical flex-column">
                                         <a class="nav-link ps-0 {{(i ===0 ) ? 'active' : ''}}" data-bs-toggle="tab" *ngFor="let suit of productSuitTypes; let i = index" attr.data-bs-target="#suit-{{suit.replaceAll(' ', '')}}" href="#">
                                             <span>{{suit}}</span>
                                         </a>
                                     </nav>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-12 col-md-8">
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane fade {{(i === 0 ) ? 'active show' : ''}}" *ngFor="let suit of productSuitTypes; let i = index" id="suit-{{suit.replaceAll(' ', '')}}" role="tabpanel">
                                             <div class="row" *ngIf="metafields.value">
-                                                <div class="col-6">
+                                                <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Body measurements</span>
                                                         <small class="text-muted">Updated {{ lastUpdatedBodyMeasurements$ | date: 'dd MMMM yyyy' }}</small>
@@ -94,7 +94,7 @@
                                                             [ngModel]="metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] : ''">
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <span class="d-block">Final garment</span>
                                                         <small class="text-muted">Updated {{ lastUpdatedFinalGarment$ | date: 'dd MMMM yyyy' }}</small>
@@ -119,8 +119,8 @@
             </div>
         </div>
     </div>
-    <div class="col-6 customer-images-lists">
-        <span class="d-flex align-items-center text-muted">
+    <div class="col-12 col-md-6 customer-images-lists">
+        <span class="d-flex align-items-center text-muted mb-3">
             <span>Full body photos</span>
             <div class="ms-3 photoUpload">
                 <label for="addBodyPhoto" class="form-label">+</label>
@@ -128,9 +128,9 @@
             </div>
         </span>
         
-        <div class="d-flex" *ngIf="metafields.value['additional_info']['images'].fullBodyPhotos[0]?.url; else noBodyPhotos">
+        <div class="d-flex flex-wrap" *ngIf="metafields.value['additional_info']['images'].fullBodyPhotos[0]?.url; else noBodyPhotos">
             <div class="image-container me-2" *ngFor="let photo of metafields.value['additional_info']['images'].fullBodyPhotos; let i = index">
-                <img data-bs-toggle="modal" data-bs-target="#openPhoto" (click)="setOpenBodyPhoto(i)" [src]="photo.url" width="132" height="132" class="rounded img-thumbnail" alt="">
+                <img data-bs-toggle="modal" data-bs-target="#openPhoto" (click)="setOpenBodyPhoto(i)" [ngSrc]="photo.url" width="132" height="132" class="rounded img-thumbnail" alt="">
                 <button type="button" class="btn btn-sm btn-danger" (click)="deleteImage(+photo.id, 'fullBodyPhotos')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                         <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -148,14 +148,14 @@
             </div>
         </ng-template>
         
-        <span class="d-flex align-items-center text-muted mt-5">
+        <span class="d-flex align-items-center text-muted mt-5 mb-3">
             <span>Inspiration Images</span>
             <div class="ms-3 photoUpload">
                 <label for="addInspirationPhoto" class="form-label">+</label>
                 <input class="form-control form-control-sm" id="addInspirationPhoto" type="file" (change)="selectedInspirationPhoto($event)">
             </div>
         </span>
-        <div class="d-flex" *ngIf="metafields.value['additional_info']['images'].inspirationImages[0]?.url; else noInspPhotos">
+        <div class="d-flex flex-wrap" *ngIf="metafields.value['additional_info']['images'].inspirationImages[0]?.url; else noInspPhotos">
             <div class="image-container me-2" *ngFor="let photo of metafields.value['additional_info']['images'].inspirationImages; let i = index">
                 <img data-bs-toggle="modal" data-bs-target="#editDescription" (click)="setEditingPhoto(i)" [src]="photo.url" width="132" height="132" class="rounded img-thumbnail" [alt]="photo.description">
                 <div class="dropdown">

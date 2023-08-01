@@ -6,7 +6,8 @@ import { MetafieldsService } from 'src/app/services/metafields.service';
 import { Customer, CustomerMetafields } from '../interfaces/customers.interface';
 import { suitType } from '../interfaces/products.interface';
 import { debounceTime } from 'rxjs/operators';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { throwError, Observable, Subject, of, timer } from 'rxjs';
+import { catchError, takeWhile, delay, retry, concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,7 @@ export class ProfileComponent {
   private debounceText = new Subject<string>();
   customerId: string | null = '';
   customer: Customer | undefined = undefined;
+  IMG_WAIT_DELAY: number = 1000;
   defaultMeasurementsObj = {
     lastUpdate: new Date(),
     "chest": '0',
@@ -168,21 +170,34 @@ export class ProfileComponent {
   selectedBodyPhotos(event: any) {
     const files = event.target.files;    
     const formdata = new FormData();
-
+  
     if (files && files.length > 0) {
       const file = files[0];
 
       formdata.append('file', file, file.name);
     }
+    
+    this.filesService.uploadImage(formdata).pipe(
+      concatMap((res) => {
+        if (res.data?.url?.length) {
+          return timer(this.IMG_WAIT_DELAY).pipe(
+            concatMap(() => this.filesService.checkImageAvailability(res.data.url, res.data.shortId))
+          );
+        } else {
+          return of(null);
+        }
+      }),
+      takeWhile((response: any) => {console.log(response);return response !== null && response.status !== 200}, true),
+      catchError((error) => {
+        console.log('Error:', error);
 
-    console.log('formdata', formdata.getAll('file'));
-
-    this.filesService.uploadImage(formdata).subscribe(res => {
-      console.log('upload res', res);
-      if (res.data?.url?.length) {
+        return throwError(error);
+      })
+    ).subscribe((response) => {
+      if (response && response.status === 200) {
         this.metafields.value.additional_info['images'].fullBodyPhotos.push({
-          id: +res.data.shortId,
-          url: res.data.url
+          id: +response.id,
+          url: response.data.url
         });
         this.updateMetafieldsValue();
       }
