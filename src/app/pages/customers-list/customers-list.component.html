@@ -1,7 +1,7 @@
 <h3>Customers list</h3>
 
 <div class="row mt-3">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <input type="search" class="form-control form-control-lg" [(ngModel)]="searchCustomers" (ngModelChange)="onSearchChange()" placeholder="Start typing to find your item...">
     </div>
 </div>
@@ -9,53 +9,56 @@
     <div class="col-12">
         <div class="card overflow-auto">
             <div class="card-body p-0">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">E-mail address</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">Phone number</th>
-                        </tr>
-                    </thead>
-                    <ng-container *ngIf="customers?.length && customersLoaded; else placeholder">
-                        <tbody>
-                            <tr *ngFor="let customer of customers" (click)="openProfile(customer.id)">
-                                <td>{{customer.first_name}} {{customer.last_name}}</td>
-                                <td>{{customer.email}}</td>
-                                <td>{{customer.city}} {{customer.province_code}}{{customer.country_name ? ', '+customer.country_name : ''}}</td>
-                                <td>{{customer.phone}}</td>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">E-mail address</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Phone number</th>
                             </tr>
-                        </tbody>
-                    </ng-container>
-                    
-                    <ng-template #placeholder>
-                        <ng-container *ngIf="!customersLoaded; else nodata">
+                        </thead>
+                        <ng-container *ngIf="customers?.length && customersLoaded; else placeholder">
                             <tbody>
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-center">
-                                            <div class="spinner-border" role="status">
-                                              <span class="visually-hidden">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </td>
+                                <tr *ngFor="let customer of customers" (click)="openProfile(customer.id)">
+                                    <td>{{customer.first_name}} {{customer.last_name}}</td>
+                                    <td>{{customer.email}}</td>
+                                    <td>{{customer.city}} {{customer.province_code}}{{customer.country_name ? ', '+customer.country_name : ''}}</td>
+                                    <td>{{customer.phone}}</td>
                                 </tr>
                             </tbody>
                         </ng-container>
-                    </ng-template>
-                    <ng-template #nodata>
-                        <ng-container role="tbody">
-                            <tr>
-                                <td colspan="4">
-                                    <div class="text-center">
-                                        No data
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-container>
-                    </ng-template>
-                </table>
+                        
+                        <ng-template #placeholder>
+                            <ng-container *ngIf="!customersLoaded; else nodata">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="text-center">
+                                                <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                        </ng-template>
+                        <ng-template #nodata>
+                            <ng-container role="tbody">
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-center">
+                                            No data
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-template>
+                    </table>
+                </div>
+                
             </div>
         </div>
     </div>
