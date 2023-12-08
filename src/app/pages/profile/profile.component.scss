@@ -1,4 +1,9 @@
 ::ng-deep app-profile {
+  .btn-default {
+    color: grey; /* Колір тексту за замовчуванням (сірий) */
+    background-color: grey; /* Колір фону за замовчуванням (білий) */
+  }
+
     .customer-images-lists {
         img {
             max-height: 132px;
@@ -18,7 +23,7 @@
         position: relative;
         width: 30px;
         height: 30px;
-        
+
         INPUT {
             position: absolute;
             font-size: 0;

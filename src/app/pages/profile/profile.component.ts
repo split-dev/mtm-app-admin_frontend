@@ -46,25 +46,379 @@ export class ProfileComponent {
     "front_rise": '0',
     "back_rise": '0'
   };
-  metafields: CustomerMetafields = {
+  defaultFinalGarmentObj:any = {
+    mens_pant:{
+      waist: '0',
+      thigh: '0',
+      u_rise: '0',
+      front_waist_height: '0',
+      back_waist_height: '0',
+      outseam_l:'0',
+      outseam_r:'0',
+      knee: '0',
+      pant_bottom: '0',
+      calf_girth: '0',
+      adjustments:{
+        seat:'0',
+        waist_height:'0',
+        front_rise:'0',
+        zipper_length:'0',
+        front_thigh:'0',
+      }
+    },
+    mens_jacket:{
+      neck: '0',
+      chest: '0',
+      stomach: '0',
+      front_waist_length: '0',
+      sleeve_l:'0',
+      sleeve_r:'0',
+      seat: '0',
+      bicep: '0',
+      shoulder: '0',
+      front_shoulder: '0',
+      nape_to_waist : '0',
+      back_length: '0',
+      adjustments:{
+        half_back_to_stomach:'0',
+        half_back_to_bottom:'0',
+        shoulder_pad:'0',
+        back_pad:'0',
+        armhole:'0',
+        lower_back_collar:'0',
+        nape_to_waist:'0',
+      }
+    },
+    mens_overcoat:{
+      neck: '0',
+      chest: '0',
+      stomach: '0',
+      front_waist_length: '0',
+      sleeve_l:'0',
+      sleeve_r:'0',
+      seat: '0',
+      bicep: '0',
+      shoulder: '0',
+      front_shoulder: '0',
+      nape_to_waist : '0',
+      back_length: '0',
+      adjustments:{
+        half_back_to_stomach:'0',
+        half_back_to_bottom:'0',
+        shoulder_pad:'0',
+        back_pad:'0',
+        armhole:'0',
+        lower_back_collar:'0',
+        nape_to_waist:'0',
+      }
+    },
+    mens_shirt:{
+      neck: '0',
+      chest: '0',
+      stomach: '0',
+      front_waist_length: '0',
+      sleeve_l:'0',
+      sleeve_r:'0',
+      seat: '0',
+      bicep: '0',
+      shoulder: '0',
+      front_shoulder: '0',
+      nape_to_waist : '0',
+      back_length: '0',
+      adjustments:{
+        half_back_to_stomach:'0',
+        half_back_to_bottom:'0',
+        armhole:'0',
+        lower_back_collar:'0',
+        nape_to_waist:'0',
+      }
+    },
+    mens_vest:{
+      vest_back_length: '0',
+      neck: '0',
+      chest: '0',
+      stomach: '0',
+      shoulder: '0',
+      front_shoulder: '0',
+      nape_to_waist : '0',
+      front_waist_length: '0',
+      front_waist_height: '0',
+      back_waist_height: '0',
+      adjustments:{
+        half_back_to_stomach:'0',
+        half_back_to_bottom:'0',
+        armhole:'0',
+        lower_back_collar:'0',
+        nape_to_waist:'0',
+      }
+    },
+  };
+  valueBodyMeasurements:any = {
+    "chest": '0',
+    "stomach": '0',
+    "back_length": '0',
+    "front_waist_length": '0',
+    "nape_to_waist": '0',
+    "bicep": '0',
+    "shoulder": '0',
+    "sleeve": '0',
+    "font_shoulder": '0',
+    "wrist_circumference":'0',
+    "pant_bottom":'0',
+    "calf_girth":'0',
+    "u_rise": '0',
+    "neck": '0',
+    "waist": '0',
+    "seat": '0',
+    "outleg": '0',
+    "inleg": '0',
+    "thigh": '0',
+    "knee": '0',
+    "front_waist_height": '0',
+    "back_waist_height": '0',
+    "posture":{
+      "slope_shoulder_left":'0',
+      "slope_shoulder_right":'0',
+      "shoulder_blade":'0',
+      "back_style":'0',
+      "chest":'0',
+      "stomach":'0',
+      "arm":'0',
+      "soulders":'0',
+    }
+  }
+  valueFinalGarmentObj:any = {
+    mens_pant:{
+      waist: '0',
+      thigh: '0',
+      u_rise: '0',
+      front_waist_height: '0',
+      back_waist_height: '0',
+      outseam_l:'0',
+      outseam_r:'0',
+      knee: '0',
+      pant_bottom: '0',
+      calf_girth: '0',
+      adjustments:{
+        seat:'0',
+        waist_height:'0',
+        front_rise:'0',
+        zipper_length:'0',
+        front_thigh:'0',
+      }
+    },
+    mens_jacket:{
+      neck: '0',
+      chest: '0',
+      stomach: '0',
+      front_waist_length: '0',
+      sleeve_l:'0',
+      sleeve_r:'0',
+      seat: '0',
+      bicep: '0',
+      shoulder: '0',
+      front_shoulder: '0',
+      nape_to_waist : '0',
+      back_length: '0',
+      adjustments:{
+        half_back_to_stomach:'0',
+        half_back_to_bottom:'0',
+        shoulder_pad:'0',
+        back_pad:'0',
+        armhole:'0',
+        lower_back_collar:'0',
+        nape_to_waist:'0',
+      }
+    },
+    mens_overcoat:{
+      neck: '0',
+      chest: '0',
+      stomach: '0',
+      front_waist_length: '0',
+      sleeve_l:'0',
+      sleeve_r:'0',
+      seat: '0',
+      bicep: '0',
+      shoulder: '0',
+      front_shoulder: '0',
+      nape_to_waist : '0',
+      back_length: '0',
+      adjustments:{
+        half_back_to_stomach:'0',
+        half_back_to_bottom:'0',
+        shoulder_pad:'0',
+        back_pad:'0',
+        armhole:'0',
+        lower_back_collar:'0',
+        nape_to_waist:'0',
+      }
+    },
+    mens_shirt:{
+      neck: '0',
+      chest: '0',
+      stomach: '0',
+      front_waist_length: '0',
+      sleeve_l:'0',
+      sleeve_r:'0',
+      seat: '0',
+      bicep: '0',
+      shoulder: '0',
+      front_shoulder: '0',
+      nape_to_waist : '0',
+      back_length: '0',
+      adjustments:{
+        half_back_to_stomach:'0',
+        half_back_to_bottom:'0',
+        armhole:'0',
+        lower_back_collar:'0',
+        nape_to_waist:'0',
+      }
+    },
+    mens_vest:{
+      vest_back_length: '0',
+      neck: '0',
+      chest: '0',
+      stomach: '0',
+      shoulder: '0',
+      front_shoulder: '0',
+      nape_to_waist : '0',
+      front_waist_length: '0',
+      front_waist_height: '0',
+      back_waist_height: '0',
+      adjustments:{
+        half_back_to_stomach:'0',
+        half_back_to_bottom:'0',
+        armhole:'0',
+        lower_back_collar:'0',
+        nape_to_waist:'0',
+      }
+    },
+  };
+  bodyMeasurementsKeys: string[] = Object.keys(this.valueBodyMeasurements).filter(k => k !== 'posture');
+  bodyMeasurementsPostureKeys: string[] = Object.keys(this.valueBodyMeasurements.posture);
+  measurementKeysAll:any ={
+    'mens_pant':Object.keys(this.defaultFinalGarmentObj.mens_pant).filter(k => k !== 'adjustments'),
+    'mens_jacket':Object.keys(this.defaultFinalGarmentObj.mens_jacket).filter(k => k !== 'adjustments'),
+    'mens_overcoat':Object.keys(this.defaultFinalGarmentObj.mens_overcoat).filter(k => k !== 'adjustments'),
+    'mens_shirt':Object.keys(this.defaultFinalGarmentObj.mens_shirt).filter(k => k !== 'adjustments'),
+    'mens_vest':Object.keys(this.defaultFinalGarmentObj.mens_vest).filter(k => k !== 'adjustments'),
+  }
+  measurementPlaceholderAll:any ={
+    'mens_pant':{
+      "waist": 'Range58-190 cm',
+      "thigh": 'Range39-113 cm',
+      "u_rise": 'Range50-120 cm',
+      "front_waist_height": 'Range0-21 cm',
+      "back_waist_height": 'Range0-30 cm',
+       outseam_l:'Range37-135 cm',
+       outseam_r:'Range37-135 cm',
+      "knee": 'Range30-103 cm',
+      "pant_bottom": 'Range28-80 cm',
+      "calf_girth": 'Range25-70 cm',
+    },
+    'mens_jacket':{
+      neck: 'Range30-66 cm',
+      chest: 'Range66-190 cm',
+      stomach: 'Range58-185 cm',
+      front_waist_length: 'Range31-75 cm',
+      sleeve_l:'Range30-85 cm',
+      sleeve_r:'Range30-85 cm',
+      seat: 'Range68-200 cm',
+      bicep: 'Range19-68 cm',
+      shoulder: 'Range31-72 cm',
+      front_shoulder: 'Range29-68 cm',
+      nape_to_waist : 'Range29-63 cm',
+      back_length: 'Range47-105 cm',
+    },
+    'mens_overcoat':{
+      neck: 'Range30-66 cm',
+      chest: 'Range66-190 cm',
+      stomach: 'Range58-185 cm',
+      front_waist_length: 'Range31-75 cm',
+      sleeve_l:'Range30-85 cm',
+      sleeve_r:'Range30-85 cm',
+      seat: 'Range68-200 cm',
+      bicep: 'Range19-68 cm',
+      shoulder: 'Range31-72 cm',
+      front_shoulder: 'Range29-68 cm',
+      nape_to_waist : 'Range29-63 cm',
+      back_length: 'Range47-105 cm',
+    },
+    'mens_shirt':{
+      neck: 'Range30-66 cm',
+      chest: 'Range66-190 cm',
+      stomach: 'Range58-185 cm',
+      front_waist_length: 'Range31-75 cm',
+      sleeve_l:'Range30-85 cm',
+      sleeve_r:'Range30-85 cm',
+      seat: 'Range68-200 cm',
+      bicep: 'Range19-68 cm',
+      shoulder: 'Range31-72 cm',
+      front_shoulder: 'Range29-68 cm',
+      nape_to_waist : 'Range29-63 cm',
+      back_length: 'Range47-105 cm',
+    },
+    'mens_vest':{
+      vest_back_length: 'Range40-78 cm',
+      neck: 'Range30-62 cm',
+      chest: 'Range72-190 cm',
+      stomach: 'Range55-185 cm',
+      shoulder: 'Range38-70 cm',
+      front_shoulder: 'Range36-68 cm',
+      nape_to_waist : 'Range35-60 cm',
+      front_waist_length: 'Range37-60 cm',
+      front_waist_height: 'Range0-17 cm',
+      back_waist_height: 'Range0-30 cm',
+    }
+  }
+  garmentTypes: any[] = ['mens_pant', 'mens_jacket','mens_overcoat','mens_shirt','mens_vest'];
+  radioButtonCustom:any ={
+    'seat':['Standard', 'Flat Seat', 'Prominent Seat', 'Drop Seat'],
+    'waist_height':['Standard', 'Higher 3cm', 'Higher 2cm', 'Higher 1cm','Lower 1cm','Lower 2cm','Lower 3cm','Lower 4cm','Lower 5cm','Lower 6cm'],
+    'front_rise':['Standard', 'Reduce 1cm', 'Reduce 2cm'],
+    'zipper_length':['Standard', 'Add 1cm', 'Add 2cm'],
+    'front_thigh':['Standard', 'Add dart', 'Add 2 darts'],
+    'slope_shoulder_left':['Standard','Slight Slope','Moderate Slope','Very Slope','Slight High','Half High','High'],
+    'slope_shoulder_right':['Standard','Slight Slope','Moderate Slope','Very Slope','Slight High','Half High','High'],
+    'shoulder_blade':['Protruding shoulder blade','Protruding top shoulder blade'],
+    'back_style':['Standard','Slight Concave','Very Concave'],
+    'chest':['Standard','Single Dart','Double Dart'],
+    'stomach':['Standard','Portly','Normal belly'],
+    'arm':['Standard','Very Back','Slightly Back','Forward','Very Forward'],
+    'soulders':['Standard','Very Back','Slightly Back','Forward','Very Forward'],
+    'fit':['Extremely Slim', 'Very Slim', 'Slim', 'Regular Tight', 'Regular', 'Regular Loose', 'Loose', 'Very Loose', 'Extremely Loose'],
+    'half_back_to_stomach':['Standard', 'Add 0.5cm', 'Add 1cm', 'Add 1.5cm', 'Reduce 0.5cm', 'Reduce 1cm', 'Reduce 1.5cm'],
+    'half_back_to_bottom':['Standard', 'Add 0.5cm', 'Add 1cm', 'Add 1.5cm', 'Reduce 0.5cm', 'Reduce 1cm', 'Reduce 1.5cm'],
+    'shoulder_pad':['Standard', 'No Pad (Wadding)', 'Pad 1cm', 'Pad 1.2cm', 'Pad 1.5cm'],
+    'back_pad':['Add Back Pad 0.5cm', 'Add Back Pad 1cm', 'Add Back Pad 1.5cm'],
+    'armhole':['Standard', 'Lower 0.5cm', 'Lower 1cm', 'Lower 1.5cm'],
+    'lower_back_collar':['Standard', 'Lower 0.6cm', 'Lower 1cm', 'Lower 1.5cm', 'Lower 2cm'],
+    'nape_to_waist':['Standard', 'Decrease 0.8cm', 'Decrease 1.2cm', 'Decrease 2cm', 'Increase 0.8cm', 'Increase 1.2cm', 'Increase 2cm'],
+  }
+
+  metafields:CustomerMetafields = {
     type: 'json',
     namespace: 'custom.additional_info',
     key: "measurements",
     value: {
       additional_info: {
+        gender: 'Other',
         height: '0',
-        fit: '0',
+        weight: '0',
+        age:0,
+        fit: 'Extremely Slim',
         images: {
           "fullBodyPhotos": [],
           "inspirationImages":[]
         }
       },
-      body_measurements: {...this.defaultMeasurementsObj},
-      final_garment: {...this.defaultMeasurementsObj}
+      body_measurements: {...this.valueBodyMeasurements},
+      final_garment: {...this.valueFinalGarmentObj}
     },
     owner_resource: "customers",
     owner_id: ""
   };
+
   measurementKeys: string[] = Object.keys(this.defaultMeasurementsObj).filter(k => k !== 'lastUpdate');
   productSuitTypes: suitType[] = ['blazer', '2-piece suit', '3-piece suit', '2-trouser suit', '2-piece formal', '3-piece formal', 'overcoat', 'trouser'];
   editingImageId: number | null = null;
@@ -73,14 +427,14 @@ export class ProfileComponent {
   lastUpdatedFinalGarment$: string | undefined;
 
   constructor(
-    private metafieldsService: MetafieldsService, 
-    private customerService: CustomersService, 
-    private filesService: FilesService, 
+    private metafieldsService: MetafieldsService,
+    private customerService: CustomersService,
+    private filesService: FilesService,
     private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.customerId = this.route.snapshot.paramMap.get('id');
-    
+
     if (this.customerId) {
       this.customerService.getCustomer(this.customerId)
         .subscribe((res) => {
@@ -92,15 +446,17 @@ export class ProfileComponent {
         this.metafields.owner_id = this.customerId;
 
         console.log('get res', res.data);
-        
+
         if (!res.data.id) {
+          this.metafields.value['body_measurements']['breast_highest_point']='0';
           this.metafieldsService.createCustomerMetafields(this.metafields).subscribe((res) => {
             console.log('create res', res);
             this.metafields.id = res.data.id;
           });
         } else {
-          Object.keys(this.metafields.value.body_measurements).forEach((key) => {
+         /* Object.keys(this.metafields.value.body_measurements).forEach((key) => {
             if (this.metafields.value.body_measurements[key][0] && typeof this.metafields.value.body_measurements[key] === 'object') {
+              console.log(this.metafields.value.body_measurements[key][0])
                 this.metafields.value.body_measurements[key] = this.metafields.value.body_measurements[key].shift()
             }
           });
@@ -108,13 +464,17 @@ export class ProfileComponent {
             if (this.metafields.value.final_garment[key][0] && typeof this.metafields.value.final_garment[key] === 'object') {
                 this.metafields.value.final_garment[key] = this.metafields.value.final_garment[key].shift()
             }
-          });
+          });*/
         }
-
+        if(this.metafields.value.additional_info['gender']==='Female' || this.metafields.value.additional_info['gender']==='Other' ){
+          this.bodyMeasurementsKeys.push('breast_highest_point')
+        }
+        console.log(this.metafields)
         this.lastUpdatedBodyMeasurements$ = this.metafields.value.body_measurements['lastUpdate'];
         this.lastUpdatedFinalGarment$ = this.metafields.value.final_garment['lastUpdate'];
       });
     }
+    console.log(this.metafields)
 
     this.debounceSubject.pipe(
       debounceTime(500)
@@ -133,10 +493,24 @@ export class ProfileComponent {
     this.debounceText.unsubscribe();
   }
 
-  updateMetafield(ev: any, group: any, value: any) {
+  updateBodyMeasurementsMetafield(ev: any, group: any, value: any) {
     const val = ev.length > 0 ? ev : '0';
-
     this.metafields.value[group][value] = val;
+    this.debounceSubject.next(ev);
+  }
+  updateBodyMeasurementsPostureMetafield(ev: any, group: any, value: any) {
+    const val = ev.length > 0 ? ev : '0';
+    this.metafields.value[group]['posture'][value] = val;
+    this.debounceSubject.next(ev);
+  }
+  updateFinalGarmentMetafield(ev: any, group: any, value: any) {
+    const val = ev.length > 0 ? ev : '0';
+    this.metafields.value.final_garment[group][value] = val;
+    this.debounceSubject.next(ev);
+  }
+  updateFinalGarmentAdjustmentsMetafield(ev: any, group: any, value: any) {
+    const val = ev.length > 0 ? ev : '0';
+    this.metafields.value.final_garment[group]['adjustments'][value] = val;
     this.debounceSubject.next(ev);
   }
 
@@ -149,13 +523,13 @@ export class ProfileComponent {
   updateMetafieldsValue() {
     this.metafieldsService.updateCustomerMetafields(this.metafields).subscribe((res) => {
       console.info('update res', res);
-      
-      if (res.data?.value?.length > 0) {
+
+   /*   if (res.data?.value?.length > 0) {
         const resJson = JSON.parse(res.data.value);
 
-        this.lastUpdatedBodyMeasurements$ = resJson.body_measurements['lastUpdate'];
+       // this.lastUpdatedBodyMeasurements$ = resJson.body_measurements['lastUpdate'];
         this.lastUpdatedFinalGarment$ = resJson.final_garment['lastUpdate'];
-      }
+      }*/
     });
   }
 
@@ -168,15 +542,15 @@ export class ProfileComponent {
   }
 
   selectedBodyPhotos(event: any) {
-    const files = event.target.files;    
+    const files = event.target.files;
     const formdata = new FormData();
-  
+
     if (files && files.length > 0) {
       const file = files[0];
 
       formdata.append('file', file, file.name);
     }
-    
+
     this.filesService.uploadImage(formdata).pipe(
       concatMap((res) => {
         if (res.data?.url?.length) {
@@ -205,7 +579,7 @@ export class ProfileComponent {
   }
 
   selectedInspirationPhoto(event: any) {
-    const files = event.target.files;    
+    const files = event.target.files;
     const formdata = new FormData();
 
     if (files && files.length > 0) {
@@ -234,6 +608,14 @@ export class ProfileComponent {
   }
   setOpenBodyPhoto(i: number) {
     this.photoId = i;
+  }
+
+  testF(garment: string):string[] {
+    if (this.defaultFinalGarmentObj[garment]?.adjustments) {
+      return Object.keys(this.defaultFinalGarmentObj[garment].adjustments);
+    }
+
+    return []
   }
 
   updateImageDescription(ev: any, id: number) {
