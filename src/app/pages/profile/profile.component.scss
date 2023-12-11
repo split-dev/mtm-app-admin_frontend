@@ -1,8 +1,17 @@
 ::ng-deep app-profile {
-  .btn-default {
-    color: grey; /* Колір тексту за замовчуванням (сірий) */
-    background-color: grey; /* Колір фону за замовчуванням (білий) */
-  }
+
+    .btn-default {
+      background-color: white;
+      border: 1px solid grey;
+    }
+
+    .btn-default:hover {
+      background-color: #dcdcdc;
+    }
+
+    .btn-default:focus {
+      box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+    }
 
     .customer-images-lists {
         img {
