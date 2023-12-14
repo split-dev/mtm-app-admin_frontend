@@ -42,7 +42,7 @@ declare global {
     ProductComponent,
     FabricsComponent,
     MeasurementsComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     CommonModule,

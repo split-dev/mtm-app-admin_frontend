@@ -1,11 +1,15 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-12 col-md-9">
     <a href="/customers" class="link-back link-dark">Back to list</a>
+  </div>
+  <div class="col-12 col-md-3">
+    <button *ngIf="!isEditMode" (click)="enterEditMode()" class="btn btn-secondary" style="width: 200px; margin-left: 94px">Edit</button>
+    <button *ngIf="isEditMode" (click)="saveChanges()" class="btn btn-secondary" style="width: 200px; margin-left: 94px">Save</button>
   </div>
 </div>
 <div class="row">
   <div class="col-12 col-md-6">
-    <div class="row" style="height: 100vh;overflow-y: auto;">
+    <div class="row" style="height: 160vh;overflow-y: auto;">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
@@ -45,22 +49,43 @@
               <div class="col-12">
                 <div class="row">
                   <div class="col-12 col-md-4">
-                    <span class="d-block text-muted">Gender</span>
-                    <span>{{metafields.value.additional_info['gender']}}</span>
+                    <label for="{{metafields.value.additional_info['gender']}}" class="form-label text-muted text-capitalize">Gender</label>
+                    <select id="{{metafields.value.additional_info['gender']}}"
+                            class="form-select"
+                            [disabled]="!isEditMode"
+                            (ngModelChange)="updateAdditionalInfoMetafield($event, 'gender')"
+                            [ngModel]="metafields.value.additional_info['gender'] !== '0' ? metafields.value.additional_info['gender'] : ''">
+                      <option value="0" disabled>Select Gender</option>
+                      <option value="Other">Other</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
                   </div>
                   <div class="col-12 col-md-4">
-                    <span class="d-block text-muted">Height</span>
-                    <span>{{metafields.value.additional_info['height']}}</span>
+                    <label for="{{metafields.value.additional_info['height']}}" class="form-label text-muted text-capitalize">Height</label>
+                    <input type="text" placeholder="No value" id="{{metafields.value.additional_info['height']}}"
+                           class="form-control"
+                           [disabled]="!isEditMode"
+                           (ngModelChange)="updateAdditionalInfoMetafield($event, 'height')"
+                           [ngModel]="metafields.value.additional_info['height'] !== '0' ? metafields.value.additional_info['height'] : ''">
                   </div>
                   <div class="col-12 col-md-4">
-                    <span class="d-block text-muted">Weight</span>
-                    <span>{{metafields.value.additional_info['weight']}}</span>
+                    <label for="{{metafields.value.additional_info['weight']}}" class="form-label text-muted text-capitalize">Weight</label>
+                    <input type="text" placeholder="No value" id="{{metafields.value.additional_info['weight']}}"
+                           class="form-control"
+                           [disabled]="!isEditMode"
+                           (ngModelChange)="updateAdditionalInfoMetafield($event, 'weight')"
+                           [ngModel]="metafields.value.additional_info['weight'] !== '0' ? metafields.value.additional_info['weight'] : ''">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 col-md-4">
-                    <span class="d-block text-muted">Age</span>
-                    <span>{{metafields.value.additional_info['age']}}</span>
+                    <label for="{{metafields.value.additional_info['age']}}" class="form-label text-muted text-capitalize">Age</label>
+                    <input type="text" placeholder="No value" id="{{metafields.value.additional_info['age']}}"
+                           class="form-control"
+                           [disabled]="!isEditMode"
+                           (ngModelChange)="updateAdditionalInfoMetafield($event, 'age')"
+                           [ngModel]="metafields.value.additional_info['age'] !== '0' ? metafields.value.additional_info['age'] : ''">
                   </div>
                   <div class="col-12 col-md-4">
                     <span class="d-block text-muted">Preffered fit</span>
@@ -75,6 +100,7 @@
                       <label for="{{ ms.replaceAll(' ', '') }}" class="form-label text-muted text-capitalize">{{ ms.replaceAll('_', ' ') }}</label>
                       <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}"
                              class="form-control"
+                             [disabled]="!isEditMode"
                              (ngModelChange)="updateBodyMeasurementsMetafield($event, 'body_measurements', ms)"
                              [ngModel]="metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] : ''">
                     </div>
@@ -91,6 +117,7 @@
                             <input class="form-check-input" type="radio"
                                    [id]="'radio_' + postureKey + '_' + radioOption" [name]="postureKey"
                                    [value]="radioOption"
+                                   [disabled]="!isEditMode"
                                    (ngModelChange)="updateBodyMeasurementsPostureMetafield($event, 'body_measurements', postureKey)"
                                    [(ngModel)]="metafields.value.body_measurements['posture'][postureKey]">
                             <label class="form-check-label" [for]="'radio_' + postureKey + '_' + radioOption">{{ radioOption }}</label>
@@ -176,11 +203,9 @@
       <div class="card-body">
         <div *ngFor="let type of garmentTypes">
           <div class="d-grid gap-2 mt-1">
-            <button class="btn btn-default" type="button">
-              <a data-bs-toggle="collapse" href="#id-{{type}}" role="button" aria-expanded="false" aria-controls="collapseMeasurements" class="text-capitalize">
-                {{type.replaceAll('_', ' ')}}
-              </a>
-            </button>
+            <a class="btn btn-default text-capitalize" data-bs-toggle="collapse" href="#id-{{type}}" role="button" aria-expanded="false" aria-controls="collapseMeasurements">
+              {{type.replaceAll('_', ' ')}}
+            </a>
           </div>
           <div class="collapse mt-4 mb-4" id="id-{{type}}">
             <div class="row">
@@ -189,6 +214,7 @@
                   <label for="{{ ms.replaceAll(' ', '') }}_{{ type }}" class="form-label text-muted text-capitalize">{{ ms.replaceAll('_', ' ') }}</label>
                   <input type="text" placeholder="{{metafields.value.final_garment[type][ms] === '0' ? measurementPlaceholderAll[type][ms] : ''}}" id="{{ ms.replaceAll(' ', '') }}_{{ type }}"
                          class="form-control"
+                         [disabled]="!isEditMode"
                          (ngModelChange)="updateFinalGarmentMetafield($event, type, ms)"
                          [ngModel]="metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] : ''">
                 </div>
@@ -201,6 +227,7 @@
                   <input class="form-check-input" type="radio"
                          [id]="'radio_' + 'fit' + '_' + radioOption" [name]="radioOption"
                          [value]="radioOption"
+                         [disabled]="!isEditMode"
                          [(ngModel)]="metafields.value.additional_info['fit']">
                   <label class="form-check-label" [for]="'radio_' + 'fit' + '_' + radioOption">{{ radioOption }}</label>
                 </div>
@@ -213,15 +240,27 @@
                   <label  class="form-label text-muted text-capitalize">{{ adjustmentsKey.replaceAll('_', ' ') }}</label>
                 </div>
                 <div class="col-12 col-md-8 mb-3">
-                  <div class="row">
-                    <div  *ngFor="let radioOption of radioButtonCustom[adjustmentsKey]" class="col-12 col-md-5 mb-2 form-check form-check-inline">
-                      <input class="form-check-input" type="radio"
-                             [id]="'radio_' + adjustmentsKey + '_adjustments_' + radioOption" [name]="adjustmentsKey"
-                             [value]="radioOption"
-                             (ngModelChange)="updateFinalGarmentAdjustmentsMetafield($event, type, adjustmentsKey)"
-                             [(ngModel)]="metafields.value.final_garment[type]['adjustments'][adjustmentsKey]">
-                      <label class="form-check-label" [for]="'radio_' + adjustmentsKey + '_adjustments_' + radioOption">{{ radioOption }}</label>
-                    </div>
+                  <div class="row d-flex justify-content-between m-0">
+                    <ng-container *ngIf="adjustmentsKey !== 'notes'; else notesBlock">
+                      <div *ngFor="let radioOption of radioButtonCustom[adjustmentsKey]" class="col-12 col-md-5 mb-2 form-check form-check-inline">
+                        <input class="form-check-input" type="radio"
+                               [id]="'radio_' + type + adjustmentsKey + '_adjustments_' + radioOption + '_' + s"  [name]="'radio_' + type + '_' + adjustmentsKey"
+                               [value]="radioOption"
+                               [disabled]="!isEditMode"
+                               (ngModelChange)="updateFinalGarmentAdjustmentsMetafield($event, type, adjustmentsKey)"
+                               [(ngModel)]="metafields.value.final_garment[type]['adjustments'][adjustmentsKey]">
+                        <label class="form-check-label" [for]="'radio_' + type +adjustmentsKey + '_adjustments_' + radioOption + '_' + s">{{ radioOption }}</label>
+                      </div>
+                    </ng-container>
+                    <ng-template #notesBlock>
+                      <div class="col-12 сol-md-5 m-0">
+                        <textarea id="customerNotes" cols="30" rows="5" class="form-control" placeholder="No value"
+                                  [disabled]="!isEditMode"
+                                  [ngModel]="metafields.value.final_garment[type]['adjustments'][adjustmentsKey] !=='0' ? metafields.value.final_garment[type]['adjustments'][adjustmentsKey] : ''"
+                                  (ngModelChange)="updateFinalGarmentAdjustmentsMetafield($event, type, adjustmentsKey)"
+                        ></textarea>
+                      </div>
+                    </ng-template>
                   </div>
                 </div>
               </div>
@@ -249,6 +288,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="openPhoto" tabindex="-1" aria-labelledby="openPhotoLabel" aria-hidden="true">

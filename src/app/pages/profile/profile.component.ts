@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CustomersService } from 'src/app/services/customers.service';
 import { FilesService } from 'src/app/services/files.service';
@@ -8,7 +8,6 @@ import { suitType } from '../interfaces/products.interface';
 import { debounceTime } from 'rxjs/operators';
 import { throwError, Observable, Subject, of, timer } from 'rxjs';
 import { catchError, takeWhile, delay, retry, concatMap } from 'rxjs/operators';
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -64,6 +63,7 @@ export class ProfileComponent {
         front_rise:'0',
         zipper_length:'0',
         front_thigh:'0',
+        notes:'0'
       }
     },
     mens_jacket:{
@@ -87,6 +87,7 @@ export class ProfileComponent {
         armhole:'0',
         lower_back_collar:'0',
         nape_to_waist:'0',
+        notes:'0'
       }
     },
     mens_overcoat:{
@@ -110,6 +111,7 @@ export class ProfileComponent {
         armhole:'0',
         lower_back_collar:'0',
         nape_to_waist:'0',
+        notes:'0'
       }
     },
     mens_shirt:{
@@ -131,6 +133,7 @@ export class ProfileComponent {
         armhole:'0',
         lower_back_collar:'0',
         nape_to_waist:'0',
+        notes:'0'
       }
     },
     mens_vest:{
@@ -150,6 +153,7 @@ export class ProfileComponent {
         armhole:'0',
         lower_back_collar:'0',
         nape_to_waist:'0',
+        notes:'0'
       }
     },
   };
@@ -305,70 +309,70 @@ export class ProfileComponent {
   }
   measurementPlaceholderAll:any ={
     'mens_pant':{
-      "waist": 'Range58-190 cm',
-      "thigh": 'Range39-113 cm',
-      "u_rise": 'Range50-120 cm',
-      "front_waist_height": 'Range0-21 cm',
-      "back_waist_height": 'Range0-30 cm',
-       outseam_l:'Range37-135 cm',
-       outseam_r:'Range37-135 cm',
-      "knee": 'Range30-103 cm',
-      "pant_bottom": 'Range28-80 cm',
-      "calf_girth": 'Range25-70 cm',
+      "waist": '58-190 cm',
+      "thigh": '39-113 cm',
+      "u_rise": '50-120 cm',
+      "front_waist_height": '0-21 cm',
+      "back_waist_height": '0-30 cm',
+       outseam_l:'37-135 cm',
+       outseam_r:'37-135 cm',
+      "knee": '30-103 cm',
+      "pant_bottom": '28-80 cm',
+      "calf_girth": '25-70 cm',
     },
     'mens_jacket':{
-      neck: 'Range30-66 cm',
-      chest: 'Range66-190 cm',
-      stomach: 'Range58-185 cm',
-      front_waist_length: 'Range31-75 cm',
-      sleeve_l:'Range30-85 cm',
-      sleeve_r:'Range30-85 cm',
-      seat: 'Range68-200 cm',
-      bicep: 'Range19-68 cm',
-      shoulder: 'Range31-72 cm',
-      front_shoulder: 'Range29-68 cm',
-      nape_to_waist : 'Range29-63 cm',
-      back_length: 'Range47-105 cm',
+      neck: '30-66 cm',
+      chest: '66-190 cm',
+      stomach: '58-185 cm',
+      front_waist_length: '31-75 cm',
+      sleeve_l:'30-85 cm',
+      sleeve_r:'30-85 cm',
+      seat: '68-200 cm',
+      bicep: '19-68 cm',
+      shoulder: '31-72 cm',
+      front_shoulder: '29-68 cm',
+      nape_to_waist : '29-63 cm',
+      back_length: '47-105 cm',
     },
     'mens_overcoat':{
-      neck: 'Range30-66 cm',
-      chest: 'Range66-190 cm',
-      stomach: 'Range58-185 cm',
-      front_waist_length: 'Range31-75 cm',
-      sleeve_l:'Range30-85 cm',
-      sleeve_r:'Range30-85 cm',
-      seat: 'Range68-200 cm',
-      bicep: 'Range19-68 cm',
-      shoulder: 'Range31-72 cm',
-      front_shoulder: 'Range29-68 cm',
-      nape_to_waist : 'Range29-63 cm',
-      back_length: 'Range47-105 cm',
+      neck: '30-66 cm',
+      chest: '66-190 cm',
+      stomach: '58-185 cm',
+      front_waist_length: '31-75 cm',
+      sleeve_l:'30-85 cm',
+      sleeve_r:'30-85 cm',
+      seat: '68-200 cm',
+      bicep: '19-68 cm',
+      shoulder: '31-72 cm',
+      front_shoulder: '29-68 cm',
+      nape_to_waist : '29-63 cm',
+      back_length: '47-105 cm',
     },
     'mens_shirt':{
-      neck: 'Range30-66 cm',
-      chest: 'Range66-190 cm',
-      stomach: 'Range58-185 cm',
-      front_waist_length: 'Range31-75 cm',
-      sleeve_l:'Range30-85 cm',
-      sleeve_r:'Range30-85 cm',
-      seat: 'Range68-200 cm',
-      bicep: 'Range19-68 cm',
-      shoulder: 'Range31-72 cm',
-      front_shoulder: 'Range29-68 cm',
-      nape_to_waist : 'Range29-63 cm',
-      back_length: 'Range47-105 cm',
+      neck: '30-66 cm',
+      chest: '66-190 cm',
+      stomach: '58-185 cm',
+      front_waist_length: '31-75 cm',
+      sleeve_l:'30-85 cm',
+      sleeve_r:'30-85 cm',
+      seat: '68-200 cm',
+      bicep: '19-68 cm',
+      shoulder: '31-72 cm',
+      front_shoulder: '29-68 cm',
+      nape_to_waist : '29-63 cm',
+      back_length: '47-105 cm',
     },
     'mens_vest':{
-      vest_back_length: 'Range40-78 cm',
-      neck: 'Range30-62 cm',
-      chest: 'Range72-190 cm',
-      stomach: 'Range55-185 cm',
-      shoulder: 'Range38-70 cm',
-      front_shoulder: 'Range36-68 cm',
-      nape_to_waist : 'Range35-60 cm',
-      front_waist_length: 'Range37-60 cm',
-      front_waist_height: 'Range0-17 cm',
-      back_waist_height: 'Range0-30 cm',
+      vest_back_length: '40-78 cm',
+      neck: '30-62 cm',
+      chest: '72-190 cm',
+      stomach: '55-185 cm',
+      shoulder: '38-70 cm',
+      front_shoulder: '36-68 cm',
+      nape_to_waist : '35-60 cm',
+      front_waist_length: '37-60 cm',
+      front_waist_height: '0-17 cm',
+      back_waist_height: '0-30 cm',
     }
   }
   garmentTypes: any[] = ['mens_pant', 'mens_jacket','mens_overcoat','mens_shirt','mens_vest'];
@@ -425,16 +429,17 @@ export class ProfileComponent {
   photoId: number | null = null;
   lastUpdatedBodyMeasurements$: string | undefined;
   lastUpdatedFinalGarment$: string | undefined;
-
+  isEditMode: boolean = false;
+  hasUnsavedChanges: boolean = false;
   constructor(
     private metafieldsService: MetafieldsService,
     private customerService: CustomersService,
     private filesService: FilesService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
     this.customerId = this.route.snapshot.paramMap.get('id');
-
     if (this.customerId) {
       this.customerService.getCustomer(this.customerId)
         .subscribe((res) => {
@@ -493,26 +498,41 @@ export class ProfileComponent {
     this.debounceText.unsubscribe();
   }
 
+  enterEditMode(): void {
+    this.isEditMode = true;
+  }
+
+  saveChanges(): void {
+    this.isEditMode = false;
+    this.debounceSubject.next('test');
+  }
+
+  updateAdditionalInfoMetafield(ev: any, value: any) {
+    if(value!=='age'){
+      const val = ev.length > 0 ? ev : '0';
+      this.metafields.value['additional_info'][value] = val;
+    }else {
+      const val = ev.length > 0 ? ev : '0';
+      this.metafields.value['additional_info'][value] = +val;
+    }
+  }
   updateBodyMeasurementsMetafield(ev: any, group: any, value: any) {
     const val = ev.length > 0 ? ev : '0';
     this.metafields.value[group][value] = val;
-    this.debounceSubject.next(ev);
   }
   updateBodyMeasurementsPostureMetafield(ev: any, group: any, value: any) {
     const val = ev.length > 0 ? ev : '0';
     this.metafields.value[group]['posture'][value] = val;
-    this.debounceSubject.next(ev);
   }
   updateFinalGarmentMetafield(ev: any, group: any, value: any) {
     const val = ev.length > 0 ? ev : '0';
     this.metafields.value.final_garment[group][value] = val;
-    this.debounceSubject.next(ev);
   }
   updateFinalGarmentAdjustmentsMetafield(ev: any, group: any, value: any) {
     const val = ev.length > 0 ? ev : '0';
     this.metafields.value.final_garment[group]['adjustments'][value] = val;
-    this.debounceSubject.next(ev);
   }
+
 
   updateNote(ev: any) {
     if (!this.customer) return;
@@ -523,13 +543,6 @@ export class ProfileComponent {
   updateMetafieldsValue() {
     this.metafieldsService.updateCustomerMetafields(this.metafields).subscribe((res) => {
       console.info('update res', res);
-
-   /*   if (res.data?.value?.length > 0) {
-        const resJson = JSON.parse(res.data.value);
-
-       // this.lastUpdatedBodyMeasurements$ = resJson.body_measurements['lastUpdate'];
-        this.lastUpdatedFinalGarment$ = resJson.final_garment['lastUpdate'];
-      }*/
     });
   }
 
