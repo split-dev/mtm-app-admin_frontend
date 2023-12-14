@@ -1,10 +1,10 @@
-<div class="row">
+<div class="row mb-3">
   <div class="col-12 col-md-9">
     <a href="/customers" class="link-back link-dark">Back to list</a>
   </div>
   <div class="col-12 col-md-3">
-    <button *ngIf="!isEditMode" (click)="enterEditMode()" class="btn btn-secondary" style="width: 200px; margin-left: 94px">Edit</button>
-    <button *ngIf="isEditMode" (click)="saveChanges()" class="btn btn-secondary" style="width: 200px; margin-left: 94px">Save</button>
+    <button *ngIf="!isEditMode" (click)="enterEditMode()" class="btn btn-default-disabled" style="width: 200px; margin-left: 95px">Edit</button>
+    <button *ngIf="isEditMode" (click)="saveChanges()" class="btn btn-default-disabled" style="width: 200px; margin-left: 95px">Save</button>
   </div>
 </div>
 <div class="row">
@@ -53,6 +53,7 @@
                     <select id="{{metafields.value.additional_info['gender']}}"
                             class="form-select"
                             [disabled]="!isEditMode"
+                            [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                             (ngModelChange)="updateAdditionalInfoMetafield($event, 'gender')"
                             [ngModel]="metafields.value.additional_info['gender'] !== '0' ? metafields.value.additional_info['gender'] : ''">
                       <option value="0" disabled>Select Gender</option>
@@ -67,13 +68,16 @@
                            class="form-control"
                            [disabled]="!isEditMode"
                            (ngModelChange)="updateAdditionalInfoMetafield($event, 'height')"
+                           [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                            [ngModel]="metafields.value.additional_info['height'] !== '0' ? metafields.value.additional_info['height'] : ''">
+
                   </div>
                   <div class="col-12 col-md-4">
                     <label for="{{metafields.value.additional_info['weight']}}" class="form-label text-muted text-capitalize">Weight</label>
                     <input type="text" placeholder="No value" id="{{metafields.value.additional_info['weight']}}"
                            class="form-control"
                            [disabled]="!isEditMode"
+                           [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                            (ngModelChange)="updateAdditionalInfoMetafield($event, 'weight')"
                            [ngModel]="metafields.value.additional_info['weight'] !== '0' ? metafields.value.additional_info['weight'] : ''">
                   </div>
@@ -84,6 +88,7 @@
                     <input type="text" placeholder="No value" id="{{metafields.value.additional_info['age']}}"
                            class="form-control"
                            [disabled]="!isEditMode"
+                           [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                            (ngModelChange)="updateAdditionalInfoMetafield($event, 'age')"
                            [ngModel]="metafields.value.additional_info['age'] !== '0' ? metafields.value.additional_info['age'] : ''">
                   </div>
@@ -101,6 +106,7 @@
                       <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}"
                              class="form-control"
                              [disabled]="!isEditMode"
+                             [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                              (ngModelChange)="updateBodyMeasurementsMetafield($event, 'body_measurements', ms)"
                              [ngModel]="metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] : ''">
                     </div>
@@ -118,6 +124,7 @@
                                    [id]="'radio_' + postureKey + '_' + radioOption" [name]="postureKey"
                                    [value]="radioOption"
                                    [disabled]="!isEditMode"
+                                   [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                                    (ngModelChange)="updateBodyMeasurementsPostureMetafield($event, 'body_measurements', postureKey)"
                                    [(ngModel)]="metafields.value.body_measurements['posture'][postureKey]">
                             <label class="form-check-label" [for]="'radio_' + postureKey + '_' + radioOption">{{ radioOption }}</label>
@@ -215,6 +222,7 @@
                   <input type="text" placeholder="{{metafields.value.final_garment[type][ms] === '0' ? measurementPlaceholderAll[type][ms] : ''}}" id="{{ ms.replaceAll(' ', '') }}_{{ type }}"
                          class="form-control"
                          [disabled]="!isEditMode"
+                         [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                          (ngModelChange)="updateFinalGarmentMetafield($event, type, ms)"
                          [ngModel]="metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] : ''">
                 </div>
@@ -228,6 +236,7 @@
                          [id]="'radio_' + 'fit' + '_' + radioOption" [name]="radioOption"
                          [value]="radioOption"
                          [disabled]="!isEditMode"
+                         [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                          [(ngModel)]="metafields.value.additional_info['fit']">
                   <label class="form-check-label" [for]="'radio_' + 'fit' + '_' + radioOption">{{ radioOption }}</label>
                 </div>
@@ -247,6 +256,7 @@
                                [id]="'radio_' + type + adjustmentsKey + '_adjustments_' + radioOption + '_' + s"  [name]="'radio_' + type + '_' + adjustmentsKey"
                                [value]="radioOption"
                                [disabled]="!isEditMode"
+                               [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                                (ngModelChange)="updateFinalGarmentAdjustmentsMetafield($event, type, adjustmentsKey)"
                                [(ngModel)]="metafields.value.final_garment[type]['adjustments'][adjustmentsKey]">
                         <label class="form-check-label" [for]="'radio_' + type +adjustmentsKey + '_adjustments_' + radioOption + '_' + s">{{ radioOption }}</label>
@@ -256,6 +266,7 @@
                       <div class="col-12 сol-md-5 m-0">
                         <textarea id="customerNotes" cols="30" rows="5" class="form-control" placeholder="No value"
                                   [disabled]="!isEditMode"
+                                  [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                                   [ngModel]="metafields.value.final_garment[type]['adjustments'][adjustmentsKey] !=='0' ? metafields.value.final_garment[type]['adjustments'][adjustmentsKey] : ''"
                                   (ngModelChange)="updateFinalGarmentAdjustmentsMetafield($event, type, adjustmentsKey)"
                         ></textarea>
