@@ -21,6 +21,7 @@ import { FabricsComponent } from './pages/fabrics/fabrics.component';
 import { MeasurementsComponent } from './pages/measurements/measurements.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 declare global {
   interface Window {
@@ -43,6 +44,7 @@ declare global {
     FabricsComponent,
     MeasurementsComponent,
     LoginComponent,
+    OrdersComponent,
   ],
   imports: [
     CommonModule,

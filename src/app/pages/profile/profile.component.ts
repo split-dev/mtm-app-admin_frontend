@@ -209,6 +209,7 @@ export class ProfileComponent {
         front_rise:'0',
         zipper_length:'0',
         front_thigh:'0',
+        notes:'0'
       }
     },
     mens_jacket:{
@@ -232,6 +233,7 @@ export class ProfileComponent {
         armhole:'0',
         lower_back_collar:'0',
         nape_to_waist:'0',
+        notes:'0'
       }
     },
     mens_overcoat:{
@@ -255,6 +257,7 @@ export class ProfileComponent {
         armhole:'0',
         lower_back_collar:'0',
         nape_to_waist:'0',
+        notes:'0'
       }
     },
     mens_shirt:{
@@ -276,6 +279,7 @@ export class ProfileComponent {
         armhole:'0',
         lower_back_collar:'0',
         nape_to_waist:'0',
+        notes:'0'
       }
     },
     mens_vest:{
@@ -295,6 +299,7 @@ export class ProfileComponent {
         armhole:'0',
         lower_back_collar:'0',
         nape_to_waist:'0',
+        notes:'0'
       }
     },
   };
@@ -402,8 +407,8 @@ export class ProfileComponent {
 
   metafields:CustomerMetafields = {
     type: 'json',
-    namespace: 'custom.additional_info',
-    key: "measurements",
+    namespace: 'custom',
+    key: "additional_info",
     value: {
       additional_info: {
         gender: 'Other',
@@ -431,6 +436,11 @@ export class ProfileComponent {
   lastUpdatedFinalGarment$: string | undefined;
   isEditMode: boolean = false;
   hasUnsavedChanges: boolean = false;
+
+  isDropdownOpen = false;
+  countries = ['India', 'Germany', 'USA'];
+  selectedCountry: string= '';
+
   constructor(
     private metafieldsService: MetafieldsService,
     private customerService: CustomersService,
@@ -505,6 +515,21 @@ export class ProfileComponent {
   saveChanges(): void {
     this.isEditMode = false;
     this.debounceSubject.next('test');
+  }
+
+  selectCountry(country: string): void {
+    this.selectedCountry = country;
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+  closeDropdown() {
+    // Викликати Bootstrap-функцію для закриття дропдауну
+    const dropdownToggle = document.getElementById('dropdownMenuButton1');
+    if (dropdownToggle) {
+      dropdownToggle.dispatchEvent(new Event('click'));
+    }
   }
 
   updateAdditionalInfoMetafield(ev: any, value: any) {

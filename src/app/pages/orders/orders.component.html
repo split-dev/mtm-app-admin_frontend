@@ -1,0 +1,642 @@
+<!--<div class="container-xl">
+  <nav class="nav nav-tab-page" id="customersTabs" role="tablist">
+    <a href="#" class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="order" aria-selected="true">All orders</a>
+  </nav>
+  <div class="tab-content pt-4" id="customersTabsContent">
+    <div class="tab-pane fade show active" id="order" role="tabpanel" aria-labelledby="list-tab">
+      <h3>All Orders information</h3>
+
+      <div class="row mt-3">
+        <div class="col-12 col-md-6">
+          <input type="search" class="form-control form-control-lg" [(ngModel)]="searchCustomers" (ngModelChange)="onSearchChange()" placeholder="Start typing to find your item...">
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="card overflow-auto">
+            <div class="card-body">
+              <div class="table-responsive" >
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>
+                       <div class="custom-dropdown p-0" [ngClass]="{ 'open': isDropdownOpen , 'active': isDropdownOpen }" (click)="toggleDropdown()" style="width:158px">
+                         <div class="container d-flex justify-content-between align-items-center p-0">
+                           <span class="selected-option">{{ selectedOrdersStatus || 'All Statuses' }}</span>
+                           <span class="custom-arrow-down" *ngIf="isDropdownOpen; else chevronDown">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                              </svg>
+                           </span>
+                           <ng-template #chevronDown>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                               <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                             </svg>
+                           </ng-template>
+                         </div>
+                        <ul class="dropdown-menu shadow-effect m-0" aria-labelledby="dropdownMenuButton2" style="width:158px">
+                          <li *ngFor="let orderStatus of ordersStatus" (click)="selectCountry(orderStatus)">
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" [class.active]="selectedOrdersStatus === orderStatus">
+                              <span>{{ orderStatus }}</span>
+                              <span *ngIf="selectedOrdersStatus === orderStatus">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"/>
+              </svg>
+        </span>
+                            </a>
+                          </li>
+                        </ul>
+                       </div>
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" style=" height: 38px;">
+                        Date Received
+                      </div>
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" style=" height: 38px;">
+                        <span> Order Number</span>
+                        <span style=" margin-left: 20px;">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M8 14L5 9.66667L11 9.66667L8 14ZM8 2L5 6.33333L11 6.33333L8 2Z" stroke="#1E1E1E" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+
+                      </div>
+
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" style=" height: 38px;">
+                        <span>  Customer Name</span>
+                        <span style=" margin-left: 20px;">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M8 14L5 9.66667L11 9.66667L8 14ZM8 2L5 6.33333L11 6.33333L8 2Z" stroke="#1E1E1E" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+
+                      </div>
+                    </th>
+                    <th >
+                      <div class="custom-dropdown p-0" [ngClass]="{ 'open': isDropdownOpenPayment , 'active': isDropdownOpenPayment }" (click)="toggleDropdownPayment()" style="width:168px">
+                        <div class="container d-flex justify-content-between align-items-center p-0">
+                          <span class="selected-option">{{ selectedOrdersPaymentStatus || 'All Statuses' }}</span>
+                          <span class="custom-arrow-down" *ngIf="isDropdownOpenPayment; else chevronDown">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                            </svg>
+                          </span>
+                          <ng-template #chevronDown>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                          </ng-template>
+                        </div>
+                        <ul class="dropdown-menu shadow-effect m-0" aria-labelledby="dropdownMenuButton2" style="width:168px">
+                          <li *ngFor="let orderPaymentStatus of ordersPaymentStatus" (click)="selectOrderPaymentStatus(orderPaymentStatus)">
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" [class.active]="selectedOrdersPaymentStatus === orderPaymentStatus">
+                              <span>{{ orderPaymentStatus }}</span>
+                              <span *ngIf="selectedOrdersPaymentStatus === orderPaymentStatus">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"/>
+              </svg>
+        </span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" style=" height: 38px;">
+                        <span>Amount($)</span>
+                        <span style=" margin-left: 20px;">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M8 14L5 9.66667L11 9.66667L8 14ZM8 2L5 6.33333L11 6.33333L8 2Z" stroke="#1E1E1E" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+
+                      </div>
+
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" style=" height: 38px;">
+                        View Order
+                      </div>
+                    </th>
+                  </tr>
+                  </thead>
+                  <ng-container *ngIf="orders?.length && customersLoaded; else placeholder">
+                    <tbody>
+                    <tr *ngFor="let order of orders; let i = index">
+                      <td>
+                        <div class="custom-dropdown p-0"  [ngClass]="{ 'open': isDropdownOpenTEST(i), 'active': isDropdownOpenTEST(i) }"
+                             (click)="toggleDropdownTEST(i)" style="width:158px">
+                          <div class="container d-flex justify-content-between align-items-center p-0">
+                            <span class="selected-option">{{ order.order_status }}</span>
+                            <span class="custom-arrow-down" *ngIf="isDropdownOpenTEST(i); else chevronDown">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                              </svg>
+                           </span>
+                            <ng-template #chevronDown>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                              </svg>
+                            </ng-template>
+                          </div>
+                          <ul class="dropdown-menu shadow-effect m-0" aria-labelledby="dropdownMenuButton2" style="width:158px">
+                            <li *ngFor="let orderStatus of filterOrderStatus(order.order_status)" (click)="testUpdateStatus(orderStatus,order.public_id)">
+                              <a class="dropdown-item d-flex align-items-center justify-content-between" [class.active]="selectedOrdersStatus === orderStatus">
+                                <span>{{ orderStatus }}</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        {{order.update_order_status}}
+                      </td>
+                      <td>{{order.required_date}}</td>
+                      <td>{{order.order_number}}</td>
+                      <td>{{order.customer_first_name}} {{order.customer_last_name}} <svg (click)="openProfile(order.customer_id.split('/')[order.customer_id.split('/').length-1])" style="margin-left: 10px" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1.33331" y="1.8335" width="13.3333" height="13.3333" rx="6.66667" stroke="#CBCBCB"/>
+                        <path d="M8.00012 11.8335L8.00012 7.8335" stroke="#CBCBCB" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.00012 5.83366L8.00012 5.16699" stroke="#CBCBCB" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg> </td>
+                      <td>
+                        <div class="custom-dropdown p-0"  [ngClass]="{ 'open': isDropdownOpenPaymentStatus(i), 'active': isDropdownOpenPaymentStatus(i) }"
+                             (click)="toggleDropdownPaymentStatus(i)" style="width:168px">
+                          <div class="container d-flex justify-content-between align-items-center p-0">
+                            <span class="selected-option">{{ order.payment_status }}</span>
+                            <span class="custom-arrow-down" *ngIf="isDropdownOpenPaymentStatus(i); else chevronDown">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                              </svg>
+                           </span>
+                            <ng-template #chevronDown>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                              </svg>
+                            </ng-template>
+                          </div>
+                          <ul class="dropdown-menu shadow-effect m-0" aria-labelledby="dropdownMenuButton2" style="width:168px">
+                            <li *ngFor="let orderStatus of filterOrderPaymentStatus(order.payment_status)" (click)="testUpdatePaymentStatus(orderStatus,order.public_id)">
+                              <a class="dropdown-item d-flex align-items-center justify-content-between" [class.active]="selectedOrdersStatus === orderStatus">
+                                <span>{{ orderStatus }}</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                      <td>{{order.amount}} $</td>
+                      <td>
+
+
+                        <div class="d-flex">
+                          <div class="icon-wrapper" >
+                            <svg *ngIf="isHovered!==i" (mouseover)="toggleHover(i)"  width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M15.875 7.625H4.75C4.19772 7.625 3.75 8.07272 3.75 8.625V19.75C3.75 20.3023 4.19772 20.75 4.75 20.75H15.875C16.4273 20.75 16.875 20.3023 16.875 19.75V8.625C16.875 8.07272 16.4273 7.625 15.875 7.625Z" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M7.125 4.25H19.25C19.8023 4.25 20.25 4.69772 20.25 5.25V17.375" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
+                            <svg *ngIf="isHovered===i"  (mouseleave)="resetHover()" (click)="copyToClipboard(order.public_id)" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M15.875 7.625H4.75C4.19772 7.625 3.75 8.07272 3.75 8.625V19.75C3.75 20.3023 4.19772 20.75 4.75 20.75H15.875C16.4273 20.75 16.875 20.3023 16.875 19.75V8.625C16.875 8.07272 16.4273 7.625 15.875 7.625Z" fill="#367B5F" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M7.125 4.25H19.25C19.8023 4.25 20.25 4.69772 20.25 5.25V17.375" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          </div>
+                          <div class="icon-wrapper" style="margin-left: 20px" >
+                            <svg *ngIf="isHoveredPrinter!==i" (mouseover)="toggleHoverPrinter(i)" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M6 8V5.25C6 4.69772 6.44772 4.25 7 4.25H17C17.5523 4.25 18 4.69772 18 5.25V8" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M17 15.5H7C6.44772 15.5 6 15.9477 6 16.5V19.75C6 20.3023 6.44772 20.75 7 20.75H17C17.5523 20.75 18 20.3023 18 19.75V16.5C18 15.9477 17.5523 15.5 17 15.5Z" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M6 17H3.25C2.69772 17 2.25 16.5523 2.25 16V9.5C2.25 8.67125 2.9775 8 3.87469 8H20.1253C21.0225 8 21.75 8.67125 21.75 9.5V16C21.75 16.5523 21.3023 17 20.75 17H18" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <circle cx="18.25" cy="11.75" r="1.25" fill="#1E1E1E"/>
+                            </svg>
+
+                            <svg *ngIf="isHoveredPrinter===i"  (mouseleave)="resetHoverPrinter()" (click)="openOrderPrinter(order.public_id)" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <g clip-path="url(#clip0_1092_7656)">
+                                <path d="M6 17H2.25V9.5C2.25 8.67125 2.9775 8 3.87469 8H20.1253C21.0225 8 21.75 8.67125 21.75 9.5V17H18V14.75H6V17Z" fill="#367B5F"/>
+                                <path d="M6 8V5C6 4.58579 6.33579 4.25 6.75 4.25H17.25C17.6642 4.25 18 4.58579 18 5V8" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.25 14.75H6.75C6.33579 14.75 6 15.0858 6 15.5V20C6 20.4142 6.33579 20.75 6.75 20.75H17.25C17.6642 20.75 18 20.4142 18 20V15.5C18 15.0858 17.6642 14.75 17.25 14.75Z" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 17H3C2.58579 17 2.25 16.6642 2.25 16.25V9.5C2.25 8.67125 2.9775 8 3.87469 8H20.1253C21.0225 8 21.75 8.67125 21.75 9.5V16.25C21.75 16.6642 21.4142 17 21 17H18" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.625 12.5C18.2463 12.5 18.75 11.9963 18.75 11.375C18.75 10.7537 18.2463 10.25 17.625 10.25C17.0037 10.25 16.5 10.7537 16.5 11.375C16.5 11.9963 17.0037 12.5 17.625 12.5Z" fill="white"/>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_1092_7656">
+                                  <rect width="24" height="24" fill="white" transform="translate(0 0.5)"/>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </ng-container>
+                  <ng-container *ngIf="openedMenuIndex>=0 || isDropdownOpen || isDropdownOpenPayment || openedMenuIndexPayment>=0 ; else placeholder1">
+                    <tfoot >
+                    <tr style="height: 40vh;">
+                      <div>
+
+                      </div>
+                    </tr>
+                    </tfoot>
+                  </ng-container>
+
+                  <ng-template #placeholder1>
+                    <ng-container>
+                      <tfoot >
+                      <tr>
+                        <div>
+
+                        </div>
+                      </tr>
+                      </tfoot>
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #placeholder>
+                    <ng-container *ngIf="!customersLoaded; else nodata">
+                      <tbody>
+                      <tr>
+                        <td colspan="7">
+                          <div class="text-center">
+                            <div class="spinner-border" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </ng-container>
+                  </ng-template>
+                  <ng-template #nodata>
+                    <ng-container role="tbody">
+                      <tr>
+                        <td colspan="7">
+                          <div class="text-center">
+                            No data
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </ng-template>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <nav class="mt-4 ms-auto me-auto" aria-label="Page navigation example">
+            <ul class="pagination  justify-content-center">
+              <li class="page-item" [class.disabled]="!page_info.hasPreviousPage">
+                <span class="page-link" href="#" aria-label="Previous" (click)="onPageChange(currentPage - 1)">
+                  <span aria-hidden="true">Prev</span>
+                </span>
+              </li>
+              <li class="page-item" [class.disabled]="!page_info.hasNextPage">
+                <span class="page-link" href="#" aria-label="Next" (click)="onPageChange(currentPage + 1)">
+                  <span aria-hidden="true">Next</span>
+                </span>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+
+
+<div class="container-xl">
+  <nav class="nav nav-tab-page" id="customersTabs" role="tablist">
+    <a href="#" class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="order" aria-selected="true">All orders</a>
+  </nav>
+  <div class="tab-content pt-4" id="customersTabsContent">
+    <div class="tab-pane fade show active" id="order" role="tabpanel" aria-labelledby="list-tab">
+      <h3>All Orders information</h3>
+
+      <div class="row mt-3">
+        <div class="col-12 col-md-6">
+          <input type="search" class="form-control form-control-lg" [(ngModel)]="searchCustomers" (ngModelChange)="onSearchChange()" placeholder="Start typing to find your item...">
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="card overflow-auto">
+            <div class="card-body">
+              <div class="table-responsive" >
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>
+                      <div class="custom-dropdown p-0" [ngClass]="{ 'open': isDropdownOpen , 'active': isDropdownOpen }" (click)="toggleDropdown()" style="width:158px">
+                        <div class="container d-flex justify-content-between align-items-center p-0">
+                          <span class="selected-option">{{ selectedOrdersStatus || 'All Statuses' }}</span>
+                          <span class="custom-arrow-down" *ngIf="isDropdownOpen; else chevronDown">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                              </svg>
+                           </span>
+                          <ng-template #chevronDown>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                          </ng-template>
+                        </div>
+                        <ul class="dropdown-menu shadow-effect m-0" aria-labelledby="dropdownMenuButton2" style="width:158px">
+                          <li *ngFor="let orderStatus of ordersStatus" (click)="selectCountry(orderStatus)">
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" [class.active]="selectedOrdersStatus === orderStatus">
+                              <span>{{ orderStatus }}</span>
+                              <span *ngIf="selectedOrdersStatus === orderStatus">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"/>
+              </svg>
+        </span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" style=" height: 38px;">
+                        Date Received
+                      </div>
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" (click)="sortOrder('Order Number')" style=" height: 38px;">
+                        <span> Order Number</span>
+                        <span style="margin-left: 20px;">
+                          <svg *ngIf="sortKeyOrder === 'Order Number'; else otherIcon" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M4 13L1 8.66667H7L4 13ZM4 1L1 5.33333H7L4 1Z" fill="#367B5F" stroke="#367B5F" stroke-linejoin="round"/>
+                          </svg>
+                          <ng-template #otherIcon>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8 14L5 9.66667L11 9.66667L8 14ZM8 2L5 6.33333L11 6.33333L8 2Z" stroke="#1E1E1E" stroke-linejoin="round"/>
+                            </svg>
+                          </ng-template>
+                        </span>
+                      </div>
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" (click)="sortOrder('Customer')" style=" height: 38px;">
+                        <span>  Customer Name</span>
+                        <span style=" margin-left: 20px;">
+                           <svg *ngIf="sortKeyOrder === 'Customer'; else otherIcon" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M4 13L1 8.66667H7L4 13ZM4 1L1 5.33333H7L4 1Z" fill="#367B5F" stroke="#367B5F" stroke-linejoin="round"/>
+                          </svg>
+                          <ng-template #otherIcon>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8 14L5 9.66667L11 9.66667L8 14ZM8 2L5 6.33333L11 6.33333L8 2Z" stroke="#1E1E1E" stroke-linejoin="round"/>
+                            </svg>
+                          </ng-template>
+                        </span>
+
+                      </div>
+                    </th>
+                    <th >
+                      <div class="custom-dropdown p-0" [ngClass]="{ 'open': isDropdownOpenPayment , 'active': isDropdownOpenPayment }" (click)="toggleDropdownPayment()" style="width:168px">
+                        <div class="container d-flex justify-content-between align-items-center p-0">
+                          <span class="selected-option">{{ selectedOrdersPaymentStatus || 'All Statuses' }}</span>
+                          <span class="custom-arrow-down" *ngIf="isDropdownOpenPayment; else chevronDown">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                            </svg>
+                          </span>
+                          <ng-template #chevronDown>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                          </ng-template>
+                        </div>
+                        <ul class="dropdown-menu shadow-effect m-0" aria-labelledby="dropdownMenuButton2" style="width:168px">
+                          <li *ngFor="let orderPaymentStatus of ordersPaymentStatus" (click)="selectOrderPaymentStatus(orderPaymentStatus)">
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" [class.active]="selectedOrdersPaymentStatus === orderPaymentStatus">
+                              <span>{{ orderPaymentStatus }}</span>
+                              <span *ngIf="selectedOrdersPaymentStatus === orderPaymentStatus">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"/>
+              </svg>
+        </span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" (click)="sortOrder('Amount')" style=" height: 38px;">
+                        <span>Amount($)</span>
+                        <span style=" margin-left: 20px;">
+                         <svg *ngIf="sortKeyOrder === 'Amount'; else otherIcon" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M4 13L1 8.66667H7L4 13ZM4 1L1 5.33333H7L4 1Z" fill="#367B5F" stroke="#367B5F" stroke-linejoin="round"/>
+                          </svg>
+                          <ng-template #otherIcon>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8 14L5 9.66667L11 9.66667L8 14ZM8 2L5 6.33333L11 6.33333L8 2Z" stroke="#1E1E1E" stroke-linejoin="round"/>
+                            </svg>
+                          </ng-template>
+                        </span>
+
+                      </div>
+
+                    </th>
+                    <th >
+                      <div class="d-flex align-items-center" style=" height: 38px;">
+                        View Order
+                      </div>
+                    </th>
+                  </tr>
+                  </thead>
+                  <ng-container *ngIf="ordersAllPagination?.length && customersLoaded; else placeholder">
+                    <tbody>
+                    <tr *ngFor="let order of ordersAllPagination; let i = index">
+                      <td>
+                        <div class="custom-dropdown p-0"  [ngClass]="{ 'open': isDropdownOpenTEST(i), 'active': isDropdownOpenTEST(i) }"
+                             (click)="toggleDropdownTEST(i)" style="width:158px">
+                          <div class="container d-flex justify-content-between align-items-center p-0">
+                            <span class="selected-option">{{ order.order_status }}</span>
+                            <span class="custom-arrow-down" *ngIf="isDropdownOpenTEST(i); else chevronDown">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                              </svg>
+                           </span>
+                            <ng-template #chevronDown>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                              </svg>
+                            </ng-template>
+                          </div>
+                          <ul class="dropdown-menu shadow-effect m-0" aria-labelledby="dropdownMenuButton2" style="width:158px">
+                            <li *ngFor="let orderStatus of filterOrderStatus(order.order_status)" (click)="testUpdateStatus(orderStatus,order.public_id)">
+                              <a class="dropdown-item d-flex align-items-center justify-content-between" [class.active]="selectedOrdersStatus === orderStatus">
+                                <span>{{ orderStatus }}</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <span style="color:rgba(54, 123, 95, 1);">{{order.update_order_status}}</span>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center" style=" height: 38px;">
+                        {{order.required_date}}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center" style=" height: 38px;">
+                        {{order.order_number}}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center" style=" height: 38px;">
+                        {{order.customer_first_name}} {{order.customer_last_name}}
+                          <svg (click)="openProfile(order.customer_id.split('/')[order.customer_id.split('/').length-1])" style="margin-left: 10px" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1.33331" y="1.8335" width="13.3333" height="13.3333" rx="6.66667" stroke="#CBCBCB"/>
+                        <path d="M8.00012 11.8335L8.00012 7.8335" stroke="#CBCBCB" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.00012 5.83366L8.00012 5.16699" stroke="#CBCBCB" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="custom-dropdown p-0"  [ngClass]="{ 'open': isDropdownOpenPaymentStatus(i), 'active': isDropdownOpenPaymentStatus(i) }"
+                             (click)="toggleDropdownPaymentStatus(i)" style="width:168px">
+                          <div class="container d-flex justify-content-between align-items-center p-0">
+                            <span class="selected-option">{{ order.payment_status }}</span>
+                            <span class="custom-arrow-down" *ngIf="isDropdownOpenPaymentStatus(i); else chevronDown">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                              </svg>
+                           </span>
+                            <ng-template #chevronDown>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                              </svg>
+                            </ng-template>
+                          </div>
+                          <ul class="dropdown-menu shadow-effect m-0" aria-labelledby="dropdownMenuButton2" style="width:168px">
+                            <li *ngFor="let orderStatus of filterOrderPaymentStatus(order.payment_status)" (click)="testUpdatePaymentStatus(orderStatus,order.public_id)">
+                              <a class="dropdown-item d-flex align-items-center justify-content-between" [class.active]="selectedOrdersStatus === orderStatus">
+                                <span>{{ orderStatus }}</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center" style=" height: 38px;">
+                          {{order.amount}} $
+                        </div>
+                      </td>
+                      <td>
+
+                        <div class="d-flex align-items-center" style=" height: 38px;">
+                          <div class="icon-wrapper" >
+                            <svg *ngIf="isHovered!==i" (mouseover)="toggleHover(i)"  width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M15.875 7.625H4.75C4.19772 7.625 3.75 8.07272 3.75 8.625V19.75C3.75 20.3023 4.19772 20.75 4.75 20.75H15.875C16.4273 20.75 16.875 20.3023 16.875 19.75V8.625C16.875 8.07272 16.4273 7.625 15.875 7.625Z" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M7.125 4.25H19.25C19.8023 4.25 20.25 4.69772 20.25 5.25V17.375" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
+                            <svg *ngIf="isHovered===i"  (mouseleave)="resetHover()" (click)="copyToClipboard(order.public_id)" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M15.875 7.625H4.75C4.19772 7.625 3.75 8.07272 3.75 8.625V19.75C3.75 20.3023 4.19772 20.75 4.75 20.75H15.875C16.4273 20.75 16.875 20.3023 16.875 19.75V8.625C16.875 8.07272 16.4273 7.625 15.875 7.625Z" fill="#367B5F" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M7.125 4.25H19.25C19.8023 4.25 20.25 4.69772 20.25 5.25V17.375" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          </div>
+                          <div class="icon-wrapper" style="margin-left: 20px" >
+                            <svg *ngIf="isHoveredPrinter!==i" (mouseover)="toggleHoverPrinter(i)" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M6 8V5.25C6 4.69772 6.44772 4.25 7 4.25H17C17.5523 4.25 18 4.69772 18 5.25V8" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M17 15.5H7C6.44772 15.5 6 15.9477 6 16.5V19.75C6 20.3023 6.44772 20.75 7 20.75H17C17.5523 20.75 18 20.3023 18 19.75V16.5C18 15.9477 17.5523 15.5 17 15.5Z" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M6 17H3.25C2.69772 17 2.25 16.5523 2.25 16V9.5C2.25 8.67125 2.9775 8 3.87469 8H20.1253C21.0225 8 21.75 8.67125 21.75 9.5V16C21.75 16.5523 21.3023 17 20.75 17H18" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <circle cx="18.25" cy="11.75" r="1.25" fill="#1E1E1E"/>
+                            </svg>
+
+                            <svg *ngIf="isHoveredPrinter===i"  (mouseleave)="resetHoverPrinter()" (click)="openOrderPrinter(order.public_id)" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <g clip-path="url(#clip0_1092_7656)">
+                                <path d="M6 17H2.25V9.5C2.25 8.67125 2.9775 8 3.87469 8H20.1253C21.0225 8 21.75 8.67125 21.75 9.5V17H18V14.75H6V17Z" fill="#367B5F"/>
+                                <path d="M6 8V5C6 4.58579 6.33579 4.25 6.75 4.25H17.25C17.6642 4.25 18 4.58579 18 5V8" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.25 14.75H6.75C6.33579 14.75 6 15.0858 6 15.5V20C6 20.4142 6.33579 20.75 6.75 20.75H17.25C17.6642 20.75 18 20.4142 18 20V15.5C18 15.0858 17.6642 14.75 17.25 14.75Z" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 17H3C2.58579 17 2.25 16.6642 2.25 16.25V9.5C2.25 8.67125 2.9775 8 3.87469 8H20.1253C21.0225 8 21.75 8.67125 21.75 9.5V16.25C21.75 16.6642 21.4142 17 21 17H18" stroke="#367B5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.625 12.5C18.2463 12.5 18.75 11.9963 18.75 11.375C18.75 10.7537 18.2463 10.25 17.625 10.25C17.0037 10.25 16.5 10.7537 16.5 11.375C16.5 11.9963 17.0037 12.5 17.625 12.5Z" fill="white"/>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_1092_7656">
+                                  <rect width="24" height="24" fill="white" transform="translate(0 0.5)"/>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </ng-container>
+                  <ng-container *ngIf="openedMenuIndex>=0 || isDropdownOpen || isDropdownOpenPayment || openedMenuIndexPayment>=0 ; else placeholder1">
+                    <tfoot >
+                    <tr style="height: 40vh;">
+                      <div>
+
+                      </div>
+                    </tr>
+                    </tfoot>
+                  </ng-container>
+
+                  <ng-template #placeholder1>
+                    <ng-container>
+                      <tfoot >
+                      <tr>
+                        <div>
+
+                        </div>
+                      </tr>
+                      </tfoot>
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #placeholder>
+                    <ng-container *ngIf="!customersLoaded; else nodata">
+                      <tbody>
+                      <tr>
+                        <td colspan="7">
+                          <div class="text-center">
+                            <div class="spinner-border" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </ng-container>
+                  </ng-template>
+                  <ng-template #nodata>
+                    <ng-container role="tbody">
+                      <tr>
+                        <td colspan="7">
+                          <div class="text-center">
+                            No data
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </ng-template>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <nav class="mt-4 ms-auto me-auto" aria-label="Page navigation example">
+            <ul class="pagination  justify-content-center">
+              <li class="page-item" [class.disabled]="!page_info.hasPreviousPage">
+                <span class="page-link" href="#" aria-label="Previous" (click)="onPageChange(currentPage - 1)">
+                  <span aria-hidden="true">Prev</span>
+                </span>
+              </li>
+              <li class="page-item" [class.disabled]="!page_info.hasNextPage">
+                <span class="page-link" href="#" aria-label="Next" (click)="onPageChange(currentPage + 1)">
+                  <span aria-hidden="true">Next</span>
+                </span>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
