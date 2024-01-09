@@ -1,5 +1,79 @@
 ::ng-deep app-profile {
 
+  .shadow-effect {
+    box-shadow: 0px 0px 7.099999904632568px 3px rgba(54, 123, 95, 0.2);
+  }
+
+  .dropdown-item {
+    padding: 12px;
+    border-bottom: 1px solid rgba(244, 244, 244, 1);
+    border-radius: 5px
+  }
+  .dropdown-item.active {
+    background: rgba(60, 137, 106, 0.09);
+    color: #000000 !important;
+  }
+
+  .dropdown-item:hover {
+    background-color: #f8f9fa !important;
+  }
+
+
+  /* styles.css */
+  .custom-dropdown {
+    display: flex;
+    position: relative;
+    width: 146px;
+    height: 38px;
+    top: 9px;
+    left: 28px;
+    padding: 11px 8px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+  }
+
+  .custom-dropdown.active {
+    background: rgba(187, 224, 197, 0.09);
+    border: 1px solid rgba(54, 123, 95, 1) !important;
+    color: #b4b4b4;
+  }
+  .custom-dropdown:hover {
+    box-shadow: 0px 0px 7.099999904632568px 3px rgba(54, 123, 95, 0.2);
+  }
+
+
+  .custom-dropdown .selected-option {
+    display: inline-block;
+    margin-right: 20px;
+
+  }
+
+  .custom-dropdown .arrow-down {
+    display: inline-block;
+    font-size: 10px;
+  }
+
+  .custom-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 7.099999904632568px 3px rgba(54, 123, 95, 0.2);
+  }
+
+  .custom-dropdown.open .dropdown-menu {
+    display: block;
+  }
+
+  //-----
+
     .btn-default {
       background-color: white;
       border: 1px solid grey;

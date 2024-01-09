@@ -29,7 +29,7 @@
                                 </tr>
                             </tbody>
                         </ng-container>
-                        
+
                         <ng-template #placeholder>
                             <ng-container *ngIf="!customersLoaded; else nodata">
                                 <tbody>
@@ -58,7 +58,7 @@
                         </ng-template>
                     </table>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -66,12 +66,12 @@
         <nav class="mt-4 ms-auto me-auto" aria-label="Page navigation example">
             <ul class="pagination  justify-content-center">
               <li class="page-item">
-                <span class="page-link" href="#" aria-label="Previous" (click)="onPageChange(currentPage - 1)">
+                <span class="page-link" [class.disabled]="!page_info.prev" href="#" aria-label="Previous" (click)="onPageChange(currentPage - 1)">
                   <span aria-hidden="true">Prev</span>
                 </span>
               </li>
-              <li class="page-item">
-                <span class="page-link" href="#" aria-label="Next" (click)="onPageChange(currentPage + 1)">
+              <li class="page-item" >
+                <span class="page-link" [class.disabled]="!page_info.next" href="#" aria-label="Next" (click)="onPageChange(currentPage + 1)">
                   <span aria-hidden="true">Next</span>
                 </span>
               </li>

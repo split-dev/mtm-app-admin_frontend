@@ -18,6 +18,14 @@
         &:focus,
         &:active {
             color: #000;
+          background-color: #fafafa;
+          border-color: #efeeee;
         }
+      &.disabled {
+        border-color: #367B5F; // або будь-який інший червоний колір для відключених сторінок
+        background-color: #367B5F; // або будь-який інший червоний колір для відключених сторінок
+        color: white;
+        cursor: not-allowed;
+      }
     }
 }

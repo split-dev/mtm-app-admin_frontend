@@ -13,7 +13,7 @@ export class MetafieldsService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getCustomerMetafields(customerId: string) {
-    return this.http.get<any>(`${this.apiUrl}/?owner_resource=customer&namespace=measurements&owner_id=${customerId}`)
+    return this.http.get<any>(`${this.apiUrl}/?owner_resource=customer&namespace=custom&owner_id=${customerId}`)
       .pipe(catchError((error) => {
         if (error.status === 403) {
           this.authService.logout();
@@ -31,7 +31,7 @@ export class MetafieldsService {
         return throwError(error);
       }));
   }
-  
+
   updateCustomerMetafields(data: any) {
     return this.http.put<any>(`${this.apiUrl}`, { data })
       .pipe(catchError((error) => {

@@ -3,6 +3,7 @@ export const environment = {
     apiHost: 'https://mtm-app-api.netlify.app/.netlify/functions/api/v1',
     authEndpoint: '/sessions',
     customersEndpoint: '/customers',
+    orderEndpoint: '/orders',
     productsEndpoint: '/products',
     metafieldsEndpoint: '/metafields'
 };
