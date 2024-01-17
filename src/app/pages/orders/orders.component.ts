@@ -223,7 +223,7 @@ export class OrdersComponent implements OnDestroy {
     this.router.navigate(['/customers', id]);
   }
   openOrderPrinter(id: string): void {
-    window.location.href = `https://begyourpardon.com.au/order-printer/${id}`;
+    window.location.href = `https://begyourpardon.com.au/pages/print-order/${id}`;
    /* this.clipboard.copy( `http://localhost:4200/orders/${id}`);*/
   }
   selectCountry(orderStatus: string): void {
@@ -324,7 +324,7 @@ export class OrdersComponent implements OnDestroy {
     this.orderQuerySubject.next(this.query_info);
   }
   copyToClipboard(id: string): void {
-    this.clipboard.copy( `https://begyourpardon.com.au/order-printer/${id}`);
+    this.clipboard.copy( `https://begyourpardon.com.au/pages/print-order/${id}`);
   }
 
   ngOnDestroy() {
