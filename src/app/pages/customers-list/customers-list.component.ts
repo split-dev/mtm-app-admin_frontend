@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { CustomersService } from 'src/app/services/customers.service';
 import {CustomerPageInfo, CustomersResponse} from '../interfaces/customers.interface';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import {OrderPageInfo} from "../interfaces/order.interface";
@@ -28,7 +28,7 @@ export class CustomersListComponent implements OnDestroy {
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
 
-  constructor(private customerService: CustomersService, private router: Router, private authService: AuthService) {
+  constructor(private customerService: CustomersService, private router: Router, private authService: AuthService,    private route: ActivatedRoute,) {
     // this.searchSubject.pipe(
     //   debounceTime(300),
     //   switchMap((searchValue: string) => this.customerService.getCustomers(searchValue, this.currentPage, this.pageSize)),
@@ -58,10 +58,11 @@ export class CustomersListComponent implements OnDestroy {
   }
 
   openProfile(id: number) {
-    this.router.navigate(['/customers', id]);
+    this.router.navigate(['/customers', id], { queryParams: { currentPage: this.currentPage } });
   }
 
   ngOnInit() {
+    this.currentPage = +this.route.snapshot.queryParams['currentPage'] || 1
   /*  this.customerService.getCustomers(this.searchCustomers)
       .subscribe((res: CustomersResponse) => {
         console.log(res.data)
@@ -76,7 +77,7 @@ export class CustomersListComponent implements OnDestroy {
         console.log(res)
         this.customers = res.data;
         this.totalItems = res.data.length;
-        this.page_info=res.page_info;
+        this.page_info = res.page_info;
         this.customersLoaded = true;
       }, (error: any) => {
         console.error('Error loading customers', error);
@@ -86,6 +87,10 @@ export class CustomersListComponent implements OnDestroy {
   onPageChange(page: number) {
     this.currentPage = Math.max(page, 1);
     this.searchSubject.next(this.searchCustomers);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { currentPage: this.currentPage },
+    });
   }
 
   onSearchChange() {

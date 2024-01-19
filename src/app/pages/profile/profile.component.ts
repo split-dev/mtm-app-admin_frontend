@@ -16,6 +16,7 @@ import { catchError, takeWhile, delay, retry, concatMap } from 'rxjs/operators';
 export class ProfileComponent {
   private debounceSubject = new Subject<string>();
   private debounceText = new Subject<string>();
+  currentPageCustomerList: number = 1;
   customerId: string | null = '';
   customer: Customer | undefined = undefined;
   IMG_WAIT_DELAY: number = 1000;
@@ -446,9 +447,11 @@ export class ProfileComponent {
     private customerService: CustomersService,
     private filesService: FilesService,
     private route: ActivatedRoute,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
+    this.currentPageCustomerList= +this.route.snapshot.queryParams['currentPage'] || 1;
     this.customerId = this.route.snapshot.paramMap.get('id');
     if (this.customerId) {
       this.customerService.getCustomer(this.customerId)

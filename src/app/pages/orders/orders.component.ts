@@ -219,12 +219,11 @@ export class OrdersComponent implements OnDestroy {
   }
 
   openProfile(id: string) {
-    console.log(id)
-    this.router.navigate(['/customers', id]);
+    const profileUrl = this.router.createUrlTree(['/customers', id]).toString();
+    window.open(profileUrl, '_blank');
   }
   openOrderPrinter(id: string): void {
-    window.location.href = `https://begyourpardon.com.au/pages/print-order/${id}`;
-   /* this.clipboard.copy( `http://localhost:4200/orders/${id}`);*/
+    window.open(`https://begyourpardon.com.au/pages/print-order/${id}`, '_blank');
   }
   selectCountry(orderStatus: string): void {
     this.selectedOrdersStatus = orderStatus;
