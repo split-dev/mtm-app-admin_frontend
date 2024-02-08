@@ -55,10 +55,9 @@ export class OrdersComponent implements OnDestroy {
   isHovered: number = -1;
   isHoveredPrinter: number = -1;
   ordersStatus = ['Unverified', 'Change Request', 'No Changes','Verified','Submitted','Despatched','Complete','All Statuses'];
-  ordersPaymentStatus = ['Paid', 'Awaiting Approval', 'Approved Unpaid','Draft','Refunded','Canceled','All Statuses'];
+  ordersPaymentStatus = ['Paid', 'Authorized', 'Expired','Partially Paid','Partially Refunded','Pending','Refunded','Voided','All Statuses'];
   selectedOrdersStatus: string= '';
   selectedOrdersPaymentStatus: string= '';
-
   private destroy$ = new Subject<void>();
 
   constructor(private ordersService: OrdersService, private router: Router, private authService: AuthService,private clipboard: Clipboard) {

@@ -495,7 +495,10 @@
                         </div>
                       </td>
                       <td>
-                        <div class="custom-dropdown p-0"  [ngClass]="{ 'open': isDropdownOpenPaymentStatus(i), 'active': isDropdownOpenPaymentStatus(i) }"
+                        <div class="d-flex align-items-center" style=" height: 38px;">
+                          {{ order.payment_status }}
+                        </div>
+                       <!-- <div class="custom-dropdown p-0"  [ngClass]="{ 'open': isDropdownOpenPaymentStatus(i), 'active': isDropdownOpenPaymentStatus(i) }"
                              (click)="toggleDropdownPaymentStatus(i)" style="width:168px">
                           <div class="container d-flex justify-content-between align-items-center p-0">
                             <span class="selected-option">{{ order.payment_status }}</span>
@@ -517,7 +520,7 @@
                               </a>
                             </li>
                           </ul>
-                        </div>
+                        </div>-->
                       </td>
                       <td>
                         <div class="d-flex align-items-center" style=" height: 38px;">
