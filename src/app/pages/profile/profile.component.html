@@ -38,6 +38,10 @@
                 <span>{{customer?.email}}</span>
               </div>
             </div>
+            <div class="col-12 col-md-5 mt-4 d-flex align-items-center">
+              <span class="d-block text-muted">Profile Completed</span>
+              <input style="margin-left: 10px" type="checkbox" id="profileCompletedCheckbox" name="profileCompleted" [(ngModel)]="profile_completed"  (ngModelChange)="checkboxChanged($event)">
+            </div>
           </div>
         </div>
       </div>

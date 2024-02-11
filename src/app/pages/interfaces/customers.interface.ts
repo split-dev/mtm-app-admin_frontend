@@ -32,6 +32,7 @@ export interface Customer {
   state: string | null;
   total_spent: string;
   last_order_id: number | null;
+  profile_completed :boolean;
   default_address?: {
     country: string | null;
   } | undefined;

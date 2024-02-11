@@ -21,6 +21,16 @@ export class MetafieldsService {
         return throwError(error);
       }));
   }
+  getCustomerMetafieldsProfileCompleted(customerId: string) {
+    return this.http.get<any>(`${this.apiUrl}/profile-completed?owner_id=${customerId}`)
+      .pipe(catchError((error) => {
+        if (error.status === 403) {
+          this.authService.logout();
+        }
+        return throwError(error);
+      }));
+  }
+
 
   createCustomerMetafields(data: any) {
     return this.http.post<any>(`${this.apiUrl}`, { data })
@@ -34,6 +44,15 @@ export class MetafieldsService {
 
   updateCustomerMetafields(data: any) {
     return this.http.put<any>(`${this.apiUrl}`, { data })
+      .pipe(catchError((error) => {
+        if (error.status === 403) {
+          this.authService.logout();
+        }
+        return throwError(error);
+      }));
+  }
+  updateCustomerMetafieldsProfileCompleted(data: any) {
+    return this.http.put<any>(`${this.apiUrl}/profile-completed/update`, { data })
       .pipe(catchError((error) => {
         if (error.status === 403) {
           this.authService.logout();

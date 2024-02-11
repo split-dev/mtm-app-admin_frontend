@@ -17,6 +17,7 @@ export class ProfileComponent {
   private debounceSubject = new Subject<string>();
   private debounceText = new Subject<string>();
   currentPageCustomerList: number = 1;
+  profile_completed: boolean | undefined
   customerId: string | null = '';
   customer: Customer | undefined = undefined;
   IMG_WAIT_DELAY: number = 1000;
@@ -454,6 +455,11 @@ export class ProfileComponent {
     this.currentPageCustomerList= +this.route.snapshot.queryParams['currentPage'] || 1;
     this.customerId = this.route.snapshot.paramMap.get('id');
     if (this.customerId) {
+      this.metafieldsService.getCustomerMetafieldsProfileCompleted(this.customerId).subscribe((res)=>{
+        console.info('getCustomerMetafieldsProfileCompleted', res);
+        this.profile_completed = res.data.value
+      })
+
       this.customerService.getCustomer(this.customerId)
         .subscribe((res) => {
           this.customer = res.data;
@@ -487,12 +493,10 @@ export class ProfileComponent {
         if(this.metafields.value.additional_info['gender']==='Female' || this.metafields.value.additional_info['gender']==='Other' ){
           this.bodyMeasurementsKeys.push('breast_highest_point')
         }
-        console.log(this.metafields)
         this.lastUpdatedBodyMeasurements$ = this.metafields.value.body_measurements['lastUpdate'];
         this.lastUpdatedFinalGarment$ = this.metafields.value.final_garment['lastUpdate'];
       });
     }
-    console.log(this.metafields)
 
     this.debounceSubject.pipe(
       debounceTime(500)
@@ -670,6 +674,13 @@ export class ProfileComponent {
       this.metafields.value.additional_info['images'][group] = this.metafields.value.additional_info['images'][group].filter((img: any) => img.id !== id);
 
       this.updateMetafieldsValue();
+    });
+  }
+
+  checkboxChanged(event: any) {
+    this.profile_completed=event
+    this.metafieldsService.updateCustomerMetafieldsProfileCompleted({owner_id:this.customerId,flag:this.profile_completed}).subscribe((res) => {
+      console.info('updateCustomerMetafieldsProfileCompleted', res);
     });
   }
 }
