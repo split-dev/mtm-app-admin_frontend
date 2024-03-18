@@ -54,7 +54,7 @@ export class OrdersComponent implements OnDestroy {
   isDropdownOpenPayment = false;
   isHovered: number = -1;
   isHoveredPrinter: number = -1;
-  ordersStatus = ['Unverified', 'Change Request', 'No Changes','Verified','Submitted','Despatched','Complete','All Statuses'];
+  ordersStatus = ['Unverified', 'Change Request', 'No Changes','Verified','Submitted','Accepted','Despatched','Complete','All Statuses'];
   ordersPaymentStatus = ['Paid', 'Authorized', 'Expired','Partially Paid','Partially Refunded','Pending','Refunded','Voided','All Statuses'];
   selectedOrdersStatus: string= '';
   selectedOrdersPaymentStatus: string= '';
@@ -291,7 +291,7 @@ export class OrdersComponent implements OnDestroy {
     // window.location.reload();
   }
   filterOrderStatus(orderStatus: string): any [] {
-    return this.ordersStatus.filter((value, index) => value!==orderStatus && value!== 'All Statuses' );
+    return this.ordersStatus.filter((value, index) => value!==orderStatus && value!== 'All Statuses' && value!== 'Accepted' );
   }
   filterOrderPaymentStatus(orderPaymentStatus: string): any [] {
     return this.ordersPaymentStatus.filter((value, index) => value!==orderPaymentStatus && value!== 'All Statuses' );
