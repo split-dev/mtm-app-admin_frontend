@@ -542,8 +542,12 @@ export class ProfileComponent {
   updateAdditionalInfoMetafield(ev: any, value: any) {
     if(value!=='age'){
       const val = ev.length > 0 ? ev : '0';
+      if(value=='gender' && val!=='Male'){
+        this.metafields.value['body_measurements']['breast_highest_point']='0';
+      }
       this.metafields.value['additional_info'][value] = val;
-    }else {
+    }
+    else {
       const val = ev.length > 0 ? ev : '0';
       this.metafields.value['additional_info'][value] = +val;
     }
