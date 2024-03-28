@@ -4,7 +4,7 @@
   </div>
   <div class="col-12 col-md-2">
     <button *ngIf="!isEditMode" (click)="enterEditMode()" class="btn btn-default-disabled" style="width: 190px;">Edit</button>
-    <button *ngIf="isEditMode" (click)="saveChanges()" class="btn btn-default-disabled" style="width: 190px;">Save</button>
+    <button *ngIf="isEditMode"    [disabled]="isValueValidJ.length > 1 || isValueValidI.length > 1"  (click)="saveChanges()" class="btn btn-default-disabled" style="width: 190px;">Save</button>
   </div>
 </div>
 <div class="row">
@@ -216,7 +216,7 @@
   <div class="col-12 col-md-6">
     <div class="card">
       <div class="card-body">
-        <div *ngFor="let type of garmentTypes">
+        <div *ngFor="let type of garmentTypes;let i = index">
           <div class="d-grid gap-2 mt-1">
             <a class="btn btn-default text-capitalize" data-bs-toggle="collapse" href="#id-{{type}}" role="button" aria-expanded="false" aria-controls="collapseMeasurements">
               {{type.replaceAll('_', ' ')}}
@@ -224,15 +224,17 @@
           </div>
           <div class="collapse mt-4 mb-4" id="id-{{type}}">
             <div class="row">
-              <div class="col-12 col-md-4" *ngFor="let ms of measurementKeysAll[type]; let j = index">
+              <div class="col-12 col-md-4" *ngFor="let ms of metafields.value['additional_info']['gender']==='Male'?measurementKeysAll[type]:measurementFemaleKeysAll[type]; let j = index">
                 <div class="mb-3">
-                  <label for="{{ ms.replaceAll(' ', '') }}_{{ type }}" class="form-label text-muted text-capitalize">{{ ms.replaceAll('_', ' ') }}</label>
-                  <input type="text" placeholder="{{metafields.value.final_garment[type][ms] === '0' ? measurementPlaceholderAll[type][ms] : ''}}" id="{{ ms.replaceAll(' ', '') }}_{{ type }}"
+                  <label  for="{{ ms.replaceAll(' ', '') }}_{{ type }}" class="form-label text-capitalize" [ngStyle]="{'color':isValueValidJ.includes(j)&&isValueValidI.includes(i) ? 'red' : '#6c757d'}">{{ ms.replaceAll('_', ' ') }}</label>
+                  <input type="text" placeholder="{{metafields.value.final_garment[type][ms] === '0' ? metafields.value['additional_info']['gender']==='Male'?measurementPlaceholderAll[type][ms]:measurementPlaceholderFemaleOrOtherAll[type][ms] : ''}}" id="{{ ms.replaceAll(' ', '') }}_{{ type }}"
                          class="form-control"
                          [disabled]="!isEditMode"
-                         [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
+                         (blur)="onInputBlur(metafields.value.final_garment[type][ms],i,j,type,ms,metafields.value['additional_info']['gender'])"
+                         [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white' ,'border-color':isValueValidJ.includes(j)&&isValueValidI.includes(i) ? 'red' : 'initial'}"
                          (ngModelChange)="updateFinalGarmentMetafield($event, type, ms)"
                          [ngModel]="metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] : ''">
+                  <div class *ngIf="isValueValidJ.includes(j)&&isValueValidI.includes(i)" [ngStyle]="{ 'color': 'red'}">Invalid value. Must be in range {{metafields.value['additional_info']['gender']==='Male'?measurementPlaceholderNumberAll[type][ms]?measurementPlaceholderNumberAll[type][ms]['min']+'-'+measurementPlaceholderNumberAll[type][ms]['max']+' cm':'':measurementPlaceholderFemaleOrOtherNumberAll[type][ms]?measurementPlaceholderFemaleOrOtherNumberAll[type][ms]['min']+'-'+measurementPlaceholderFemaleOrOtherNumberAll[type][ms]['max']+' cm':''}}</div>
                 </div>
               </div>
             </div>
