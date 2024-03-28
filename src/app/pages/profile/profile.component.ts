@@ -307,8 +307,8 @@ export class ProfileComponent {
       "waist": '58-190 cm',
       "thigh": '39-113 cm',
       "u_rise": '50-120 cm',
-      "front_waist_height": '0-30 cm',
-      "back_waist_height": '0-21 cm',
+      "front_waist_height": 'No value',
+      "back_waist_height": 'No value',
        outseam_l:'37-135 cm',
        outseam_r:'37-135 cm',
       "knee": '30-103 cm',
@@ -319,7 +319,7 @@ export class ProfileComponent {
       neck: '30-66 cm',
       chest: '66-190 cm',
       stomach: '58-185 cm',
-      front_waist_length: 'No value',
+      front_waist_length: '31-75 cm',
       sleeve_l:'30-85 cm',
       sleeve_r:'30-85 cm',
       seat: '68-200 cm',
@@ -333,7 +333,7 @@ export class ProfileComponent {
       neck: '30-66 cm',
       chest: '66-190 cm',
       stomach: '58-185 cm',
-      front_waist_length: 'No value',
+      front_waist_length: '31-75 cm',
       sleeve_l:'30-85 cm',
       sleeve_r:'30-85 cm',
       seat: '68-200 cm',
@@ -347,7 +347,7 @@ export class ProfileComponent {
       neck: '30-66 cm',
       chest: '66-190 cm',
       stomach: '58-185 cm',
-      front_waist_length: 'No value',
+      front_waist_length: '31-75 cm',
       sleeve_l:'30-85 cm',
       sleeve_r:'30-85 cm',
       seat: '68-200 cm',
@@ -365,9 +365,9 @@ export class ProfileComponent {
       shoulder: '38-70 cm',
       front_shoulder: '36-68 cm',
       nape_to_waist : '35-60 cm',
-      front_waist_length: 'No value',
-      front_waist_height: '0-17 cm',
-      back_waist_height: '0-30 cm',
+      front_waist_length: '37-60 cm',
+      front_waist_height: 'No value',
+      back_waist_height: 'No value',
     }
   }
   measurementPlaceholderNumberAll:any ={
@@ -384,14 +384,14 @@ export class ProfileComponent {
         min:50,
         max:120
       },
-      "front_waist_height": {
+  /*    "front_waist_height": {
         min:0,
         max:30
       },
       "back_waist_height": {
         min:0,
         max:21
-      },
+      },*/
       "outseam_l": {
         min:37,
         max:135
@@ -426,10 +426,10 @@ export class ProfileComponent {
         min:58,
         max:185
       },
-    /*  "front_waist_length": {
+      "front_waist_length": {
         min:31,
         max:75
-      },*/
+      },
       "sleeve_l": {
         min:30,
         max:85
@@ -476,10 +476,10 @@ export class ProfileComponent {
         min:58,
         max:185
       },
-    /*  "front_waist_length": {
+      "front_waist_length": {
         min:31,
         max:75
-      },*/
+      },
       "sleeve_l": {
         min:30,
         max:85
@@ -526,10 +526,10 @@ export class ProfileComponent {
         min:58,
         max:185
       },
-     /* "front_waist_length": {
+      "front_waist_length": {
         min:31,
         max:75
-      },*/
+      },
       "sleeve_l": {
         min:30,
         max:85
@@ -592,18 +592,18 @@ export class ProfileComponent {
         min:35,
         max:60
       },
-    /*  "front_waist_length": {
+      "front_waist_length": {
         min:37,
         max:60
-      },*/
-      "front_waist_height": {
+      },
+   /*   "front_waist_height": {
         min:0,
         max:17
       },
       "back_waist_height": {
         min:0,
         max:30
-      },
+      },*/
     }
   }
 
@@ -612,8 +612,8 @@ export class ProfileComponent {
       "waist": '60-140 cm',
       "thigh": '38-99 cm',
       "u_rise": '45-90 cm',
-      "back_waist_height": '0-21 cm',
-      "front_waist_height": '0-25 cm',
+      "back_waist_height": 'No value',
+      "front_waist_height": 'No value',
       outseam_l:'70-130 cm',
       outseam_r:'70-130 cm',
       "knee": '25-70 cm',
@@ -632,7 +632,7 @@ export class ProfileComponent {
       front_shoulder: '28-60 cm',
       nape_to_waist : '27-50 cm',
       back_length: '34-82 cm',
-      front_waist_length: 'No value',
+      front_waist_length: '32-57 cm',
       breast_highest_point:'22-32 cm',
 
     },
@@ -645,7 +645,7 @@ export class ProfileComponent {
       shoulder: '35-70 cm',
       sleeve_l:'35-80 cm',
       sleeve_r:'35-80 cm',
-      front_waist_length: 'No value',
+      front_waist_length: '32-57 cm',
       front_shoulder: '28-68 cm',
       nape_to_waist : '27-50 cm',
       back_length: '40-80 cm',
@@ -655,7 +655,7 @@ export class ProfileComponent {
       neck: '30-62 cm',
       chest: '72-189 cm',
       stomach: '55-232 cm',
-      front_waist_length: 'No value',
+      front_waist_length: '31-60 cm',
       sleeve_l:'40-70 cm',
       sleeve_r:'40-70 cm',
       seat: '70-212 cm',
@@ -675,9 +675,9 @@ export class ProfileComponent {
       shoulder: '30-60 cm',
       front_shoulder: '28-60 cm',
       nape_to_waist : '27-50 cm',
-      front_waist_length: 'No value',
-      front_waist_height: '1-25 cm',
-      back_waist_height: '1-21 cm',
+      front_waist_length: '32-57 cm',
+      front_waist_height: 'No value',
+      back_waist_height: 'No value',
       breast_highest_point:'22-32 cm',
     }
   }
@@ -695,14 +695,14 @@ export class ProfileComponent {
         min:45,
         max:90
       },
-      "front_waist_height": {
+  /*    "front_waist_height": {
         min:0,
         max:25
       },
       "back_waist_height": {
         min:0,
         max:21
-      },
+      },*/
       "outseam_l": {
         min:70,
         max:130
@@ -737,10 +737,10 @@ export class ProfileComponent {
         min:55,
         max:132
       },
-    /*  "front_waist_length": {
+      "front_waist_length": {
         min:32,
         max:57
-      },*/
+      },
       "sleeve_l": {
         min:35,
         max:80
@@ -791,10 +791,10 @@ export class ProfileComponent {
         min:55,
         max:133
       },
-    /*  "front_waist_length": {
+      "front_waist_length": {
         min:32,
         max:57
-      },*/
+      },
       "sleeve_l": {
         min:35,
         max:80
@@ -845,10 +845,10 @@ export class ProfileComponent {
         min:55,
         max:232
       },
-    /*  "front_waist_length": {
+      "front_waist_length": {
         min:31,
         max:60
-      },*/
+      },
       "sleeve_l": {
         min:40,
         max:70
@@ -919,18 +919,18 @@ export class ProfileComponent {
         min:27,
         max:50
       },
-    /*  "front_waist_length": {
+      "front_waist_length": {
         min:32,
         max:57
-      },*/
-      "front_waist_height": {
+      },
+   /*   "front_waist_height": {
         min:1,
         max:25
       },
       "back_waist_height": {
         min:1,
         max:21
-      },
+      },*/
       "breast_highest_point": {
         min:22,
         max:32
@@ -1118,7 +1118,7 @@ export class ProfileComponent {
     console.log('RRRRR',this.metafields)
   }
   onInputBlur(ev: any,i:number,j:number,type:string,ms:string,gender:string) {
-    if(ev!=='0' || ms==='front_waist_length'){
+    if(ev!=='0' || ms==='front_waist_height' ||ms==='back_waist_height' ){
       let objMinAndMax:any
       if(gender === 'Male'){
         objMinAndMax=this.measurementPlaceholderNumberAll[type][ms];
