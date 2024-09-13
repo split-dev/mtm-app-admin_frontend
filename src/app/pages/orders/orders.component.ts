@@ -59,6 +59,7 @@ export class OrdersComponent implements OnDestroy {
   selectedOrdersStatus: string= '';
   selectedOrdersPaymentStatus: string= '';
   private destroy$ = new Subject<void>();
+  sortDirection: string ='none';
 
   constructor(private ordersService: OrdersService, private router: Router, private authService: AuthService,private clipboard: Clipboard) {
 /*
@@ -81,11 +82,7 @@ export class OrdersComponent implements OnDestroy {
       debounceTime(500)
     ).subscribe(value => {
       this.ordersAllPagination = this.ordersAll.slice(this.pageSize * (this.currentPage - 1), this.pageSize * this.currentPage);
-      if(this.ordersAll.length > this.pageSize * this.currentPage){
-        this.page_info.hasNextPage = true;
-      }else {
-        this.page_info.hasNextPage = false;
-      }
+      this.page_info.hasNextPage = this.ordersAll.length > this.pageSize * this.currentPage;
       this.page_info.hasPreviousPage = this.pageSize * this.currentPage > this.pageSize;
 
       this.customersLoaded = true;
@@ -110,6 +107,12 @@ export class OrdersComponent implements OnDestroy {
           break;
         case 'Order Number':
           this.ordersAll.sort((a,b)=>b.order_number_sort-a.order_number_sort)
+          break;
+        case 'Date Received':
+          this.ordersAll.sort((a, b) => {
+            const diff = new Date(b.required_date).getTime() - new Date(a.required_date).getTime();
+            return this.sortDirection === 'asc' ? -diff : diff;
+          });
           break;
         case 'Customer':
           this.ordersAll.sort((a, b) => {
@@ -244,13 +247,25 @@ export class OrdersComponent implements OnDestroy {
     //this.orderQuerySubject.next(this.query_info);
   }
   sortOrder(sortKey: string): void {
-    if(this.sortKeyOrder===sortKey){
-      this.sortKeyOrder='Default'
-    }else {
-      this.sortKeyOrder=sortKey
+    // Check if the current sortKey is the same as the previously selected one
+    if (this.sortKeyOrder === sortKey) {
+      // Cycle through the sort directions: descending -> ascending -> none
+      if (this.sortDirection === 'none') {
+        this.sortDirection = 'desc';
+      } else if (this.sortDirection === 'desc') {
+        this.sortDirection = 'asc';
+      } else {
+        this.sortDirection = 'none';
+        this.sortKeyOrder = 'Default'; // Reset sortKeyOrder if no sorting is selected
+      }
+    } else {
+      // If sorting a new column, default to descending
+      this.sortKeyOrder = sortKey;
+      this.sortDirection = 'desc';
     }
-    this.orderQuerySubjectCustomFilter.next(this.default_query_info)
-    // this.orderQuerySubject.next(this.query_info);
+
+    // Call a function or subject to update the sorting logic in your data
+    this.orderQuerySubjectCustomFilter.next(this.default_query_info);
   }
 
   testUpdateStatus(orderStatus: string,id:string): void {

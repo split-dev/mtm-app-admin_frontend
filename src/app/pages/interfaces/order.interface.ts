@@ -6,7 +6,7 @@ export interface Order {
   customer_last_name: string;
   order_number_sort:number;
   amount: string;
-  required_date: string | null;
+  required_date: string;
   order_status: string;
   payment_status: string;
   update_order_status: string;

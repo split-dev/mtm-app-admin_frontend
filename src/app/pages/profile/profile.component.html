@@ -40,7 +40,24 @@
             </div>
             <div class="col-12 col-md-5 mt-4 d-flex align-items-center">
               <span class="d-block text-muted">Profile Completed</span>
-              <input style="margin-left: 10px" type="checkbox" id="profileCompletedCheckbox" name="profileCompleted" [(ngModel)]="profile_completed"  (ngModelChange)="checkboxChanged($event)">
+              <input
+                id="profileCompletedCheckbox"
+                style="margin-left: 10px"
+                type="checkbox"
+                name="profileCompleted"
+                [disabled]="!isEditMode"
+                [(ngModel)]="profile_completed"
+                (ngModelChange)="checkboxChanged($event)"
+              >
+            </div>
+            <div class="col-12 сol-md-5 mt-4">
+              <small class="d-block text-muted">Note</small>
+                        <textarea id="note" cols="20" rows="5" class="form-control mt-2" placeholder="No value"
+                                  [disabled]="!isEditMode"
+                                  [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
+                                  [ngModel]="customer?.note || ''"
+                                  (ngModelChange)="changedNoteCustomer($event)"
+                        ></textarea>
             </div>
           </div>
         </div>
@@ -107,12 +124,12 @@
                   <div class="col-4" *ngFor="let ms of bodyMeasurementsKeys; let j = index">
                     <div class="mb-3">
                       <label for="{{ ms.replaceAll(' ', '') }}" class="form-label text-muted text-capitalize">{{ ms.replaceAll('_', ' ') }}</label>
-                      <input type="text" placeholder="No value" id="{{ ms.replaceAll(' ', '') }}"
+                      <input type="text" placeholder="cm" id="{{ ms.replaceAll(' ', '') }}"
                              class="form-control"
                              [disabled]="!isEditMode"
                              [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
                              (ngModelChange)="updateBodyMeasurementsMetafield($event, 'body_measurements', ms)"
-                             [ngModel]="metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] : ''">
+                             [ngModel]="isEditMode ?metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] : '': (metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] + ' cm' : '')">
                     </div>
                   </div>
                   <div class="col-12">
@@ -160,6 +177,7 @@
         <div class="d-flex flex-wrap" *ngIf="metafields.value['additional_info']['images']['fullBodyPhotos'][0]?.url; else noBodyPhotos">
           <div class="image-container me-2" *ngFor="let photo of metafields.value['additional_info']['images']['fullBodyPhotos']; let i = index">
             <img data-bs-toggle="modal" data-bs-target="#openPhoto" (click)="setOpenBodyPhoto(i)" [ngSrc]="photo.url" width="132" height="132" class="rounded img-thumbnail" alt="">
+            <small class="d-block text-muted" >{{photo.uploadDate}}</small>
             <button type="button" class="btn btn-sm btn-danger" (click)="deleteImage(+photo.id, 'fullBodyPhotos')">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -199,6 +217,7 @@
               </ul>
             </div>
             <small class="d-block text-muted" [title]="photo.description">{{ (photo.description | slice:0:80) + (photo.description.length > 80 ? '...' : '') }}</small>
+            <small class="d-block text-muted" >{{photo.uploadDate}}</small>
           </div>
         </div>
         <ng-template #noInspPhotos>
@@ -233,7 +252,7 @@
                          (blur)="onInputBlur(metafields.value.final_garment[type][ms],i,j,type,ms,metafields.value['additional_info']['gender'])"
                          [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white' ,'border-color':isValueValidJ.includes(j)&&isValueValidI.includes(i) ? 'red' : 'initial'}"
                          (ngModelChange)="updateFinalGarmentMetafield($event, type, ms)"
-                         [ngModel]="metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] : ''">
+                         [ngModel]="isEditMode ? metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] : '' : (metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] + ' cm' : '')">
                   <div class *ngIf="isValueValidJ.includes(j)&&isValueValidI.includes(i)" [ngStyle]="{ 'color': 'red'}">Invalid value. Must be in range {{metafields.value['additional_info']['gender']==='Male'?measurementPlaceholderNumberAll[type][ms]?measurementPlaceholderNumberAll[type][ms]['min']+'-'+measurementPlaceholderNumberAll[type][ms]['max']+' cm':'':measurementPlaceholderFemaleOrOtherNumberAll[type][ms]?measurementPlaceholderFemaleOrOtherNumberAll[type][ms]['min']+'-'+measurementPlaceholderFemaleOrOtherNumberAll[type][ms]['max']+' cm':''}}</div>
                 </div>
               </div>
@@ -241,16 +260,18 @@
             <div class="col-12">
               <h4>Desired fit</h4>
               <div class="row d-flex justify-content-between m-0">
-                <div  *ngFor="let radioOption of radioButtonCustom['fit']" class="col-12 col-md-3  form-check form-check-inline">
+                <div *ngFor="let radioOption of radioButtonCustom['fit']" class="col-12 col-md-3 form-check form-check-inline">
                   <input class="form-check-input" type="radio"
-                         [id]="'radio_' + 'fit' + '_' + radioOption" [name]="radioOption"
+                         [id]="'radio_' + 'fit' + '_' + type +'_'+radioOption"
+                         [name]="'fit_' + type"
                          [value]="radioOption"
                          [disabled]="!isEditMode"
                          [ngStyle]="{
-                                       'background-color': isEditMode ? (metafields.value.additional_info['fit']=== radioOption ? 'blue' : '#e9ecef') : 'white'
-                                   }"
-                         [(ngModel)]="metafields.value.additional_info['fit']">
-                  <label class="form-check-label" [for]="'radio_' + 'fit' + '_' + radioOption">{{ radioOption }}</label>
+                          'background-color': isEditMode && metafields.value.final_garment[type]['fit'] === radioOption ? 'blue' : '#e9ecef'
+                        }"
+                         (ngModelChange)="updateFinalGarmentMetafield($event, type, 'fit')"
+                         [(ngModel)]="metafields.value.final_garment[type]['fit']">
+                  <label class="form-check-label" [for]="'radio_' + 'fit' + '_' + type +'_'+radioOption">{{ radioOption }}</label>
                 </div>
               </div>
             </div>
@@ -325,7 +346,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" *ngIf="photoId !== null">
-        <img class="mb-3" [src]="metafields.value['additional_info']['images'].fullBodyPhotos[photoId]?.url" width="100%" height="auto" alt="">
+        <img class="mb-3" [src]="metafields.value['additional_info']['images'].fullBodyPhotos[photoId].url" width="100%" height="auto" alt="">
       </div>
     </div>
   </div>

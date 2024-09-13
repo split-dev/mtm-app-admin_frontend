@@ -68,6 +68,7 @@ export class ProfileComponent {
       knee: '0',
       pant_bottom: '0',
       calf_girth: '0',
+      fit: 'Extremely Slim',
       adjustments:{
         seat:'0',
         waist_height:'0',
@@ -90,6 +91,7 @@ export class ProfileComponent {
       front_shoulder: '0',
       nape_to_waist : '0',
       back_length: '0',
+      fit: 'Extremely Slim',
       adjustments:{
         half_back_to_stomach:'0',
         half_back_to_bottom:'0',
@@ -114,6 +116,7 @@ export class ProfileComponent {
       front_shoulder: '0',
       nape_to_waist : '0',
       back_length: '0',
+      fit: 'Extremely Slim',
       adjustments:{
         half_back_to_stomach:'0',
         half_back_to_bottom:'0',
@@ -138,6 +141,7 @@ export class ProfileComponent {
       front_shoulder: '0',
       nape_to_waist : '0',
       back_length: '0',
+      fit: 'Extremely Slim',
       adjustments:{
         half_back_to_stomach:'0',
         half_back_to_bottom:'0',
@@ -158,6 +162,7 @@ export class ProfileComponent {
       front_waist_length: '0',
       front_waist_height: '0',
       back_waist_height: '0',
+      fit: 'Extremely Slim',
       adjustments:{
         half_back_to_stomach:'0',
         half_back_to_bottom:'0',
@@ -180,6 +185,7 @@ export class ProfileComponent {
       knee: '0',
       pant_bottom: '0',
       calf_girth: '0',
+      fit: 'Extremely Slim',
       adjustments:{
         seat:'0',
         waist_height:'0',
@@ -203,6 +209,7 @@ export class ProfileComponent {
       nape_to_waist : '0',
       back_length: '0',
       breast_highest_point:'0',
+      fit: 'Extremely Slim',
       adjustments:{
         half_back_to_stomach:'0',
         half_back_to_bottom:'0',
@@ -228,6 +235,7 @@ export class ProfileComponent {
       nape_to_waist : '0',
       back_length: '0',
       overcoat_length:'0',
+      fit: 'Extremely Slim',
       adjustments:{
         half_back_to_stomach:'0',
         half_back_to_bottom:'0',
@@ -254,6 +262,7 @@ export class ProfileComponent {
       back_length: '0',
       wrist_l:'0',
       wrist_r:'0',
+      fit: 'Extremely Slim',
       adjustments:{
         half_back_to_stomach:'0',
         half_back_to_bottom:'0',
@@ -275,6 +284,7 @@ export class ProfileComponent {
       front_waist_height: '0',
       back_waist_height: '0',
       breast_highest_point:'0',
+      fit: 'Extremely Slim',
       adjustments:{
         half_back_to_stomach:'0',
         half_back_to_bottom:'0',
@@ -288,18 +298,18 @@ export class ProfileComponent {
   bodyMeasurementsKeys: string[] = Object.keys(this.valueBodyMeasurements).filter(k => k !== 'posture');
   bodyMeasurementsPostureKeys: string[] = Object.keys(this.valueBodyMeasurements.posture);
   measurementKeysAll:any ={
-    'pant':Object.keys(this.valueFinalGarmentObj.pant).filter(k => k !== 'adjustments'),
-    'jacket':Object.keys(this.valueFinalGarmentObj.jacket).filter(k => k !== 'adjustments'),
-    'overcoat':Object.keys(this.valueFinalGarmentObj.overcoat).filter(k => k !== 'adjustments'),
-    'shirt':Object.keys(this.valueFinalGarmentObj.shirt).filter(k => k !== 'adjustments'),
-    'vest':Object.keys(this.valueFinalGarmentObj.vest).filter(k => k !== 'adjustments'),
+    'pant':Object.keys(this.valueFinalGarmentObj.pant).filter(k => k !== 'adjustments' && k !== 'fit'),
+    'jacket':Object.keys(this.valueFinalGarmentObj.jacket).filter(k => k !== 'adjustments'&& k !== 'fit'),
+    'overcoat':Object.keys(this.valueFinalGarmentObj.overcoat).filter(k => k !== 'adjustments'&& k !== 'fit'),
+    'shirt':Object.keys(this.valueFinalGarmentObj.shirt).filter(k => k !== 'adjustments'&& k !== 'fit'),
+    'vest':Object.keys(this.valueFinalGarmentObj.vest).filter(k => k !== 'adjustments'&& k !== 'fit'),
   }
   measurementFemaleKeysAll:any ={
-    'pant':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.pant).filter(k => k !== 'adjustments'),
-    'jacket':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.jacket).filter(k => k !== 'adjustments'),
-    'overcoat':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.overcoat).filter(k => k !== 'adjustments'),
-    'shirt':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.shirt).filter(k => k !== 'adjustments'),
-    'vest':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.vest).filter(k => k !== 'adjustments'),
+    'pant':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.pant).filter(k => k !== 'adjustments'&& k !== 'fit'),
+    'jacket':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.jacket).filter(k => k !== 'adjustments'&& k !== 'fit'),
+    'overcoat':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.overcoat).filter(k => k !== 'adjustments'&& k !== 'fit'),
+    'shirt':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.shirt).filter(k => k !== 'adjustments'&& k !== 'fit'),
+    'vest':Object.keys(this.valueFinalGarmentFemaleOrOtherObj.vest).filter(k => k !== 'adjustments'&& k !== 'fit'),
   }
 
   measurementPlaceholderAll:any ={
@@ -612,8 +622,8 @@ export class ProfileComponent {
       "waist": '60-140 cm',
       "thigh": '38-99 cm',
       "u_rise": '45-90 cm',
-      "back_waist_height": 'No value',
-      "front_waist_height": 'No value',
+      "back_waist_height": 'cm',
+      "front_waist_height": 'cm',
       outseam_l:'70-130 cm',
       outseam_r:'70-130 cm',
       "knee": '25-70 cm',
@@ -676,8 +686,8 @@ export class ProfileComponent {
       front_shoulder: '28-60 cm',
       nape_to_waist : '27-50 cm',
       front_waist_length: '32-57 cm',
-      front_waist_height: 'No value',
-      back_waist_height: 'No value',
+      front_waist_height: 'cm',
+      back_waist_height: 'cm',
       breast_highest_point:'22-32 cm',
     }
   }
@@ -1051,6 +1061,11 @@ export class ProfileComponent {
         }
         this.lastUpdatedBodyMeasurements$ = this.metafields.value.body_measurements['lastUpdate'];
         this.lastUpdatedFinalGarment$ = this.metafields.value.final_garment['lastUpdate'];
+        for (const type of Object.keys(this.measurementKeysAll)){
+          if(!this.metafields.value.final_garment[type]['fit']){
+            this.metafields.value.final_garment[type]['fit']='Extremely Slim'
+          }
+        }
       });
     }
 
@@ -1077,7 +1092,11 @@ export class ProfileComponent {
 
   saveChanges(): void {
     this.isEditMode = false;
+    this.metafieldsService.updateCustomerMetafieldsProfileCompleted({owner_id:this.customerId,flag:this.profile_completed}).subscribe((res) => {
+      console.info('updateCustomerMetafieldsProfileCompleted', res);
+    });
     this.debounceSubject.next('test');
+    this.debounceText.next('update customer')
   }
 
   selectCountry(country: string): void {
@@ -1088,7 +1107,6 @@ export class ProfileComponent {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
   closeDropdown() {
-    // Викликати Bootstrap-функцію для закриття дропдауну
     const dropdownToggle = document.getElementById('dropdownMenuButton1');
     if (dropdownToggle) {
       dropdownToggle.dispatchEvent(new Event('click'));
@@ -1099,6 +1117,7 @@ export class ProfileComponent {
     if(value!=='age'){
       const val = ev.length > 0 ? ev : '0';
       if(value=='gender' && val!=='Male' && this.metafields.value['additional_info']['gender']==='Male' ){
+        console.log(this.metafields);
         this.metafields.value['final_garment']['jacket']['breast_highest_point']='0';
         this.metafields.value['final_garment']['overcoat']['overcoat_length']='0';
         this.metafields.value['final_garment']['shirt']['wrist_l']='0';
@@ -1115,7 +1134,6 @@ export class ProfileComponent {
       const val = ev.length > 0 ? ev : '0';
       this.metafields.value['additional_info'][value] = +val;
     }
-    console.log('RRRRR',this.metafields)
   }
   onInputBlur(ev: any,i:number,j:number,type:string,ms:string,gender:string) {
     if(ev!=='0' || ms==='front_waist_height' ||ms==='back_waist_height' ){
@@ -1164,6 +1182,10 @@ export class ProfileComponent {
   }
   updateFinalGarmentMetafield(ev: any, group: any, value: any) {
     const val = ev.length > 0 ? ev : '0';
+    console.log(val);
+    console.log(group);
+    console.log(this.metafields.value.final_garment[group][value]);
+    console.log(value);
     this.metafields.value.final_garment[group][value] = val;
   }
   updateFinalGarmentAdjustmentsMetafield(ev: any, group: any, value: any) {
@@ -1222,7 +1244,8 @@ export class ProfileComponent {
       if (response && response.status === 200) {
         this.metafields.value.additional_info['images'].fullBodyPhotos.push({
           id: +response.id,
-          url: response.data.url
+          url: response.data.url,
+          uploadDate:new Date()
         });
         this.updateMetafieldsValue();
       }
@@ -1232,10 +1255,11 @@ export class ProfileComponent {
   selectedInspirationPhoto(event: any) {
     const files = event.target.files;
     const formdata = new FormData();
+    let fileName = ''
 
     if (files && files.length > 0) {
       const file = files[0];
-
+      fileName=file.name
       formdata.append('file', file, file.name);
     }
 
@@ -1247,7 +1271,8 @@ export class ProfileComponent {
         this.metafields.value.additional_info['images'].inspirationImages.push({
           id: +res.data.shortId,
           url: res.data.url,
-          description: ''
+          description: fileName,
+          uploadDate:new Date()
         });
         this.updateMetafieldsValue();
       }
@@ -1305,8 +1330,14 @@ export class ProfileComponent {
 
   checkboxChanged(event: any) {
     this.profile_completed=event
-    this.metafieldsService.updateCustomerMetafieldsProfileCompleted({owner_id:this.customerId,flag:this.profile_completed}).subscribe((res) => {
-      console.info('updateCustomerMetafieldsProfileCompleted', res);
-    });
+  }
+  changedNoteCustomer(event: any) {
+    const val = event.length > 0 ? event : '';
+
+    if (this.customer) {
+      this.customer.note = val;
+    } else {
+      console.error("Customer is undefined");
+    }
   }
 }

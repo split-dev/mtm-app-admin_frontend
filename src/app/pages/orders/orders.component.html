@@ -357,8 +357,27 @@
                       </div>
                     </th>
                     <th >
-                      <div class="d-flex align-items-center" style=" height: 38px;">
-                        Date Received
+                      <div class="d-flex align-items-center" (click)="sortOrder('Date Received')" style="height: 38px;">
+                        Date Received  {{sortDirection==='none'?'':sortDirection}}
+                        <span style="margin-left: 20px;">
+    <!-- Display the correct icon based on the sort direction -->
+    <ng-container *ngIf="sortKeyOrder === 'Date Received'; else defaultIcon">
+      <!-- Descending arrow -->
+      <svg *ngIf="sortDirection === 'desc'" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 13L1 8.66667H7L4 13ZM4 1L1 5.33333H7L4 1Z" fill="#367B5F" stroke="#367B5F" stroke-linejoin="round"/>
+      </svg>
+      <!-- Ascending arrow -->
+      <svg *ngIf="sortDirection === 'asc'" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 1L1 5.33333H7L4 1ZM4 13L1 8.66667H7L4 13Z" fill="#367B5F" stroke="#367B5F" stroke-linejoin="round"/>
+      </svg>
+    </ng-container>
+    <ng-template #defaultIcon>
+      <!-- Default unsorted icon -->
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 14L5 9.66667L11 9.66667L8 14ZM8 2L5 6.33333L11 6.33333L8 2Z" stroke="#1E1E1E" stroke-linejoin="round"/>
+      </svg>
+    </ng-template>
+  </span>
                       </div>
                     </th>
                     <th >

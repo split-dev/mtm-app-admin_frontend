@@ -22,7 +22,7 @@ export interface Customer {
   accepts_marketing: boolean | null;
   created_at: string;
   city: string;
-  note: string | null;
+  note: string;
   province_code: string;
   country_name: string;
   updated_at: string;
