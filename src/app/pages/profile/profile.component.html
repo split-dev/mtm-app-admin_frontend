@@ -114,8 +114,25 @@
                            [ngModel]="metafields.value.additional_info['age'] !== '0' ? metafields.value.additional_info['age'] : ''">
                   </div>
                   <div class="col-12 col-md-4">
-                    <span class="d-block text-muted">Preffered fit</span>
-                    <span>{{metafields.value.additional_info['fit']}}</span>
+                    <label for="{{metafields.value.additional_info['fit']}}" class="form-label text-muted text-capitalize">Preffered fit</label>
+                    <select id="{{metafields.value.additional_info['fit']}}"
+                            class="form-select"
+                            [disabled]="!isEditMode"
+                            [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
+                            (ngModelChange)="updateAdditionalInfoMetafield($event, 'fit')"
+                            [ngModel]="metafields.value.additional_info['fit']">
+                      <option value="0" disabled>Select Fit</option>
+                      <option value="Extremely Slim">Extremely Slim</option>
+                      <option value="Very Slim">Very Slim</option>
+                      <option value="Slim">Slim</option>
+                      <option value="Regular Tigh">Regular Tigh</option>
+                      <option value="Regular">Regular</option>
+                      <option value="Regular Loose">Regular Loose</option>
+                      <option value="Loose">Loose</option>
+                      <option value="Very Loose">Very Loose</option>
+                      <option value="Extremely Loose">Extremely Loose</option>
+
+                    </select>
                   </div>
                 </div>
               </div>
@@ -128,8 +145,10 @@
                              class="form-control"
                              [disabled]="!isEditMode"
                              [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white'}"
-                             (ngModelChange)="updateBodyMeasurementsMetafield($event, 'body_measurements', ms)"
+                             (ngModelChange)="updateBodyMeasurementsMetafield($event, 'body_measurements', ms,j)"
                              [ngModel]="isEditMode ?metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] : '': (metafields.value.body_measurements[ms] !== '0' ? metafields.value.body_measurements[ms] + ' cm' : '')">
+                      <div class *ngIf="isValueValidJMeasurements.includes(j)" [ngStyle]="{ 'color': 'red'}">{{errorMessageMeasurements}}</div>
+
                     </div>
                   </div>
                   <div class="col-12">
@@ -177,7 +196,8 @@
         <div class="d-flex flex-wrap" *ngIf="metafields.value['additional_info']['images']['fullBodyPhotos'][0]?.url; else noBodyPhotos">
           <div class="image-container me-2" *ngFor="let photo of metafields.value['additional_info']['images']['fullBodyPhotos']; let i = index">
             <img data-bs-toggle="modal" data-bs-target="#openPhoto" (click)="setOpenBodyPhoto(i)" [ngSrc]="photo.url" width="132" height="132" class="rounded img-thumbnail" alt="">
-            <small class="d-block text-muted" >{{photo.uploadDate}}</small>
+            <small class="d-block text-muted" [title]="photo.description">{{photo.description ? (photo.description | slice:0:80) + (photo.description.length > 80 ? '...' : ''):'no value' }}</small>
+            <small class="d-block text-muted" >{{photo.uploadDate | date:'longDate'}}</small>
             <button type="button" class="btn btn-sm btn-danger" (click)="deleteImage(+photo.id, 'fullBodyPhotos')">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -205,19 +225,13 @@
         <div class="d-flex flex-wrap" *ngIf="metafields.value['additional_info']['images']['inspirationImages'][0]?.url; else noInspPhotos">
           <div class="image-container me-2" *ngFor="let photo of metafields.value['additional_info']['images']['inspirationImages']; let i = index">
             <img data-bs-toggle="modal" data-bs-target="#editDescription" (click)="setEditingPhoto(i)" [src]="photo.url" width="132" height="132" class="rounded img-thumbnail" [alt]="photo.description">
-            <div class="dropdown">
-              <button type="button" class="btn btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                </svg>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                <li><span class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editDescription" (click)="setEditingPhoto(i)">Open</span></li>
-                <li><span class="dropdown-item" (click)="deleteImage(+photo.id, 'inspirationImages')">Delete</span></li>
-              </ul>
-            </div>
             <small class="d-block text-muted" [title]="photo.description">{{ (photo.description | slice:0:80) + (photo.description.length > 80 ? '...' : '') }}</small>
-            <small class="d-block text-muted" >{{photo.uploadDate}}</small>
+            <small class="d-block text-muted" >{{photo.uploadDate | date:'longDate'}}</small>
+            <button type="button" class="btn btn-sm btn-danger" (click)="deleteImage(+photo.id, 'inspirationImages')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg>
+            </button>
           </div>
         </div>
         <ng-template #noInspPhotos>
@@ -249,11 +263,10 @@
                   <input type="text" placeholder="{{metafields.value.final_garment[type][ms] === '0' ? metafields.value['additional_info']['gender']==='Male'?measurementPlaceholderAll[type][ms]:measurementPlaceholderFemaleOrOtherAll[type][ms] : ''}}" id="{{ ms.replaceAll(' ', '') }}_{{ type }}"
                          class="form-control"
                          [disabled]="!isEditMode"
-                         (blur)="onInputBlur(metafields.value.final_garment[type][ms],i,j,type,ms,metafields.value['additional_info']['gender'])"
                          [ngStyle]="{'background-color': isEditMode ? '#e9ecef' : 'white' ,'border-color':isValueValidJ.includes(j)&&isValueValidI.includes(i) ? 'red' : 'initial'}"
-                         (ngModelChange)="updateFinalGarmentMetafield($event, type, ms)"
-                         [ngModel]="isEditMode ? metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] : '' : (metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] + ' cm' : '')">
-                  <div class *ngIf="isValueValidJ.includes(j)&&isValueValidI.includes(i)" [ngStyle]="{ 'color': 'red'}">Invalid value. Must be in range {{metafields.value['additional_info']['gender']==='Male'?measurementPlaceholderNumberAll[type][ms]?measurementPlaceholderNumberAll[type][ms]['min']+'-'+measurementPlaceholderNumberAll[type][ms]['max']+' cm':'':measurementPlaceholderFemaleOrOtherNumberAll[type][ms]?measurementPlaceholderFemaleOrOtherNumberAll[type][ms]['min']+'-'+measurementPlaceholderFemaleOrOtherNumberAll[type][ms]['max']+' cm':''}}</div>
+                         (ngModelChange)="updateFinalGarmentMetafieldTest($event, type, ms,i,j,metafields.value['additional_info']['gender'])"
+                         [ngModel]="isEditMode ? (metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] : '') : (metafields.value.final_garment[type][ms] !== '0' ? metafields.value.final_garment[type][ms] + ' cm' : '')">
+                  <div class *ngIf="isValueValidJ.includes(j)&&isValueValidI.includes(i)" [ngStyle]="{ 'color': 'red'}">{{errorMessage}} {{metafields.value['additional_info']['gender']==='Male'?measurementPlaceholderNumberAll[type][ms]?measurementPlaceholderNumberAll[type][ms]['min']+'-'+measurementPlaceholderNumberAll[type][ms]['max']+' cm':'':measurementPlaceholderFemaleOrOtherNumberAll[type][ms]?measurementPlaceholderFemaleOrOtherNumberAll[type][ms]['min']+'-'+measurementPlaceholderFemaleOrOtherNumberAll[type][ms]['max']+' cm':''}}</div>
                 </div>
               </div>
             </div>
@@ -347,6 +360,8 @@
       </div>
       <div class="modal-body" *ngIf="photoId !== null">
         <img class="mb-3" [src]="metafields.value['additional_info']['images'].fullBodyPhotos[photoId].url" width="100%" height="auto" alt="">
+        <input class="form-control" type="text" placeholder="No value" [value]="metafields.value.additional_info['images'].fullBodyPhotos[photoId].description ? metafields.value.additional_info['images'].fullBodyPhotos[photoId].description:''" (change)="updatePhotoDescription($event, photoId)">
+
       </div>
     </div>
   </div>

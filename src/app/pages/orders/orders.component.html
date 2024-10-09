@@ -316,8 +316,12 @@
 
       <div class="row mt-3">
         <div class="col-12 col-md-6">
-          <input type="search" class="form-control form-control-lg" [(ngModel)]="searchCustomers" (ngModelChange)="onSearchChange()" placeholder="Start typing to find your item...">
-        </div>
+          <input type="search"
+                 class="form-control form-control-lg"
+                 [(ngModel)]="searchCustomers"
+                 (ngModelChange)="onSearchChange($event)"
+                 (keyup.enter)="onSearchChangeEnter()"
+                 placeholder="Start typing to find your item...">        </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
@@ -358,7 +362,7 @@
                     </th>
                     <th >
                       <div class="d-flex align-items-center" (click)="sortOrder('Date Received')" style="height: 38px;">
-                        Date Received  {{sortDirection==='none'?'':sortDirection}}
+                        Date Received  {{sortKeyOrder==='Date Received' && sortDirection!=='none'?sortDirection:''}}
                         <span style="margin-left: 20px;">
     <!-- Display the correct icon based on the sort direction -->
     <ng-container *ngIf="sortKeyOrder === 'Date Received'; else defaultIcon">
@@ -382,7 +386,7 @@
                     </th>
                     <th >
                       <div class="d-flex align-items-center" (click)="sortOrder('Order Number')" style=" height: 38px;">
-                        <span> Order Number</span>
+                        <span> Order Number {{sortKeyOrder==='Order Number' && sortDirection!=='none'?sortDirection:''}}</span>
                         <span style="margin-left: 20px;">
                           <svg *ngIf="sortKeyOrder === 'Order Number'; else otherIcon" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                              <path d="M4 13L1 8.66667H7L4 13ZM4 1L1 5.33333H7L4 1Z" fill="#367B5F" stroke="#367B5F" stroke-linejoin="round"/>
@@ -397,7 +401,7 @@
                     </th>
                     <th >
                       <div class="d-flex align-items-center" (click)="sortOrder('Customer')" style=" height: 38px;">
-                        <span>  Customer Name</span>
+                        <span>  Customer Name {{sortKeyOrder==='Customer' && sortDirection!=='none'?sortDirection:''}}</span>
                         <span style=" margin-left: 20px;">
                            <svg *ngIf="sortKeyOrder === 'Customer'; else otherIcon" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                              <path d="M4 13L1 8.66667H7L4 13ZM4 1L1 5.33333H7L4 1Z" fill="#367B5F" stroke="#367B5F" stroke-linejoin="round"/>
@@ -442,7 +446,7 @@
                     </th>
                     <th >
                       <div class="d-flex align-items-center" (click)="sortOrder('Amount')" style=" height: 38px;">
-                        <span>Amount($)</span>
+                        <span>Amount($) {{sortKeyOrder==='Amount' && sortDirection!=='none'?sortDirection:''}}</span>
                         <span style=" margin-left: 20px;">
                          <svg *ngIf="sortKeyOrder === 'Amount'; else otherIcon" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                              <path d="M4 13L1 8.66667H7L4 13ZM4 1L1 5.33333H7L4 1Z" fill="#367B5F" stroke="#367B5F" stroke-linejoin="round"/>

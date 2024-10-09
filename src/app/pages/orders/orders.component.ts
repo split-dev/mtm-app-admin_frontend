@@ -34,12 +34,14 @@ export class OrdersComponent implements OnDestroy {
     reverse: 'asc',
     status: 'All Statuses',
     payment_status: 'All Statuses',
+    search:'ok'
   };
   query_info: OrderQueryInfo  = {
     sort: '',
     reverse: 'asc',
     status: 'AllStatuses',
     payment_status: 'AllStatuses',
+    search:''
   };
   currentPage: number = 1;
   pageSize: number = 10;
@@ -100,13 +102,29 @@ export class OrdersComponent implements OnDestroy {
       if (this.default_query_info.payment_status!== 'All Statuses'){
         this.ordersAll = this.ordersAll.filter(value1 => value1.payment_status===this.default_query_info.payment_status);
       }
+      if (this.default_query_info.search !== 'ok') {
+        const searchTerm = this.default_query_info.search.toLowerCase(); // приведіть до нижнього регістру для нечутливого до регістру пошуку
+
+        this.ordersAll = this.ordersAll.filter(order => {
+          const orderNumberMatch = order.order_number.toLowerCase().includes(searchTerm); // пошук за номером замовлення
+          const customerNameMatch = `${order.customer_first_name} ${order.customer_last_name}`.toLowerCase().includes(searchTerm); // пошук за ім'ям і прізвищем
+
+          return orderNumberMatch || customerNameMatch; // перевірка оплати та співпадіння пошуку
+        });
+      }
 
       switch (this.sortKeyOrder) {
         case 'Amount':
-          this.ordersAll.sort((a,b)=>Number(b.amount)-Number(a.amount))
+          this.ordersAll.sort((a,b)=> {
+            const diff = Number(b.amount) - Number(a.amount);
+            return this.sortDirection === 'asc' ? -diff : diff;
+          });
           break;
         case 'Order Number':
-          this.ordersAll.sort((a,b)=>b.order_number_sort-a.order_number_sort)
+          this.ordersAll.sort((a,b) => {
+          const diff = b.order_number_sort - a.order_number_sort;
+          return this.sortDirection === 'asc' ? -diff : diff;
+        });
           break;
         case 'Date Received':
           this.ordersAll.sort((a, b) => {
@@ -119,13 +137,23 @@ export class OrdersComponent implements OnDestroy {
             const nameA = a.customer_first_name.toUpperCase();
             const nameB = b.customer_first_name.toUpperCase();
 
-            if (nameA < nameB) {
-              return -1;
+            if (this.sortDirection === 'asc') {
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+            } else if (this.sortDirection === 'desc') {
+              if (nameA < nameB) {
+                return 1;
+              }
+              if (nameA > nameB) {
+                return -1;
+              }
             }
-            if (nameA > nameB) {
-              return 1;
-            }
-            return 0;
+
+            return 0; // Якщо імена рівні
           });
           break;
       }
@@ -332,9 +360,15 @@ export class OrdersComponent implements OnDestroy {
     this.orderQuerySubjectCustom.next(this.query_info);
   }
 
-  onSearchChange() {
+  onSearchChange(ev:any) {
+    const val = ev.length > 0 ? ev : '';
+    console.log(val)
+    this.default_query_info.search = val
+  }
+  onSearchChangeEnter() {
+    console.log(this.default_query_info)
     this.currentPage = 1;
-    this.orderQuerySubject.next(this.query_info);
+    this.orderQuerySubjectCustomFilter.next(this.default_query_info);
   }
   copyToClipboard(id: string): void {
     this.clipboard.copy( `https://begyourpardon.com.au/pages/print-order/${id}`);

@@ -22,6 +22,7 @@ export interface OrderQueryInfo {
   reverse: string;
   status: string;
   payment_status: string;
+  search:string
 }
 export interface OrdersResponse {
   data: Order[];
